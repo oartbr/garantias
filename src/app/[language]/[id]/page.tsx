@@ -5,8 +5,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiLink from "@mui/material/Link";
 import { Trans } from "react-i18next/TransWithoutContext";
-import tanque from "../../../public/assets/images/tanque.svg";
-import scan from "../../../public/assets/images/scan.svg";
+import tanque from "../../../../public/assets/images/tanque.svg";
+import scan from "../../../../public/assets/images/scan.svg";
 import Image from "next/image";
 
 type Props = {
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
-
+  //console.log({ aqui: params.id });
   return (
     <Container maxWidth="md">
       <Grid
@@ -35,17 +35,6 @@ export default async function Home({ params }: Props) {
         sx={{ height: "90vh", justifyContent: "space-between" }}
       >
         <Grid item>
-          <div className="dataCheck">
-            <Typography variant="h4" data-testid="product-serial" gutterBottom>
-              {"WS9t72h36"}
-            </Typography>
-            <Typography variant="h6" data-testid="product-sku" gutterBottom>
-              {"WS-BIO1300"}
-            </Typography>
-            <Typography data-testid="product-name" gutterBottom>
-              {"Biodigestor Autolimpiante 1300 litros"}
-            </Typography>
-          </div>
           <div className="scanning">
             <Image
               className="qrTanque"
@@ -54,6 +43,17 @@ export default async function Home({ params }: Props) {
               fill={true}
             />
             <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
+          </div>
+          <div className="dataCheck">
+            <Typography variant="h4" data-testid="product-serial" gutterBottom>
+              {params.id}
+            </Typography>
+            <Typography variant="h6" data-testid="product-sku" gutterBottom>
+              {"WS-BIO1300"}
+            </Typography>
+            <Typography data-testid="product-name" gutterBottom>
+              {"Biodigestor Autolimpiante 1300 litros"}
+            </Typography>
           </div>
           <div className="mensagem">
             <Typography variant="h3" data-testid="home-title" gutterBottom>

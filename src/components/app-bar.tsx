@@ -3,6 +3,7 @@ import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import logowse from "../../public/assets/images/logowse.white.svg";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -21,6 +22,7 @@ import { RoleEnum } from "@/services/api/types/role";
 import Divider from "@mui/material/Divider";
 import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
+import Image from "next/image";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -51,6 +53,12 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Image
+            className="logoHeader"
+            src={logowse.src}
+            alt="logo"
+            fill={true}
+          />
           <Typography
             variant="h6"
             noWrap

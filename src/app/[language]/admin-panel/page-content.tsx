@@ -18,6 +18,7 @@ function AdminPanel() {
             {t("title")}
           </Typography>
           <Typography>{t("description")}</Typography>
+          <Typography>{t("title")}</Typography>
         </Grid>
       </Grid>
     </Container>

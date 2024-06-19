@@ -8,6 +8,7 @@ import { Trans } from "react-i18next/TransWithoutContext";
 import tanque from "../../../../public/assets/images/tanque.svg";
 import scan from "../../../../public/assets/images/scan.svg";
 import Image from "next/image";
+import Button from "@mui/material/Button";
 
 type Props = {
   params: { language: string };
@@ -54,8 +55,11 @@ export default async function Home({ params }: Props) {
             <Typography data-testid="product-name" gutterBottom>
               {"Biodigestor Autolimpiante 1300 litros"}
             </Typography>
+            <MuiLink href={`/register/${params.id}`}>
+              <Button variant="contained">Registrar Garantia</Button>
+            </MuiLink>
           </div>
-          <div className="mensagem">
+          <div className="welcomeMessage">
             <Typography variant="h3" data-testid="home-title" gutterBottom>
               {t("title")}
             </Typography>

@@ -60,6 +60,7 @@ function ResponsiveAppBar() {
             fill={true}
           />
           <Typography
+            className="appName"
             variant="h6"
             noWrap
             component="a"
@@ -154,6 +155,7 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           <Typography
+            className="appName"
             variant="h5"
             noWrap
             component="a"

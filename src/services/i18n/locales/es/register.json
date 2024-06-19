@@ -1,0 +1,37 @@
+{
+  "title": "Registrar Garantia",
+  "workflow": {
+    "confirm-phone": {
+      "title": "Necesitamos validar tu número de teléfono",
+      "subtitle": "Recibirás un código por WhatsApp.",
+      "submit": "Enviar código"
+    }
+  },
+  "title": "Registrar Garantia",
+  "actions": {
+    "submit": "Set new password"
+  },
+  "inputs": {
+    "phoneNumber": {
+      "label": "Número de Teléfono",
+      "validation": {
+        "required": "Obligatório",
+        "invalid": "Número inválido",
+        "server": {
+          "incorrectPassword": "Número inválido"
+        }
+      }
+    },
+    "passwordConfirmation": {
+      "label": "Password confirmation",
+      "validation": {
+        "required": "Password confirmation is required",
+        "match": "Password confirmation must match password"
+      }
+    }
+  },
+  "alerts": {
+    "success": "Password has been reset successfully",
+    "expired": "The password reset link has expired"
+  }
+}

@@ -11,7 +11,7 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 
 type Props = {
-  params: { language: string };
+  params: { language: string; id: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

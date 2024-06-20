@@ -10,7 +10,7 @@ type FacebookAuthProviderProps = {
   children: React.ReactNode;
 };
 
-type LanguageCode = (typeof languages)[number];
+type LanguageCode = (typeof languages)[number] | "en";
 
 declare global {
   interface Window {
@@ -30,8 +30,8 @@ declare global {
 // Add new languages here
 const languageToCode: Record<LanguageCode, string> = {
   en: "en_US",
-  es: "es",
-} as Record<LanguageCode, string>;
+  es: "es_ES",
+};
 
 const useCodeFromLanguage = () => {
   const languageOrCode = useLanguage();

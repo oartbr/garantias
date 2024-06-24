@@ -162,7 +162,7 @@ export function useAuthForgotPasswordService() {
 
 export type AuthResetPasswordRequest = {
   password: string;
-  hash: string;
+  hash: string | null;
 };
 
 export type AuthResetPasswordResponse = void;

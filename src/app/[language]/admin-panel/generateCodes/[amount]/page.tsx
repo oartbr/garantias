@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Home({ params }: Props) {
-  generateCodes(params.amount);
+  generateCodes(parseInt(params.amount));
   const { t } = await getServerTranslation(
     params.language,
     "admin-panel-generateCodes"

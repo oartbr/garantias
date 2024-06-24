@@ -9,10 +9,20 @@ import tanque from "../../../../public/assets/images/tanque.svg";
 import scan from "../../../../public/assets/images/scan.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
+import { db } from "../../../services/api/services/firestore/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 type Props = {
   params: { language: string; id: string };
 };
+
+export async function checkCode({ params }: Props): Promise<Metadata> {
+  const { t } = await getServerTranslation(params.language, "home");
+
+  return {
+    title: t("title"),
+  };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslation(params.language, "home");
@@ -24,67 +34,138 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
-  //console.log({ aqui: params.id });
-  return (
-    <Container maxWidth="md">
-      <Grid
-        container
-        spacing={3}
-        wrap="nowrap"
-        pt={3}
-        direction="column"
-        sx={{ height: "90vh", justifyContent: "space-between" }}
-      >
-        <Grid item>
-          <div className="scanning">
-            <Image
-              className="qrTanque"
-              src={tanque.src}
-              alt="tanque"
-              fill={true}
-            />
-            <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
-          </div>
-          <div className="dataCheck">
-            <Typography variant="h4" data-testid="product-serial" gutterBottom>
-              {params.id}
-            </Typography>
-            <Typography variant="h6" data-testid="product-sku" gutterBottom>
-              {"WS-BIO1300"}
-            </Typography>
-            <Typography data-testid="product-name" gutterBottom>
-              {"Biodigestor Autolimpiante 1300 litros"}
-            </Typography>
-            <MuiLink href={`/register/${params.id}`}>
-              <Button variant="contained">Registrar Garantia</Button>
-            </MuiLink>
-          </div>
-          <div className="welcomeMessage">
-            <Typography variant="h3" data-testid="home-title" gutterBottom>
-              {t("title")}
-            </Typography>
-            <Typography>
-              <Trans
-                i18nKey={`description`}
-                t={t}
-                components={[
-                  <MuiLink
-                    key="1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://github.com/brocoders/extensive-react-boilerplate/blob/main/docs/README.md"
-                  >
-                    {}
-                  </MuiLink>,
-                ]}
+
+  const searchCode = doc(db, "warrantyCodes", params.id);
+  const existingCode = await getDoc(searchCode);
+
+  if (existingCode.exists()) {
+    return (
+      <Container maxWidth="md">
+        <Grid
+          container
+          spacing={3}
+          wrap="nowrap"
+          pt={3}
+          direction="column"
+          sx={{ height: "90vh", justifyContent: "space-between" }}
+        >
+          <Grid item>
+            <div className="scanning">
+              <Image
+                className="qrTanque"
+                src={tanque.src}
+                alt="tanque"
+                fill={true}
               />
-            </Typography>
-          </div>
+              <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
+            </div>
+            <div className="dataCheck">
+              <Typography
+                variant="h4"
+                data-testid="product-serial"
+                gutterBottom
+              >
+                {existingCode.data().code}
+              </Typography>
+              <Typography variant="h6" data-testid="product-sku" gutterBottom>
+                {existingCode.data().sku}
+              </Typography>
+              <Typography data-testid="product-name" gutterBottom>
+                {existingCode.data().description}
+              </Typography>
+              <MuiLink href={`/register/${existingCode.data().code}`}>
+                <Button variant="contained">{t("registerWarranty")}</Button>
+              </MuiLink>
+            </div>
+            <div className="welcomeMessage">
+              <Typography variant="h3" data-testid="home-title" gutterBottom>
+                {t("title")}
+              </Typography>
+              <Typography>
+                <Trans
+                  i18nKey={`description`}
+                  t={t}
+                  components={[
+                    <MuiLink
+                      key="1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://github.com/brocoders/extensive-react-boilerplate/blob/main/docs/README.md"
+                    >
+                      {}
+                    </MuiLink>,
+                  ]}
+                />
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item sx={{ mx: "auto" }}>
+            <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
+          </Grid>
         </Grid>
-        <Grid item sx={{ mx: "auto" }}>
-          <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
+      </Container>
+    );
+  } else {
+    return (
+      <Container maxWidth="md">
+        <Grid
+          container
+          spacing={3}
+          wrap="nowrap"
+          pt={3}
+          direction="column"
+          sx={{ height: "90vh", justifyContent: "space-between" }}
+        >
+          <Grid item>
+            <div className="scanning">
+              <Image
+                className="qrTanque"
+                src={tanque.src}
+                alt="tanque"
+                fill={true}
+              />
+              <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
+            </div>
+            <div className="dataCheckError">
+              <Typography
+                variant="h4"
+                data-testid="product-serial"
+                gutterBottom
+              >
+                {params.id}
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                {t("notFound")}
+              </Typography>
+              <Typography gutterBottom>{t("notFoundMessage")}</Typography>
+            </div>
+            <div className="welcomeMessage">
+              <Typography variant="h3" data-testid="home-title" gutterBottom>
+                {t("title")}
+              </Typography>
+              <Typography>
+                <Trans
+                  i18nKey={`description`}
+                  t={t}
+                  components={[
+                    <MuiLink
+                      key="1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://github.com/brocoders/extensive-react-boilerplate/blob/main/docs/README.md"
+                    >
+                      {}
+                    </MuiLink>,
+                  ]}
+                />
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item sx={{ mx: "auto" }}>
+            <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
-  );
+      </Container>
+    );
+  }
 }

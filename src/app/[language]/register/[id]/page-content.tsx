@@ -68,7 +68,6 @@ function Form() {
   const onSubmit = handleSubmit(async (formData) => {
     const params = new URLSearchParams(window.location.search);
     const hash = params.get("hash");
-    if (!hash) return;
 
     const { data, status } = await fetchAuthResetPassword({
       password: formData.phoneNumber,

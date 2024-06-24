@@ -1,4 +1,7 @@
 {
   "title": "Bienvenido",
-  "description": "Aqui puedes registrar la garantia de tu Biodigestor."
+  "description": "Aqui puedes registrar la garantia de tu Biodigestor.",
+  "registerWarranty": "Registrar Garantia",
+  "notFound": "Código no identificado",
+  "notFoundMessage": "El código que ingresaste no existe en nuestra base de datos, por favor verifica que sea correcto o entra en contacto con la empresa."
 }

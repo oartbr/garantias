@@ -15,6 +15,11 @@
   padding: 1rem;
   background-color: #6c3;
 }
+.dataCheckError {
+  margin-top: 1rem;
+  text-align: center;
+  color: red;
+}
 .scanning {
   margin: 1rem;
   height: 40vh;
@@ -27,6 +32,7 @@
   margin: 1rem;
   height: 100%;
 }
+
 .qrScan {
   margin-left: -10%;
   height: 50%;

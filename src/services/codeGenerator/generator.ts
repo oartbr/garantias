@@ -1,5 +1,5 @@
 class CodeGenerator {
-  code: string;
+  code: string = "";
 
   constructor(public length: number) {
     this.new();

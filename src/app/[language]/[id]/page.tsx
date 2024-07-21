@@ -9,8 +9,7 @@ import tanque from "../../../../public/assets/images/tanque.svg";
 import scan from "../../../../public/assets/images/scan.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import { db } from "../../../services/api/services/firestore/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { getGarantiaService } from "@/services/api/services/garantia";
 
 type Props = {
   params: { language: string; id: string };
@@ -27,10 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
 
-  const searchCode = doc(db, "warrantyCodes", params.id);
-  const existingCode = await getDoc(searchCode);
+  const existingCode = await getGarantiaService(params.id);
 
-  if (existingCode.exists()) {
+  if (existingCode.exists) {
     return (
       <Container maxWidth="md">
         <Grid
@@ -57,15 +55,15 @@ export default async function Home({ params }: Props) {
                 data-testid="product-serial"
                 gutterBottom
               >
-                {existingCode.data().code}
+                {existingCode.garantiaId}
               </Typography>
               <Typography variant="h6" data-testid="product-sku" gutterBottom>
-                {existingCode.data().sku}
+                {existingCode.sku}
               </Typography>
               <Typography data-testid="product-name" gutterBottom>
-                {existingCode.data().description}
+                {existingCode.description}
               </Typography>
-              <MuiLink href={`/register/${existingCode.data().code}`}>
+              <MuiLink href={`${existingCode.garantiaId}/check-phone-number`}>
                 <Button variant="contained">{t("registerWarranty")}</Button>
               </MuiLink>
             </div>

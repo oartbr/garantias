@@ -45,7 +45,7 @@ const useValidationSchema = () => {
   return yup.object().shape({
     firstName: yup
       .string()
-      .required(t("sign-up:inputs.firstName.validation.required")),
+      .required(t("sign-up:inputs.name.validation.required")),
     lastName: yup
       .string()
       .required(t("sign-up:inputs.lastName.validation.required")),
@@ -149,7 +149,7 @@ function Form() {
             </Grid>
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
-                name="firstName"
+                name="name"
                 label={t("sign-up:inputs.firstName.label")}
                 type="text"
                 autoFocus

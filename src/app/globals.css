@@ -20,6 +20,9 @@
   text-align: center;
   color: red;
 }
+.codeError {
+  color: red;
+}
 .scanning {
   margin: 1rem;
   height: 40vh;

@@ -21,7 +21,7 @@ export function useAuthLoginService() {
 
   return useCallback(
     (data: AuthLoginRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/email/login`, {
+      return fetchBase(`${API_URL}/v1/auth/login`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthLoginResponse>);
@@ -87,7 +87,7 @@ export function useAuthSignUpService() {
 
   return useCallback(
     (data: AuthSignUpRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/auth/email/register`, {
+      return fetchBase(`${API_URL}/v1/auth/register`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
@@ -108,7 +108,7 @@ export function useAuthConfirmEmailService() {
 
   return useCallback(
     (data: AuthConfirmEmailRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/auth/email/confirm`, {
+      return fetchBase(`${API_URL}/v1/auth/confirm`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
@@ -129,7 +129,7 @@ export function useAuthConfirmNewEmailService() {
 
   return useCallback(
     (data: AuthConfirmNewEmailRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/auth/email/confirm/new`, {
+      return fetchBase(`${API_URL}/v1/auth/confirm/new`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
@@ -150,7 +150,7 @@ export function useAuthForgotPasswordService() {
 
   return useCallback(
     (data: AuthForgotPasswordRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/auth/forgot/password`, {
+      return fetchBase(`${API_URL}/v1/auth/forgot-password`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,

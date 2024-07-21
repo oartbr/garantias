@@ -1,18 +1,24 @@
 class CodeGenerator {
   code: string = "";
+  chars: string = "";
 
-  constructor(public length: number) {
+  constructor(
+    public length: number,
+    public type: string = "alpha"
+  ) {
+    this.chars =
+      this.type === "alpha"
+        ? "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        : "0123456789";
     this.new();
   }
 
   public new() {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     this.code = "";
 
     for (let i = 0; i < this.length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      this.code += characters.charAt(randomIndex);
+      const randomIndex = Math.floor(Math.random() * this.chars.length);
+      this.code += this.chars.charAt(randomIndex);
     }
   }
 }

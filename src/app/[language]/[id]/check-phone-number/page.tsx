@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import Register from "./page-content";
+import CheckPhoneNumber from "./page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {
-  params: { language: string };
+  params: { language: string; id: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslation(params.language, "register");
-
   return {
-    title: t("title"),
+    title: t("title") + params.language + params.id,
   };
 }
 
-export default Register;
+export default CheckPhoneNumber;

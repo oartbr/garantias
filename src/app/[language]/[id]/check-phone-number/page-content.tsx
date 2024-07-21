@@ -2,20 +2,28 @@
 import Button from "@mui/material/Button";
 import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useAuthResetPasswordService } from "@/services/api/services/auth";
+import { useCheckPhoneNumberService } from "@/services/api/services/garantia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
+import FormSelectInput from "@/components/form/select/form-select";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
+import { getCountryData, getCountryDataList } from "countries-list";
 
 type RegisterFormData = {
   phoneNumber: string;
+  countryCode: string;
+  garantiaId: string;
+};
+
+type Props = {
+  params: { language: string; id: string };
 };
 
 const useValidationSchema = () => {
@@ -25,9 +33,12 @@ const useValidationSchema = () => {
     phoneNumber: yup
       .string()
       .matches(
-        /^\d{8,9}$|^\d{11}$/,
+        /^\d{8,10}$|^\d{11}$/,
         t("register:inputs.phoneNumber.validation.invalid")
       )
+      .required(t("register:inputs.phoneNumber.validation.required")),
+    countryCode: yup
+      .object()
       .required(t("register:inputs.phoneNumber.validation.required")),
   });
 };
@@ -35,43 +46,58 @@ const useValidationSchema = () => {
 function FormActions() {
   const { t } = useTranslation("register");
   const { isSubmitting } = useFormState();
-
+  const params = new URLSearchParams(window.location.search);
   return (
     <Button
       variant="contained"
       color="primary"
       type="submit"
       disabled={isSubmitting}
-      data-testid="register"
+      data-testid="register/"
+      id={params.id}
+      name={params.id}
     >
       {t("register:workflow.confirm-phone.submit")}
     </Button>
   );
 }
 
-function Form() {
+function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
-  const fetchAuthResetPassword = useAuthResetPasswordService();
+  const fetchSendCode = useCheckPhoneNumberService();
   const { t } = useTranslation("register");
   const validationSchema = useValidationSchema();
   const router = useRouter();
+
+  const countryList = getCountryDataList().map((country) => {
+    //console.log(country);
+    return {
+      label: country.name,
+      value: country.iso2,
+    };
+  });
+
+  const countryRenderOption = (option) => option.label;
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       phoneNumber: "",
+      garantiaId: props.params.id,
+      countryCode: "",
     },
   });
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const params = new URLSearchParams(window.location.search);
-    const hash = params.get("hash");
-
-    const { data, status } = await fetchAuthResetPassword({
-      password: formData.phoneNumber,
-      hash,
+    //const params = new URLSearchParams(window.location.search);
+    //const hash = params.get("hash");
+    const country = getCountryData(formData.countryCode.value);
+    //console.log(country);
+    const { data, status } = await fetchSendCode({
+      phoneNumber: "+" + country.phone + formData.phoneNumber,
+      garantiaId: props.params.id,
     });
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
@@ -89,12 +115,12 @@ function Form() {
       return;
     }
 
-    if (status === HTTP_CODES_ENUM.NO_CONTENT) {
-      enqueueSnackbar(t("password-change:alerts.success"), {
+    if (status === HTTP_CODES_ENUM.ACCEPTED) {
+      enqueueSnackbar(t("register:alerts.codeSent"), {
         variant: "success",
       });
 
-      router.replace("/sign-in");
+      router.replace("confirm-code");
     }
   });
 
@@ -111,14 +137,25 @@ function Form() {
                 {t("register:workflow.confirm-phone.subtitle")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              +593
-              <FormTextInput<RegisterFormData>
-                name="phoneNumber"
-                label={t("register:inputs.phoneNumber.label")}
-                type="phoneNumber"
-                testId="phoneNumber"
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={3}>
+                <FormSelectInput
+                  name="countryCode"
+                  label="Select country"
+                  options={countryList}
+                  renderOption={countryRenderOption}
+                  keyValue="value" // Assuming options is an array of objects with an 'id' key
+                  testId="example-select-input"
+                />
+              </Grid>
+              <Grid item xs={9}>
+                <FormTextInput<RegisterFormData>
+                  name="phoneNumber"
+                  label={t("register:inputs.phoneNumber.label")}
+                  type="phoneNumber"
+                  testId="phoneNumber"
+                />
+              </Grid>
             </Grid>
             <Grid item xs={12}>
               <FormActions />
@@ -130,8 +167,8 @@ function Form() {
   );
 }
 
-function Register() {
-  return <Form />;
+function CheckPhoneNumber(props: Props) {
+  return <Form params={props.params} />;
 }
 
-export default withPageRequiredGuest(Register);
+export default withPageRequiredGuest(CheckPhoneNumber);

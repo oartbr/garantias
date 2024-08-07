@@ -46,7 +46,7 @@ const useValidationSchema = () => {
 function FormActions() {
   const { t } = useTranslation("register");
   const { isSubmitting } = useFormState();
-  const params = new URLSearchParams(window.location.search);
+  // const params = new URLSearchParams(window.location.search);
   return (
     <Button
       variant="contained"
@@ -54,8 +54,6 @@ function FormActions() {
       type="submit"
       disabled={isSubmitting}
       data-testid="register/"
-      id={params.id}
-      name={params.id}
     >
       {t("register:workflow.confirm-phone.submit")}
     </Button>

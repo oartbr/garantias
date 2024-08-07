@@ -75,7 +75,7 @@ function Form(props: Props) {
     };
   });
 
-  const countryRenderOption = (option) => option.label;
+  const countryRenderOption = (option: { label: string }) => option.label;
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),

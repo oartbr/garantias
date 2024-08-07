@@ -40,6 +40,9 @@ const useValidationSchema = () => {
     countryCode: yup
       .object()
       .required(t("register:inputs.phoneNumber.validation.required")),
+    garantiaId: yup
+      .string()
+      .required(t("register:inputs.garantiaId.validation.required")),
   });
 };
 
@@ -78,7 +81,7 @@ function Form(props: Props) {
   const countryRenderOption = (option: { label: string }) => option.label;
 
   const methods = useForm<RegisterFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<RegisterFormData>(validationSchema),
     defaultValues: {
       phoneNumber: "",
       garantiaId: props.params.id,

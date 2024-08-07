@@ -11,7 +11,7 @@ import { useGetListingByGarantiaIdService } from "@/services/api/services/garant
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-import { ItemCard } from "../../../../components/itemCard/itemCard";
+import { ItemCard } from "../../../components/itemCard/itemCard";
 import React, { useEffect, useState } from "react";
 
 type Props = {

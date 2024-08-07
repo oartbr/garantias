@@ -84,6 +84,9 @@ function AuthProvider(props: PropsWithChildren<{}>) {
           AUTH_ME_URL,
           {
             method: "GET",
+            headers: {
+              Authorization: `${tokens.refreshToken}`,
+            },
           },
           {
             token: tokens.token,

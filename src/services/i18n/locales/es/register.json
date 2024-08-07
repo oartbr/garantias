@@ -140,6 +140,8 @@
     "success": "Garantía registrada con éxito",
     "codeSent": "Revisa el código en tu WhatsApp!",
     "codeConfirmed": "Código confirmado con éxito",
-    "expired": "Tu código expiró. Por favor solicita uno nuevo."
+    "expired": "Tu código expiró. Por favor solicita uno nuevo.",
+    "wrong": "Tu código no coincide. Por favor trata de nuevo",
+    "exceeded": "Tu código no coincide. Por favor solicita uno nuevo."
   }
 }

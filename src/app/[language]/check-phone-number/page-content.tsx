@@ -2,7 +2,7 @@
 import Button from "@mui/material/Button";
 import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useCheckPhoneNumberService } from "@/services/api/services/garantia";
+import { useCheckPhoneNumberLoginService } from "@/services/api/services/garantia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -23,7 +23,7 @@ type RegisterFormData = {
 };
 
 type Props = {
-  params: { language: string; id: string };
+  params: { language: string };
 };
 
 const useValidationSchema = () => {
@@ -46,7 +46,7 @@ const useValidationSchema = () => {
 function FormActions() {
   const { t } = useTranslation("register");
   const { isSubmitting } = useFormState();
-  const params = new URLSearchParams(window.location.search);
+  // const params = new URLSearchParams(window.location.search);
   return (
     <Button
       variant="contained"
@@ -54,17 +54,15 @@ function FormActions() {
       type="submit"
       disabled={isSubmitting}
       data-testid="register/"
-      id={params.id}
-      name={params.id}
     >
       {t("register:workflow.confirm-phone.submit")}
     </Button>
   );
 }
 
-function Form(props: Props) {
+function Form() {
   const { enqueueSnackbar } = useSnackbar();
-  const fetchSendCode = useCheckPhoneNumberService();
+  const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
   const validationSchema = useValidationSchema();
   const router = useRouter();
@@ -83,7 +81,6 @@ function Form(props: Props) {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       phoneNumber: "",
-      garantiaId: props.params.id,
       countryCode: "",
     },
   });
@@ -96,7 +93,6 @@ function Form(props: Props) {
     const country = getCountryData(formData.countryCode.value);
     const { data, status } = await fetchSendCode({
       phoneNumber: "+" + country.phone + formData.phoneNumber,
-      garantiaId: props.params.id,
     });
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
@@ -119,7 +115,7 @@ function Form(props: Props) {
         variant: "success",
       });
 
-      router.replace("confirm-code");
+      router.replace("confirm-code?p=" + country.phone + formData.phoneNumber);
     }
   });
 

@@ -40,6 +40,30 @@ export function useCheckPhoneNumberService() {
 }
 // CheckPhoneNumber reponse should be a 200 status code, but the response is void.
 
+// CheckPhoneNumberLogin
+// this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
+export type CheckPhoneNumberLoginRequest = {
+  phoneNumber: string;
+};
+
+export type CheckPhoneNumberLoginResponse = void;
+
+export function useCheckPhoneNumberLoginService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (data: CheckPhoneNumberLoginRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/messaging/codeLogin`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<CheckPhoneNumberLoginResponse>);
+    },
+    [fetchBase]
+  );
+}
+// CheckPhoneNumber reponse should be a 200 status code, but the response is void.
+
 // CheckCode
 // this will send the a code to the server to check if it is the same as the one sent via WhatsApp.
 export type CheckCodeRequest = {
@@ -66,6 +90,29 @@ export function useCheckCodeService() {
 }
 // CheckCode reponse should be a 200 status code, but the response is void.
 
+// GetUserByGarantiaId
+// this will send the garantiaId to the server to check if there is a User linked to the phone number on the garantia.
+export type GetUserByGarantiaIdRequest = {
+  garantiaId: string;
+};
+
+export type GetUserByGarantiaIdResponse = void;
+
+export function useGetUserByGarantiaIdService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (data: GetUserByGarantiaIdRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/garantia/getUser/${data.garantiaId}`, {
+        method: "GET",
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GeUserByGarantiaIdResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetUserByGarantiaId reponse should be a 200 status code with the User's details.
+
 // RegisterGarantia
 // this will send the details to register the actual garantia.
 export type RegisterGarantiaRequest = {
@@ -76,7 +123,6 @@ export type RegisterGarantiaRequest = {
   city: string;
   zipcode: string;
   email: string;
-  confirmEmail: string;
   policy: object;
   garantiaId: string;
 };
@@ -88,6 +134,7 @@ export function useRegisterGarantiaService() {
 
   return useCallback(
     (data: RegisterGarantiaRequest, requestConfig?: RequestConfigType) => {
+      console.log({ garantiaData: data });
       return fetchBase(`${API_URL}/v1/garantia/register`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -98,6 +145,32 @@ export function useRegisterGarantiaService() {
   );
 }
 // RegisterGarantia reponse should be a 200 status code
+
+// GetListingByGarantiaId
+// this will send the garantiaId to the server to get a list of the User's garantias.
+export type GetListingByGarantiaIdRequest = {
+  garantiaId: string;
+};
+
+export type GetListingByGarantiaIdResponse = void;
+
+export function useGetListingByGarantiaIdService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (
+      data: GetListingByGarantiaIdRequest,
+      requestConfig?: RequestConfigType
+    ) => {
+      return fetchBase(`${API_URL}/v1/garantia/getList/${data.garantiaId}`, {
+        method: "GET",
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GetListingByGarantiaIdResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetUserByGarantiaId reponse should be a 200 status code with the User's details.
 
 export type GarantiasRequest = {
   page: number;

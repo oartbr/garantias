@@ -106,6 +106,7 @@ function Form() {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    console.log("nonono", formData);
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -149,7 +150,7 @@ function Form() {
             </Grid>
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
-                name="name"
+                name="firstName"
                 label={t("sign-up:inputs.firstName.label")}
                 type="text"
                 autoFocus

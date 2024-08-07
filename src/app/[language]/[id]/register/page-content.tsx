@@ -16,7 +16,11 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
-import { useRegisterGarantiaService } from "@/services/api/services/garantia";
+import React, { useEffect } from "react";
+import {
+  useRegisterGarantiaService,
+  useGetUserByGarantiaIdService,
+} from "@/services/api/services/garantia";
 import { useAuthLoginService } from "@/services/api/services/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
@@ -40,7 +44,6 @@ type RegisterFormData = {
   city: string;
   zipcode: string;
   email: string;
-  confirmEmail?: string;
   policy: TPolicy[];
 };
 
@@ -68,12 +71,6 @@ const useValidationSchema = () => {
       .string()
       .email(t("register:inputs.email.validation.invalid"))
       .required(t("register:inputs.email.validation.required")),
-    confirmEmail: yup
-      .string()
-      .oneOf(
-        [yup.ref("email"), null],
-        t("register:inputs.confirmEmail.validation.match")
-      ),
     password: yup
       .string()
       .min(6, t("register:inputs.password.validation.min"))
@@ -106,6 +103,39 @@ function FormActions() {
   );
 }
 
+/* function UseDetails() {
+  //const { t } = useTranslation("register");
+  // const { isSubmitting } = useFormState();
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      type="submit"
+      data-testid="register-submit"
+    >
+      Use current details
+    </Button>
+  );
+}
+
+function UpdateDetails() {
+  //const { t } = useTranslation("register");
+  // const { isSubmitting } = useFormState();
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      type="submit"
+      data-testid="register-submit"
+    >
+      Update details
+    </Button>
+  );
+}
+  */
+
 function Form(props: Props) {
   const { setUser } = useAuthActions();
   const { setTokensInfo } = useAuthTokens();
@@ -118,7 +148,14 @@ function Form(props: Props) {
   const policyOptions = [
     { id: "policy", name: t("register:inputs.policy.agreement") },
   ];
+
+  const garantiaId = props.params.id;
   const fetchRegisterGarantia = useRegisterGarantiaService();
+
+  const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
+
+  //const [userData, setUserData] = useState({});
+  //const [isLoading, setIsLoading] = useState({});
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),
@@ -131,16 +168,61 @@ function Form(props: Props) {
       zipcode: "",
       email: "",
       policy: [],
-      garantiaId: props.params.id,
+      garantiaId: garantiaId,
     },
   });
+
+  useEffect(() => {
+    const updateFormFields = (newValues: Partial<RegisterFormData>) => {
+      methods.reset({ ...methods.getValues(), ...newValues });
+    };
+
+    setIsLoading(true);
+    fetchUserByGarantiaId({ garantiaId })
+      .then((data) => {
+        setUserData(data);
+        setIsLoading(false);
+        if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
+          updateFormFields(data.data);
+          return data;
+        }
+        return false;
+      })
+      .catch((err) => {
+        console.error("Failed to fetch user data:", err);
+        setError(err);
+        setIsLoading(false);
+      });
+  }, [fetchUserByGarantiaId, garantiaId, setError, methods]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchUserByGarantiaId({ garantiaId })
+      .then((data) => {
+        setUserData(data);
+        setIsLoading(false);
+        if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
+          updateFormFields(data.data);
+          return data;
+        }
+        return false;
+      })
+      .catch((err) => {
+        console.error("Failed to fetch user data:", err);
+        setError(err);
+        setIsLoading(false);
+      });
+  }, [fetchUserByGarantiaId, garantiaId, setError, methods]);
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
     formData.garantiaId = props.params.id;
-    // Remove confirmEmail from formData
-    delete formData.confirmEmail;
+    try {
+      delete formData.isEmailVerified;
+      delete formData.phoneNumber;
+      delete formData.id;
+    } catch (e) {}
 
     const { data: dataRegister, status: statusRegister } =
       await fetchRegisterGarantia(formData);
@@ -165,7 +247,7 @@ function Form(props: Props) {
         variant: "success",
       });
 
-      router.replace("/profile");
+      router.replace("listing");
     }
     const { data: dataSignIn, status: statusSignIn } = await fetchAuthLogin({
       email: formData.email,
@@ -197,7 +279,9 @@ function Form(props: Props) {
                 type="text"
                 autoFocus
                 testId="first-name"
-              />
+              >
+                popopo
+              </FormTextInput>
             </Grid>
 
             <Grid item xs={12}>
@@ -253,14 +337,14 @@ function Form(props: Props) {
                 testId="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormTextInput<RegisterFormData>
                 name="confirmEmail"
                 label={t("register:inputs.confirmEmail.label")}
                 type="confirmEmail"
                 testId="confirmEmail"
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
                 name="password"

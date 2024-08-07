@@ -25,7 +25,7 @@ export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="sm">
       <Grid
         container
         spacing={3}
@@ -35,17 +35,6 @@ export default async function Home({ params }: Props) {
         sx={{ height: "90vh", justifyContent: "space-between" }}
       >
         <Grid item>
-          <div className="dataCheck">
-            <Typography variant="h4" data-testid="product-serial" gutterBottom>
-              {"WS9t72h36"}
-            </Typography>
-            <Typography variant="h6" data-testid="product-sku" gutterBottom>
-              {"WS-BIO1300"}
-            </Typography>
-            <Typography data-testid="product-name" gutterBottom>
-              {"Biodigestor Autolimpiante 1300 litros"}
-            </Typography>
-          </div>
           <div className="scanning">
             <Image
               className="qrTanque"
@@ -78,7 +67,7 @@ export default async function Home({ params }: Props) {
           </div>
         </Grid>
         <Grid item sx={{ mx: "auto" }}>
-          <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
+          <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>
         </Grid>
       </Grid>
     </Container>

@@ -12,6 +12,21 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 // import Paper from "@mui/material/Paper";
 import { ItemCard } from "../../../../components/itemCard/itemCard";
+import { useTranslation } from "@/services/i18n/client";
+
+type ItemCardProps = {
+  description: string;
+  sku: string;
+  garantiaId: string;
+  brand: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  number: string;
+  city: string;
+  zipcode: string;
+  registeredAt: string;
+};
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -24,7 +39,7 @@ function List(props: Props) {
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
   // const router = useRouter();
-  // const { t } = useTranslation("register");
+  const { t } = useTranslation("register");
   const garantiaId = props.params.id;
 
   const fetchListGarantias = useGetListingByGarantiaIdService();
@@ -50,13 +65,16 @@ function List(props: Props) {
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          <h3>Tus productos con garantia:</h3>
+          <h3>
+            {t("register:workflow.confirm-phone.submit")} Tus productos con
+            garantia:
+          </h3>
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
           {isLoading ? (
             <p>Loading...</p>
           ) : (
-            items.map((item, index) => (
+            items.map((item: ItemCardProps, index: number) => (
               <Grid item xs={12} key={index}>
                 <ItemCard
                   item={item}

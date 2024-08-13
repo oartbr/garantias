@@ -29,8 +29,7 @@ interface confirmStatus {
 }
 
 type Props = {
-  params: { language: string; id: string };
-  confirmStatus: confirmStatus;
+  params: { language: string; id: string; confirmStatus: confirmStatus };
 };
 
 const useValidationSchema = () => {

@@ -19,7 +19,21 @@ type Props = {
   params: { language: string; id: string };
 };
 
-function List() {
+type ItemCardProps = {
+  description: string;
+  sku: string;
+  garantiaId: string;
+  brand: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  number: string;
+  city: string;
+  zipcode: string;
+  registeredAt: string;
+};
+
+function List(props: Props) {
   // const { setUser } = useAuthActions();
   // const { setTokensInfo } = useAuthTokens();
   // const fetchAuthLogin = useAuthLoginService();
@@ -27,26 +41,28 @@ function List() {
   // const router = useRouter();
   // const { t } = useTranslation("register");
   const { user } = useAuth();
-  // const garantiaId = props.params.id;
+  const garantiaId = props.params.id;
 
   const fetchListGarantias = useGetListingByUserService();
   const [isLoading, setIsLoading] = useState({});
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<ItemCardProps[]>([]);
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
-    fetchListGarantias({ userId: user.id })
-      .then((data) => {
-        if (data.status === HTTP_CODES_ENUM.OK) {
-          setItems(data.data); // Step 3: Update state with fetched data
+    if (user) {
+      fetchListGarantias({ userId: user.id.toString() })
+        .then((data) => {
+          if (data.status === HTTP_CODES_ENUM.OK) {
+            setItems(data.data as ItemCardProps[]); // Step 3: Update state with fetched data
+            setIsLoading(false); // Update loading state
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch client data:", err);
           setIsLoading(false); // Update loading state
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to fetch client data:", err);
-        setIsLoading(false); // Update loading state
-      });
-  }, [user.id, fetchListGarantias]); // Include 'fetchListGarantias' in the dependency array
+        });
+    }
+  }, [user, fetchListGarantias]); // Include 'fetchListGarantias' in the dependency array
 
   return (
     <Container maxWidth="sm" className="mainContainer">
@@ -63,7 +79,7 @@ function List() {
                 <ItemCard
                   item={item}
                   onClick={() => {
-                    console.log("Clicked on item:", item);
+                    console.log("Clicked on item:", item, garantiaId);
                   }}
                 />
               </Grid>

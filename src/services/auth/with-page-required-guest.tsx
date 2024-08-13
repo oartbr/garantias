@@ -5,7 +5,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import useLanguage from "@/services/i18n/use-language";
 
 type PropsType = {
-  params: { language: string; id: string };
+  params: { language: string; id: string; slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

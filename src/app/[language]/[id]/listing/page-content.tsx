@@ -27,6 +27,7 @@ type ItemCardProps = {
   zipcode: string;
   registeredAt: string;
 };
+
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -44,14 +45,15 @@ function List(props: Props) {
 
   const fetchListGarantias = useGetListingByGarantiaIdService();
   const [isLoading, setIsLoading] = useState({});
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<ItemCardProps[]>([]);
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     fetchListGarantias({ garantiaId })
       .then((data) => {
         if (data.status === HTTP_CODES_ENUM.OK) {
-          setItems(data.data); // Step 3: Update state with fetched data
+          const fetchedData = data.data as unknown;
+          setItems(fetchedData as ItemCardProps[]); // Step 3: Update state with fetched data
           setIsLoading(false); // Update loading state
         }
       })

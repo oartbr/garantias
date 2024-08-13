@@ -1,8 +1,9 @@
 "use client";
 import Button from "@mui/material/Button";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+// import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-//import { useAuthResetPasswordService } from "@/services/api/services/auth";
+// import { useAuthResetPasswordService } from "@/services/api/services/auth";
+import useAuthActions from "@/services/auth/use-auth-actions";
 import { useCheckCodeService } from "@/services/api/services/garantia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -46,22 +47,34 @@ const useValidationSchema = () => {
 function FormActions() {
   const { t } = useTranslation("register");
   const { isSubmitting } = useFormState();
-  const params = new URLSearchParams(window.location.search);
+  const router = useRouter();
+  //const params = new URLSearchParams(window.location.search);
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-      data-testid="confirm-code/"
-      id={params.id}
-    >
-      {t("register:workflow.confirm-phone.submit")}
-    </Button>
+    <div>
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        disabled={isSubmitting}
+        data-testid="confirm-code/"
+      >
+        {t("register:workflow.get-code.submit")}
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        type="button"
+        disabled={isSubmitting}
+        data-testid="resend-code/"
+        onClick={() => router.replace("check-phone-number")}
+      >
+        {t("register:workflow.get-code.resend")}
+      </Button>
+    </div>
   );
 }
 
-function Form() {
+function Form({ params }: Props) {
   const { enqueueSnackbar } = useSnackbar();
   // delete? const fetchAuthResetPassword = useAuthResetPasswordService();
   const { t } = useTranslation("register");
@@ -70,6 +83,7 @@ function Form() {
   const fetchCheckCode = useCheckCodeService();
   const searchParams = useSearchParams();
   const { setTokensInfo } = useAuthTokens();
+  const { setUser } = useAuthActions();
   //console.log({ validation: searchParams.get("p") });
 
   const methods = useForm<RegisterFormData>({
@@ -84,12 +98,13 @@ function Form() {
   const onSubmit = handleSubmit(async (formData) => {
     //const params = new URLSearchParams(window.location.search);
     //const hash = params.get("hash");
+    const phoneNumber = searchParams.get("p");
 
     const { data, status } = await fetchCheckCode({
-      phoneNumber: searchParams.get("p"),
+      phoneNumber: phoneNumber,
       code: formData.confirmationCode,
     });
-    console.log({ status, enum: HTTP_CODES_ENUM.PRECONDITION_REQUIRED });
+
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof RegisterFormData>).forEach(
         (key) => {
@@ -120,20 +135,27 @@ function Form() {
     }
 
     if (status === HTTP_CODES_ENUM.OK) {
-      setTokensInfo({
-        token: data.token,
-        refreshToken: data.refreshToken,
-        tokenExpires: data.tokenExpires,
-      });
-      setUser(data.user);
-    }
-
-    if (status === HTTP_CODES_ENUM.ACCEPTED) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",
       });
-
-      router.replace("/sign-up");
+      if (data.user) {
+        setTokensInfo({
+          token: data.token,
+          refreshToken: data.refreshToken,
+          tokenExpires: data.tokenExpires,
+        });
+        setUser(data.user);
+        if (params.id) {
+          console.log({ go: "register" });
+          router.replace(`register`);
+        } else {
+          console.log({ go: "listing" });
+          router.replace(`/listing`);
+        }
+      } else {
+        console.log({ go: "sign-up" });
+        router.replace(`sign-up?p=${phoneNumber}`);
+      }
     }
   });
 
@@ -169,4 +191,4 @@ function ConfirmCode(props: Props) {
   return <Form params={props.params} />;
 }
 
-export default withPageRequiredGuest(ConfirmCode);
+export default ConfirmCode;

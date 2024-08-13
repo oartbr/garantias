@@ -126,6 +126,19 @@ function ResponsiveAppBar() {
                     </Typography>
                   </MenuItem>,
                 ]}
+              {!!user?.role &&
+                [RoleEnum.USER].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="listing"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/listing"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.listing")}
+                    </Typography>
+                  </MenuItem>,
+                ]}
               {isLoaded &&
                 !user && [
                   <Divider key="divider" />,
@@ -133,7 +146,7 @@ function ResponsiveAppBar() {
                     key="sign-in"
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    href="/sign-in"
+                    href="/check-phone-number"
                   >
                     <Typography textAlign="center">
                       {t("common:navigation.signIn")}
@@ -192,6 +205,17 @@ function ResponsiveAppBar() {
                   href="/admin-panel/users"
                 >
                   {t("common:navigation.users")}
+                </Button>
+              )}
+            {!!user?.role &&
+              [RoleEnum.USER].includes(Number(user?.role?.id)) && (
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  component={Link}
+                  href="/listing"
+                >
+                  {t("common:navigation.listing")}
                 </Button>
               )}
           </Box>
@@ -258,7 +282,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
                 component={Link}
-                href="/sign-in"
+                href="/check-phone-number"
               >
                 {t("common:navigation.signIn")}
               </Button>

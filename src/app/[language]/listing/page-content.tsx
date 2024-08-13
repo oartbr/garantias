@@ -1,10 +1,11 @@
 "use client";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
+import useAuth from "@/services/auth/use-auth";
 // import { useAuthLoginService } from "@/services/api/services/auth";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useGetListingByGarantiaIdService } from "@/services/api/services/garantia";
+import { useGetListingByUserService } from "@/services/api/services/garantia";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 // import { useRouter } from "next/navigation";
@@ -18,22 +19,23 @@ type Props = {
   params: { language: string; id: string };
 };
 
-function List(props: Props) {
+function List() {
   // const { setUser } = useAuthActions();
   // const { setTokensInfo } = useAuthTokens();
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
   // const router = useRouter();
   // const { t } = useTranslation("register");
-  const garantiaId = props.params.id;
+  const { user } = useAuth();
+  // const garantiaId = props.params.id;
 
-  const fetchListGarantias = useGetListingByGarantiaIdService();
+  const fetchListGarantias = useGetListingByUserService();
   const [isLoading, setIsLoading] = useState({});
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
-    fetchListGarantias({ garantiaId })
+    fetchListGarantias({ userId: user.id })
       .then((data) => {
         if (data.status === HTTP_CODES_ENUM.OK) {
           setItems(data.data); // Step 3: Update state with fetched data
@@ -44,7 +46,7 @@ function List(props: Props) {
         console.error("Failed to fetch client data:", err);
         setIsLoading(false); // Update loading state
       });
-  }, [garantiaId, fetchListGarantias]); // Include 'fetchListGarantias' in the dependency array
+  }, [user.id, fetchListGarantias]); // Include 'fetchListGarantias' in the dependency array
 
   return (
     <Container maxWidth="sm" className="mainContainer">
@@ -77,4 +79,4 @@ function Listing(props: Props) {
   return <List params={props.params} />;
 }
 
-export default withPageRequiredGuest(Listing);
+export default withPageRequiredAuth(Listing);

@@ -11,6 +11,7 @@
       "title": "Por favor revisa tu WhatsApp",
       "subtitle": "Insiere el código que te enviamos.",
       "submit": "Confirmar",
+      "resend": "Reenviar",
       "unexisting": "El código no existe.",
       "incorrect": "Código incorrecto",
       "expired": "Tu código expiró. Por favor solicita uno nuevo."

@@ -2,10 +2,7 @@
 import Button from "@mui/material/Button";
 import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import {
-  useAuthLoginService,
-  useAuthSignUpService,
-} from "@/services/api/services/auth";
+import { useAuthSignUpService } from "@/services/api/services/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import Container from "@mui/material/Container";
@@ -25,6 +22,11 @@ import Chip from "@mui/material/Chip";
 import SocialAuth from "@/services/social-auth/social-auth";
 import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
 import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
+import { useRouter, useSearchParams } from "next/navigation";
+
+type Props = {
+  params: { id: string; language: string };
+};
 
 type TPolicy = {
   id: string;
@@ -36,6 +38,7 @@ type SignUpFormData = {
   lastName: string;
   email: string;
   password: string;
+  phoneNumber: string;
   policy: TPolicy[];
 };
 
@@ -61,6 +64,7 @@ const useValidationSchema = () => {
       .array()
       .min(1, t("sign-up:inputs.policy.validation.required"))
       .required(),
+    phoneNumber: yup.string(),
   });
 };
 
@@ -81,16 +85,19 @@ function FormActions() {
   );
 }
 
-function Form() {
+function Form(props: Props) {
   const { setUser } = useAuthActions();
   const { setTokensInfo } = useAuthTokens();
-  const fetchAuthLogin = useAuthLoginService();
+  //const fetchAuthLogin = useAuthLoginService();
   const fetchAuthSignUp = useAuthSignUpService();
   const { t } = useTranslation("sign-up");
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const validationSchema = useValidationSchema();
   const policyOptions = [
     { id: "policy", name: t("sign-up:inputs.policy.agreement") },
   ];
+  const garantiaId = props.params.id;
 
   const methods = useForm<SignUpFormData>({
     resolver: yupResolver(validationSchema),
@@ -100,13 +107,15 @@ function Form() {
       email: "",
       password: "",
       policy: [],
+      phoneNumber: "",
     },
   });
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    console.log("nonono", formData);
+    const phoneNumber = searchParams.get("p") ?? "";
+    formData.phoneNumber = phoneNumber;
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -125,18 +134,28 @@ function Form() {
       return;
     }
 
+    /*
     const { data: dataSignIn, status: statusSignIn } = await fetchAuthLogin({
       email: formData.email,
       password: formData.password,
-    });
+    }); 
+    */
 
-    if (statusSignIn === HTTP_CODES_ENUM.OK) {
+    if (statusSignUp === HTTP_CODES_ENUM.CREATED) {
       setTokensInfo({
-        token: dataSignIn.token,
-        refreshToken: dataSignIn.refreshToken,
-        tokenExpires: dataSignIn.tokenExpires,
+        token: dataSignUp.tokens.token,
+        refreshToken: dataSignUp.tokens.refreshToken,
+        tokenExpires: dataSignUp.tokens.tokenExpires,
       });
-      setUser(dataSignIn.user);
+      setUser(dataSignUp.user);
+
+      if (garantiaId) {
+        console.log({ go: "register" });
+        router.replace(`register`);
+      } else {
+        console.log({ go: "listing" });
+        router.replace("listing");
+      }
     }
   });
 
@@ -234,8 +253,8 @@ function Form() {
   );
 }
 
-function SignUp() {
-  return <Form />;
+function SignUp(props: Props) {
+  return <Form params={props.params} />;
 }
 
 export default withPageRequiredGuest(SignUp);

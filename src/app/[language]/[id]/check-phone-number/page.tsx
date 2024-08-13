@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CheckPhoneNumber from "./page-content";
+import CheckPhoneNumber from "../../check-phone-number/page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {
@@ -13,4 +13,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default CheckPhoneNumber;
+export default function CheckPhoneNumberPage(props: Props) {
+  return <CheckPhoneNumber {...props} />;
+}

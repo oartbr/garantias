@@ -26,9 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
 
-  const existingCode = await getGarantiaService(params.id);
-
-  if (existingCode.exists) {
+  const existingCode = (await getGarantiaService(params.id)) || {
+    exists: false,
+    status: "not-found",
+  };
+  console.log({ existingCode });
+  if (
+    !existingCode.exists &&
+    (existingCode.status === "assigned" ||
+      existingCode.status === "shipped" ||
+      existingCode.status === "delivered")
+  ) {
     return (
       <Container maxWidth="md">
         <Grid

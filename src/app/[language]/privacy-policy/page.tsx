@@ -498,9 +498,9 @@ async function PrivacyPolicy({ params }: Props) {
           <MuiLink
             target="_blank"
             rel="external noopener noreferrer"
-            href="mailto:boilerplates@brocoders.com"
+            href="mailto:watersupplyec@gmail.com"
           >
-            boilerplates@brocoders.com
+            water.supply.ec@gmail.com
           </MuiLink>
         </ListItem>
         <ListItem sx={{ display: "list-item" }}>
@@ -508,11 +508,12 @@ async function PrivacyPolicy({ params }: Props) {
           <MuiLink
             target="_blank"
             rel="external noopener noreferrer"
-            href="https://bcboilerplates.com/"
+            href="https://watersupplyec.com/"
           >
-            bc boilerplates
+            Water Supply
           </MuiLink>
         </ListItem>
+        {/* 
         <ListItem sx={{ display: "list-item" }}>
           {t("contact_us_on_github_discussions")}{" "}
           <MuiLink
@@ -541,6 +542,7 @@ async function PrivacyPolicy({ params }: Props) {
             channel
           </MuiLink>
         </ListItem>
+        */}
       </List>
     </Container>
   );

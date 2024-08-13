@@ -80,7 +80,9 @@ export type AuthSignUpRequest = {
   password: string;
 };
 
-export type AuthSignUpResponse = void;
+export type AuthSignUpResponse = Tokens & {
+  user: User;
+};
 
 export function useAuthSignUpService() {
   const fetchBase = useFetchBase();

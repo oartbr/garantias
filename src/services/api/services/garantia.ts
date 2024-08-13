@@ -19,7 +19,6 @@ import { RequestConfigType } from "./types/request-config";
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
 export type CheckPhoneNumberRequest = {
   phoneNumber: string;
-  garantiaId: string;
 };
 
 export type CheckPhoneNumberResponse = void;
@@ -106,7 +105,7 @@ export function useGetUserByGarantiaIdService() {
       return fetchBase(`${API_URL}/v1/garantia/getUser/${data.garantiaId}`, {
         method: "GET",
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GeUserByGarantiaIdResponse>);
+      }).then(wrapperFetchJsonResponse<GetUserByGarantiaIdResponse>);
     },
     [fetchBase]
   );
@@ -125,6 +124,8 @@ export type RegisterGarantiaRequest = {
   email: string;
   policy: object;
   garantiaId: string;
+  userId: string;
+  phoneNumber: string;
 };
 
 export type RegisterGarantiaResponse = void;
@@ -172,6 +173,29 @@ export function useGetListingByGarantiaIdService() {
 }
 // GetUserByGarantiaId reponse should be a 200 status code with the User's details.
 
+// GetListingByUser
+// this will send the user info to the server to get a list of the User's garantias.
+export type GetListingByUserRequest = {
+  userId: string;
+};
+
+export type GetListingByUserResponse = object;
+
+export function useGetListingByUserService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (data: GetListingByUserRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/garantia/getList/${data.userId}`, {
+        method: "GET",
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GetListingByUserResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetUserByUserreponse should be a 200 status code with the User's details.
+
 export type GarantiasRequest = {
   page: number;
   limit: number;
@@ -179,7 +203,6 @@ export type GarantiasRequest = {
     roles?: Role[];
   };
   sort?: Array<{
-    orderBy: keyof User;
     order: SortEnum;
   }>;
 };
@@ -224,8 +247,8 @@ export function CreateGarantiasService() {
     (data: CreateGarantiaRequest, requestConfig?: RequestConfigType) => {
       const requestUrl = new URL(`${API_URL}/v1/garantia/create`);
 
-      data.quantity = data.quantity.id;
-      data.length = GARANTIA_CODE_LENGTH;
+      data.quantity = data.quantity;
+      data.length = Number(GARANTIA_CODE_LENGTH);
       data.type = GARANTIA_CODE_TYPE;
       data.prefix = GARANTIA_CODE_PREFIX;
 
@@ -274,7 +297,7 @@ export function usePostGarantiaService() {
 }
 
 export type GarantiaPatchRequest = {
-  id: Garantia["id"];
+  id: Garantia["garantiaId"];
   data: Partial<Pick<Garantia, "brand">>;
 };
 
@@ -296,7 +319,7 @@ export function usePatchGarantiaService() {
 }
 
 export type GarantiasDeleteRequest = {
-  id: Garantia["id"];
+  id: Garantia["garantiaId"];
 };
 
 export type GarantiasDeleteResponse = undefined;
@@ -333,9 +356,16 @@ export async function getGarantiaService(garantiaId: string) {
 
   try {
     const response = await fetch(requestUrl);
-    const data = await response.json();
-    data.exists = typeof data.id === "string";
-    return data;
+
+    const data = (await response.json()) || {};
+    console.log({ data });
+    if (response.status !== 404) {
+      data.exists = typeof data.id === "string";
+      return data.garantia;
+    } else {
+      data.exists = false;
+      return data;
+    }
   } catch (error) {
     console.error("Error checking ID:", error);
     return { exists: false };

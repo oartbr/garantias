@@ -1,30 +1,31 @@
 {
-  "app-name": "Registro de Garantias",
-  "loading": "Loading ...",
+  "app-name": "Registro de Garantías",
+  "loading": "Cargando ...",
   "navigation": {
-    "home": "Home",
-    "signIn": "Sign In",
-    "signUp": "Sign Up",
-    "profile": "Profile",
-    "users": "Users",
-    "logout": "Logout"
+    "home": "Inicio",
+    "listing": "Garantias",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "profile": "Perfil",
+    "users": "Usuarios",
+    "logout": "Cerrar Sesión"
   },
   "formInputs": {
     "avatarInput": {
-      "dropzoneText": "Drop the image here ...",
-      "dragAndDrop": "Or drag 'n' drop some files here",
-      "selectFile": "Select an image"
+      "dropzoneText": "Suelta la imagen aquí ...",
+      "dragAndDrop": "O arrastra y suelta algunos archivos aquí",
+      "selectFile": "Selecciona una imagen"
     }
   },
   "leavePage": {
-    "title": "Leave this page?",
-    "message": "Changes you made may not be saved",
-    "stay": "Stay on Page",
-    "leave": "Leave Page"
+    "title": "¿Dejar esta página?",
+    "message": "Los cambios que hiciste pueden no guardarse",
+    "stay": "Permanecer en la Página",
+    "leave": "Dejar la Página"
   },
   "auth": {
     "facebook": {
-      "action": "Login with Facebook"
+      "action": "Iniciar sesión con Facebook"
     }
   }
 }

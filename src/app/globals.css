@@ -78,3 +78,13 @@
 .mainContainer {
   margin-bottom: 2rem;
 }
+
+.normalCard {
+  border-left: solid teal 5px;
+  border-radius: 0.5rem;
+}
+
+.normalCard strong,
+.normalCard button {
+  color: teal;
+}

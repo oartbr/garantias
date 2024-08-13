@@ -1,6 +1,6 @@
 "use client";
 import Button from "@mui/material/Button";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+// import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 import { useCheckPhoneNumberLoginService } from "@/services/api/services/garantia";
 import Container from "@mui/material/Container";
@@ -14,7 +14,11 @@ import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { getCountryData, getCountryDataList } from "countries-list";
+import {
+  getCountryData,
+  getCountryDataList,
+  ICountryData,
+} from "countries-list";
 
 type RegisterFormData = {
   phoneNumber: string;
@@ -67,15 +71,17 @@ function Form() {
   const validationSchema = useValidationSchema();
   const router = useRouter();
 
-  const countryList = getCountryDataList().map((country) => {
-    //console.log(country);
-    return {
-      label: country.name,
-      value: country.iso2,
-    };
-  });
+  const countryList = getCountryDataList()
+    .filter((country: ICountryData) => country.continent === "SA")
+    .map((country: ICountryData) => {
+      console.log(country);
+      return {
+        label: country.name,
+        value: country.iso2,
+      };
+    });
 
-  const countryRenderOption = (option) => option.label;
+  const countryRenderOption = (option: { label: string }) => option.label;
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),
@@ -166,4 +172,4 @@ function CheckPhoneNumber(props: Props) {
   return <Form params={props.params} />;
 }
 
-export default withPageRequiredGuest(CheckPhoneNumber);
+export default CheckPhoneNumber;

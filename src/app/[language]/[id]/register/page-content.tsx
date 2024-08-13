@@ -1,6 +1,6 @@
 "use client";
 import Button from "@mui/material/Button";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -16,7 +16,7 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useRegisterGarantiaService,
   useGetUserByGarantiaIdService,
@@ -24,6 +24,7 @@ import {
 import { useAuthLoginService } from "@/services/api/services/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
+import useAuth from "@/services/auth/use-auth";
 //import Divider from "@mui/material/Divider";
 //import Chip from "@mui/material/Chip";
 
@@ -45,6 +46,7 @@ type RegisterFormData = {
   zipcode: string;
   email: string;
   policy: TPolicy[];
+  garantiaId: string;
 };
 
 const useValidationSchema = () => {
@@ -71,14 +73,6 @@ const useValidationSchema = () => {
       .string()
       .email(t("register:inputs.email.validation.invalid"))
       .required(t("register:inputs.email.validation.required")),
-    password: yup
-      .string()
-      .min(6, t("register:inputs.password.validation.min"))
-      .matches(
-        /^(?=.*[a-zA-Z])(?=.*[0-9])/,
-        t("register:inputs.password.validation.required")
-      )
-      .required(t("register:inputs.password.validation.required")),
     policy: yup
       .array()
       .min(1, t("register:inputs.policy.validation.required"))
@@ -138,6 +132,7 @@ function UpdateDetails() {
 
 function Form(props: Props) {
   const { setUser } = useAuthActions();
+  const { user } = useAuth();
   const { setTokensInfo } = useAuthTokens();
   const fetchAuthLogin = useAuthLoginService();
   //const fetchAuthRegister = useAuthSignUpService();
@@ -148,14 +143,13 @@ function Form(props: Props) {
   const policyOptions = [
     { id: "policy", name: t("register:inputs.policy.agreement") },
   ];
-
   const garantiaId = props.params.id;
   const fetchRegisterGarantia = useRegisterGarantiaService();
 
   const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
 
-  //const [userData, setUserData] = useState({});
-  //const [isLoading, setIsLoading] = useState({});
+  const [userData, setUserData] = useState({});
+  // const [isLoading, setIsLoading] = useState({});
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),
@@ -172,55 +166,38 @@ function Form(props: Props) {
     },
   });
 
+  const { handleSubmit, setError } = methods;
+
   useEffect(() => {
     const updateFormFields = (newValues: Partial<RegisterFormData>) => {
       methods.reset({ ...methods.getValues(), ...newValues });
     };
 
-    setIsLoading(true);
+    // setIsLoading(true);
     fetchUserByGarantiaId({ garantiaId })
       .then((data) => {
         setUserData(data);
-        setIsLoading(false);
+        // setIsLoading(false);
         if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
           updateFormFields(data.data);
           return data;
+        } else if (data.status === HTTP_CODES_ENUM.NOT_FOUND) {
+          return false;
         }
-        return false;
       })
       .catch((err) => {
         console.error("Failed to fetch user data:", err);
         setError(err);
         setIsLoading(false);
       });
-  }, [fetchUserByGarantiaId, garantiaId, setError, methods]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchUserByGarantiaId({ garantiaId })
-      .then((data) => {
-        setUserData(data);
-        setIsLoading(false);
-        if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
-          updateFormFields(data.data);
-          return data;
-        }
-        return false;
-      })
-      .catch((err) => {
-        console.error("Failed to fetch user data:", err);
-        setError(err);
-        setIsLoading(false);
-      });
-  }, [fetchUserByGarantiaId, garantiaId, setError, methods]);
-
-  const { handleSubmit, setError } = methods;
+  }, [fetchUserByGarantiaId, garantiaId, methods, setError]);
 
   const onSubmit = handleSubmit(async (formData) => {
     formData.garantiaId = props.params.id;
+    formData.userId = user.id;
+    formData.phoneNumber = "+" + user.phoneNumber;
     try {
       delete formData.isEmailVerified;
-      delete formData.phoneNumber;
       delete formData.id;
     } catch (e) {}
 
@@ -271,6 +248,7 @@ function Form(props: Props) {
           <Grid container spacing={2} mb={2}>
             <Grid item xs={12} mt={3}>
               <Typography variant="h6">{t("register:title")}</Typography>
+              <Typography variant="body2">{userData.user.firstName}</Typography>
             </Grid>
             <Grid item xs={12}>
               <FormTextInput<RegisterFormData>
@@ -337,22 +315,6 @@ function Form(props: Props) {
                 testId="email"
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormTextInput<RegisterFormData>
-                name="confirmEmail"
-                label={t("register:inputs.confirmEmail.label")}
-                type="confirmEmail"
-                testId="confirmEmail"
-              />
-            </Grid> */}
-            <Grid item xs={12}>
-              <FormTextInput<SignUpFormData>
-                name="password"
-                label={t("register:inputs.password.label")}
-                type="password"
-                testId="password"
-              />
-            </Grid>
             <Grid item xs={12}>
               <FormCheckboxInput
                 name="policy"
@@ -386,4 +348,4 @@ function Register(props: Props) {
   return <Form params={props.params} />;
 }
 
-export default withPageRequiredGuest(Register);
+export default withPageRequiredAuth(Register);

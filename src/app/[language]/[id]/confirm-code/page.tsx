@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ConfirmCode from "./page-content";
+import ConfirmCode from "../../confirm-code/page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {

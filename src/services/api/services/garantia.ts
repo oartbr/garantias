@@ -14,6 +14,7 @@ import { InfinityPaginationType } from "../types/infinity-pagination";
 import { Role } from "../types/role";
 import { SortEnum } from "../types/sort-type";
 import { RequestConfigType } from "./types/request-config";
+import { Tokens } from "@/services/api/types/tokens";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
@@ -71,7 +72,12 @@ export type CheckCodeRequest = {
   code: string;
 };
 
-export type CheckCodeResponse = void;
+export type CheckCodeResponse = {
+  user: object;
+  token: Tokens["token"];
+  refreshToken: Tokens["refreshToken"];
+  tokenExpires: Tokens["tokenExpires"];
+};
 
 export function useCheckCodeService() {
   const fetchBase = useFetchBase();

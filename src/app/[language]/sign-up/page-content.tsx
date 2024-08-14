@@ -38,7 +38,7 @@ type SignUpFormData = {
   lastName: string;
   email: string;
   password: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   policy: TPolicy[];
 };
 
@@ -100,7 +100,7 @@ function Form(props: Props) {
   const garantiaId = props.params.id;
 
   const methods = useForm<SignUpFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<SignUpFormData>(validationSchema),
     defaultValues: {
       firstName: "",
       lastName: "",

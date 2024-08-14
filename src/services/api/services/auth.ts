@@ -82,6 +82,7 @@ export type AuthSignUpRequest = {
 
 export type AuthSignUpResponse = Tokens & {
   user: User;
+  tokens: Tokens;
 };
 
 export function useAuthSignUpService() {

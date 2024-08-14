@@ -19,7 +19,6 @@ import useAuthTokens from "@/services/auth/use-auth-tokens";
 
 type RegisterFormData = {
   confirmationCode: string;
-  confirmed: string;
 };
 
 interface confirmStatus {
@@ -86,7 +85,7 @@ function Form({ params }: Props) {
   //console.log({ validation: searchParams.get("p") });
 
   const methods = useForm<RegisterFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<RegisterFormData>(validationSchema),
     defaultValues: {
       confirmationCode: "",
     },
@@ -100,8 +99,9 @@ function Form({ params }: Props) {
     const phoneNumber = searchParams.get("p");
 
     const { data, status } = await fetchCheckCode({
-      phoneNumber: phoneNumber,
+      phoneNumber: phoneNumber ?? "",
       code: formData.confirmationCode,
+      garantiaId: "",
     });
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
@@ -118,7 +118,7 @@ function Form({ params }: Props) {
 
       return;
     }
-
+    /*
     if (status === HTTP_CODES_ENUM.PRECONDITION_REQUIRED) {
       enqueueSnackbar(t("register:alerts.wrong"), {
         variant: "error",
@@ -132,7 +132,7 @@ function Form({ params }: Props) {
 
       router.replace("/check-phone-number");
     }
-
+*/
     if (status === HTTP_CODES_ENUM.OK) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",

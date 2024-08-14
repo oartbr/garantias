@@ -47,6 +47,10 @@ type RegisterFormData = {
   email: string;
   policy: TPolicy[];
   garantiaId: string;
+  isEmailVerified?: boolean;
+  id?: string;
+  userId?: string;
+  phoneNumber?: string;
 };
 
 const useValidationSchema = () => {
@@ -139,7 +143,10 @@ function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const { t } = useTranslation("register");
-  const validationSchema = useValidationSchema();
+  const validationSchema: yup.ObjectSchema<RegisterFormData> =
+    useValidationSchema().shape({
+      garantiaId: yup.string().required(),
+    });
   const policyOptions = [
     { id: "policy", name: t("register:inputs.policy.agreement") },
   ];
@@ -149,8 +156,8 @@ function Form(props: Props) {
   const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
 
   const [userData, setUserData] = useState({});
-  // const [isLoading, setIsLoading] = useState({});
-
+  const [isLoading, setIsLoading] = useState({});
+  setIsLoading(isLoading);
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -166,18 +173,18 @@ function Form(props: Props) {
     },
   });
 
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit } = methods;
 
   useEffect(() => {
     const updateFormFields = (newValues: Partial<RegisterFormData>) => {
       methods.reset({ ...methods.getValues(), ...newValues });
     };
 
-    // setIsLoading(true);
+    setIsLoading(true);
     fetchUserByGarantiaId({ garantiaId })
       .then((data) => {
         setUserData(data);
-        // setIsLoading(false);
+        setIsLoading(false);
         if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
           updateFormFields(data.data);
           return data;
@@ -187,22 +194,27 @@ function Form(props: Props) {
       })
       .catch((err) => {
         console.error("Failed to fetch user data:", err);
-        setError(err);
         setIsLoading(false);
       });
-  }, [fetchUserByGarantiaId, garantiaId, methods, setError]);
+  }, [fetchUserByGarantiaId, garantiaId, methods]);
 
   const onSubmit = handleSubmit(async (formData) => {
-    formData.garantiaId = props.params.id;
-    formData.userId = user.id;
-    formData.phoneNumber = "+" + user.phoneNumber;
+    const extendedFormData: RegisterFormData = {
+      ...formData,
+      garantiaId: props.params.id,
+      userId: user?.id || "",
+      phoneNumber: "+" + user?.phoneNumber || "",
+      isEmailVerified: false,
+      id: "",
+    };
+
     try {
-      delete formData.isEmailVerified;
-      delete formData.id;
+      delete extendedFormData.isEmailVerified;
+      delete extendedFormData.id;
     } catch (e) {}
 
     const { data: dataRegister, status: statusRegister } =
-      await fetchRegisterGarantia(formData);
+      await fetchRegisterGarantia(extendedFormData);
 
     if (statusRegister === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (
@@ -257,9 +269,7 @@ function Form(props: Props) {
                 type="text"
                 autoFocus
                 testId="first-name"
-              >
-                popopo
-              </FormTextInput>
+              />
             </Grid>
 
             <Grid item xs={12}>

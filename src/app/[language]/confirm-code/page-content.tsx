@@ -101,7 +101,6 @@ function Form({ params }: Props) {
     const { data, status } = await fetchCheckCode({
       phoneNumber: phoneNumber ?? "",
       code: formData.confirmationCode,
-      garantiaId: "",
     });
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {

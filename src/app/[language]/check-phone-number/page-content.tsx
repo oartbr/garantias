@@ -1,6 +1,6 @@
 "use client";
 import Button from "@mui/material/Button";
-// import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+//import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 import { useCheckPhoneNumberLoginService } from "@/services/api/services/garantia";
 import Container from "@mui/material/Container";
@@ -18,16 +18,16 @@ import {
   getCountryData,
   getCountryDataList,
   ICountryData,
+  TCountryCode,
 } from "countries-list";
 
 type RegisterFormData = {
   phoneNumber: string;
-  countryCode: string;
-  garantiaId: string;
+  countryCode: { label: string; value: string };
 };
 
 type Props = {
-  params: { language: string };
+  params: { language: string; id: string };
 };
 
 const useValidationSchema = () => {
@@ -43,6 +43,10 @@ const useValidationSchema = () => {
       .required(t("register:inputs.phoneNumber.validation.required")),
     countryCode: yup
       .object()
+      .shape({
+        label: yup.string().required(),
+        value: yup.string().required(),
+      })
       .required(t("register:inputs.phoneNumber.validation.required")),
   });
 };
@@ -64,7 +68,7 @@ function FormActions() {
   );
 }
 
-function Form() {
+function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
@@ -74,7 +78,7 @@ function Form() {
   const countryList = getCountryDataList()
     .filter((country: ICountryData) => country.continent === "SA")
     .map((country: ICountryData) => {
-      console.log(country);
+      console.log(country, props.params.language);
       return {
         label: country.name,
         value: country.iso2,
@@ -84,10 +88,10 @@ function Form() {
   const countryRenderOption = (option: { label: string }) => option.label;
 
   const methods = useForm<RegisterFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<RegisterFormData>(validationSchema),
     defaultValues: {
       phoneNumber: "",
-      countryCode: "",
+      countryCode: { label: "", value: "" },
     },
   });
 
@@ -96,10 +100,18 @@ function Form() {
   const onSubmit = handleSubmit(async (formData) => {
     //const params = new URLSearchParams(window.location.search);
     //const hash = params.get("hash");
-    const country = getCountryData(formData.countryCode.value);
+    const country = getCountryData(formData.countryCode.value as TCountryCode);
     const { data, status } = await fetchSendCode({
       phoneNumber: "+" + country.phone + formData.phoneNumber,
     });
+
+    if (status === HTTP_CODES_ENUM.OK) {
+      enqueueSnackbar(t("register:alerts.codeSent"), {
+        variant: "success",
+      });
+
+      router.replace("confirm-code?p=" + country.phone + formData.phoneNumber);
+    }
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof RegisterFormData>).forEach(
@@ -114,14 +126,6 @@ function Form() {
       );
 
       return;
-    }
-
-    if (status === HTTP_CODES_ENUM.ACCEPTED) {
-      enqueueSnackbar(t("register:alerts.codeSent"), {
-        variant: "success",
-      });
-
-      router.replace("confirm-code?p=" + country.phone + formData.phoneNumber);
     }
   });
 

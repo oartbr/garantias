@@ -15,6 +15,8 @@ import { Role } from "../types/role";
 import { SortEnum } from "../types/sort-type";
 import { RequestConfigType } from "./types/request-config";
 import { Tokens } from "@/services/api/types/tokens";
+import { User } from "@/services/api/types/user";
+import HTTP_CODES_ENUM from "../types/http-codes";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
@@ -22,7 +24,10 @@ export type CheckPhoneNumberRequest = {
   phoneNumber: string;
 };
 
-export type CheckPhoneNumberResponse = void;
+export type CheckPhoneNumberResponse = {
+  data: object;
+  status: HTTP_CODES_ENUM;
+};
 
 export function useCheckPhoneNumberService() {
   const fetchBase = useFetchBase();
@@ -46,7 +51,10 @@ export type CheckPhoneNumberLoginRequest = {
   phoneNumber: string;
 };
 
-export type CheckPhoneNumberLoginResponse = void;
+export type CheckPhoneNumberLoginResponse = {
+  data: object;
+  status: HTTP_CODES_ENUM;
+};
 
 export function useCheckPhoneNumberLoginService() {
   const fetchBase = useFetchBase();
@@ -68,12 +76,11 @@ export function useCheckPhoneNumberLoginService() {
 // this will send the a code to the server to check if it is the same as the one sent via WhatsApp.
 export type CheckCodeRequest = {
   phoneNumber: string;
-  garantiaId: string;
   code: string;
 };
 
 export type CheckCodeResponse = {
-  user: object;
+  user: User;
   token: Tokens["token"];
   refreshToken: Tokens["refreshToken"];
   tokenExpires: Tokens["tokenExpires"];
@@ -101,7 +108,31 @@ export type GetUserByGarantiaIdRequest = {
   garantiaId: string;
 };
 
-export type GetUserByGarantiaIdResponse = void;
+type TPolicy = {
+  id?: string;
+  name?: string;
+};
+
+type RegisterFormData = {
+  id?: string;
+  phoneNumber?: string;
+  garantiaId?: string;
+  userId?: string;
+  number: number;
+  address: string;
+  email?: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  zipcode: string;
+  policy: TPolicy[];
+  isEmailVerified?: boolean;
+};
+
+export type GetUserByGarantiaIdResponse = {
+  data: RegisterFormData;
+  status: HTTP_CODES_ENUM;
+};
 
 export function useGetUserByGarantiaIdService() {
   const fetchBase = useFetchBase();
@@ -128,10 +159,10 @@ export type RegisterGarantiaRequest = {
   city: string;
   zipcode: string;
   email: string;
-  policy: object;
-  garantiaId: string;
-  userId: string;
-  phoneNumber: string;
+  policy: TPolicy[];
+  garantiaId?: string;
+  userId?: string;
+  phoneNumber?: string;
 };
 
 export type RegisterGarantiaResponse = void;

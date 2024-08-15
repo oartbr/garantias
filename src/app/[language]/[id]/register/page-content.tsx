@@ -1,36 +1,24 @@
-"use client";
-import Button from "@mui/material/Button";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import FormTextInput from "@/components/form/text-input/form-text-input";
+import MuiLink from "@mui/material/Link";
+import { t } from "i18next";
+import { FormProvider, useForm, useFormState } from "react-hook-form";
 import FormCheckboxInput from "@/components/form/checkbox/form-checkbox";
+import FormTextInput from "@/components/form/text-input/form-text-input";
+import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-//import Link from "@/components/link";
-//import Box from "@mui/material/Box";
-import MuiLink from "@mui/material/Link";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useTranslation } from "@/services/i18n/client";
-import { useSnackbar } from "notistack";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import {
-  useRegisterGarantiaService,
-  useGetUserByGarantiaIdService,
-} from "@/services/api/services/garantia";
-import { useAuthLoginService } from "@/services/api/services/auth";
-import useAuthActions from "@/services/auth/use-auth-actions";
-import useAuthTokens from "@/services/auth/use-auth-tokens";
-import useAuth from "@/services/auth/use-auth";
-//import Divider from "@mui/material/Divider";
-//import Chip from "@mui/material/Chip";
+import router from "next/router";
+import { enqueueSnackbar } from "notistack";
+import { useRegisterGarantiaService } from "@/services/api/services/garantia";
 
 type TPolicy = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
 };
 
 type Props = {
@@ -45,42 +33,35 @@ type RegisterFormData = {
   city: string;
   zipcode: string;
   email: string;
-  policy: TPolicy[];
-  garantiaId: string;
-  isEmailVerified?: boolean;
-  id?: string;
+  policy: { id?: string; name?: string }[];
+  garantiaId?: string;
   userId?: string;
   phoneNumber?: string;
 };
 
 const useValidationSchema = () => {
-  const { t } = useTranslation("register");
-
   return yup.object().shape({
-    firstName: yup
-      .string()
-      .required(t("register:inputs.firstName.validation.required")),
-    lastName: yup
-      .string()
-      .required(t("register:inputs.lastName.validation.required")),
-    address: yup
-      .string()
-      .required(t("register:inputs.address.validation.required")),
-    number: yup
-      .number()
-      .required(t("register:inputs.number.validation.required")),
-    city: yup.string().required(t("register:inputs.city.validation.required")),
-    zipcode: yup
-      .string()
-      .required(t("register:inputs.zipcode.validation.required")),
-    email: yup
-      .string()
-      .email(t("register:inputs.email.validation.invalid"))
-      .required(t("register:inputs.email.validation.required")),
+    id: yup.string().optional(),
+    phoneNumber: yup.string().optional(),
+    garantiaId: yup.string().optional(),
+    userId: yup.string().optional(),
+    number: yup.number().required(),
+    address: yup.string().required(),
+    email: yup.string().email().required(),
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    city: yup.string().required(),
+    zipcode: yup.string().required(),
     policy: yup
       .array()
-      .min(1, t("register:inputs.policy.validation.required"))
-      .required(),
+      .of(
+        yup.object().shape({
+          id: yup.string().optional(),
+          name: yup.string().optional(),
+        })
+      )
+      .required(), // Update 'optional()' to 'required()'
+    isEmailVerified: yup.boolean().optional(),
   });
 };
 
@@ -101,65 +82,22 @@ function FormActions() {
   );
 }
 
-/* function UseDetails() {
-  //const { t } = useTranslation("register");
-  // const { isSubmitting } = useFormState();
-
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      data-testid="register-submit"
-    >
-      Use current details
-    </Button>
-  );
-}
-
-function UpdateDetails() {
-  //const { t } = useTranslation("register");
-  // const { isSubmitting } = useFormState();
-
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      data-testid="register-submit"
-    >
-      Update details
-    </Button>
-  );
-}
-  */
+const policyO: TPolicy[] = [
+  {
+    id: "policy",
+    name: t("register:inputs.policy.agreement"),
+  },
+];
 
 function Form(props: Props) {
-  const { setUser } = useAuthActions();
-  const { user } = useAuth();
-  const { setTokensInfo } = useAuthTokens();
-  const fetchAuthLogin = useAuthLoginService();
-  //const fetchAuthRegister = useAuthSignUpService();
-  const { enqueueSnackbar } = useSnackbar();
-  const router = useRouter();
-  const { t } = useTranslation("register");
-  const validationSchema: yup.ObjectSchema<RegisterFormData> =
-    useValidationSchema().shape({
-      garantiaId: yup.string().required(),
-    });
-  const policyOptions = [
-    { id: "policy", name: t("register:inputs.policy.agreement") },
-  ];
-  const garantiaId = props.params.id;
   const fetchRegisterGarantia = useRegisterGarantiaService();
+  // const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
 
-  const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
+  const validationSchema: yup.ObjectSchema<RegisterFormData> =
+    useValidationSchema();
 
-  const [userData, setUserData] = useState({});
-  const [isLoading, setIsLoading] = useState({});
-  setIsLoading(isLoading);
   const methods = useForm<RegisterFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver<RegisterFormData>(validationSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -168,50 +106,24 @@ function Form(props: Props) {
       city: "",
       zipcode: "",
       email: "",
-      policy: [],
-      garantiaId: garantiaId,
+      policy: policyO || [],
     },
   });
 
-  const { handleSubmit } = methods;
+  const policyOptions = [
+    { id: "policy", name: t("register:inputs.policy.agreement") },
+  ];
 
-  useEffect(() => {
-    const updateFormFields = (newValues: Partial<RegisterFormData>) => {
-      methods.reset({ ...methods.getValues(), ...newValues });
-    };
-
-    setIsLoading(true);
-    fetchUserByGarantiaId({ garantiaId })
-      .then((data) => {
-        setUserData(data);
-        setIsLoading(false);
-        if (data.status === HTTP_CODES_ENUM.ACCEPTED) {
-          updateFormFields(data.data);
-          return data;
-        } else if (data.status === HTTP_CODES_ENUM.NOT_FOUND) {
-          return false;
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to fetch user data:", err);
-        setIsLoading(false);
-      });
-  }, [fetchUserByGarantiaId, garantiaId, methods]);
+  const { handleSubmit, setError } = methods;
+  const garantiaId = props.params.id || "";
 
   const onSubmit = handleSubmit(async (formData) => {
     const extendedFormData: RegisterFormData = {
       ...formData,
-      garantiaId: props.params.id,
-      userId: user?.id || "",
-      phoneNumber: "+" + user?.phoneNumber || "",
-      isEmailVerified: false,
-      id: "",
+      garantiaId: garantiaId,
+      userId: "",
+      phoneNumber: "",
     };
-
-    try {
-      delete extendedFormData.isEmailVerified;
-      delete extendedFormData.id;
-    } catch (e) {}
 
     const { data: dataRegister, status: statusRegister } =
       await fetchRegisterGarantia(extendedFormData);
@@ -231,25 +143,12 @@ function Form(props: Props) {
       return;
     }
 
-    if (statusRegister === HTTP_CODES_ENUM.ACCEPTED) {
+    if (statusRegister === HTTP_CODES_ENUM.OK) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",
       });
 
       router.replace("listing");
-    }
-    const { data: dataSignIn, status: statusSignIn } = await fetchAuthLogin({
-      email: formData.email,
-      password: formData.password,
-    });
-
-    if (statusSignIn === HTTP_CODES_ENUM.OK) {
-      setTokensInfo({
-        token: dataSignIn.token,
-        refreshToken: dataSignIn.refreshToken,
-        tokenExpires: dataSignIn.tokenExpires,
-      });
-      setUser(dataSignIn.user);
     }
   });
 
@@ -260,7 +159,6 @@ function Form(props: Props) {
           <Grid container spacing={2} mb={2}>
             <Grid item xs={12} mt={3}>
               <Typography variant="h6">{t("register:title")}</Typography>
-              <Typography variant="body2">{userData.user.firstName}</Typography>
             </Grid>
             <Grid item xs={12}>
               <FormTextInput<RegisterFormData>

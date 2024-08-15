@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@mui/material/Button";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
+import { useForm, FormProvider, useFormState, Resolver } from "react-hook-form";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -15,12 +15,16 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { CreateGarantiasService } from "@/services/api/services/garantia";
 import { useRouter } from "next/navigation";
-import { Role } from "@/services/api/types/role";
+// import { Role } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+//import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 
-type CreateUserFormData = {
+interface CreateUserFormData {
   quantity: number;
+}
+
+type OptionType = {
+  id: number;
 };
 
 const useValidationSchema = () => {
@@ -28,11 +32,9 @@ const useValidationSchema = () => {
 
   return yup.object().shape({
     quantity: yup
-      .object()
-      .shape({
-        id: yup.mixed<string | number>().required(),
-        name: yup.string(),
-      })
+      .number()
+      .required("Quantity is required")
+      .positive("Quantity must be a positive number")
       .required(t("admin-panel-users-create:inputs.role.validation.required")),
   });
 };
@@ -62,10 +64,12 @@ function FormCreateGarantias() {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const resolver: Resolver<CreateUserFormData> = yupResolver(validationSchema);
+
   const methods = useForm<CreateUserFormData>({
-    resolver: yupResolver(validationSchema),
+    resolver,
     defaultValues: {
-      quantity: 0,
+      quantity: 5,
     },
   });
 
@@ -106,30 +110,13 @@ function FormCreateGarantias() {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <FormSelectInput<CreateUserFormData, Pick<Role, "id">>
+              <FormSelectInput<CreateUserFormData, OptionType>
                 name="quantity"
                 testId="quantity"
                 label={t("admin-panel-users-create:inputs.role.label")}
-                options={[
-                  {
-                    id: 5,
-                  },
-                  {
-                    id: 10,
-                  },
-                  {
-                    id: 15,
-                  },
-                  {
-                    id: 20,
-                  },
-                  {
-                    id: 25,
-                  },
-                  {
-                    id: 30,
-                  },
-                ]}
+                options={Array.from({ length: 6 }, (_, i) => ({
+                  id: (i + 1) * 5,
+                }))}
                 keyValue="id"
                 renderOption={(option) => option.id}
               />
@@ -160,4 +147,4 @@ function CreateGarantias() {
 }
 
 // export default withPageRequiredAuth(CreateGarantias);
-export default withPageRequiredGuest(CreateGarantias);
+export default CreateGarantias;

@@ -272,9 +272,9 @@ export function useGetGarantiasService() {
 
 export type CreateGarantiaRequest = {
   quantity: number;
-  length: number;
-  type: string;
-  prefix: string;
+  length?: number;
+  type?: string;
+  prefix?: string;
 };
 
 export function CreateGarantiasService() {

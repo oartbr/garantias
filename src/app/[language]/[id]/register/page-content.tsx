@@ -1,3 +1,4 @@
+"use client";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";

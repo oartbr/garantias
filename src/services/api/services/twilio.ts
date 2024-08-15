@@ -10,7 +10,7 @@ commClient.messages
   .create({
     body: "Your appointment is coming up on July 21 at 3PM",
     from: process.env.ACCOUNTSID,
-    to: process.env.FROMWHATS,
+    to: process.env.FROMWHATS || "",
   })
   .then((message) => console.log(message.sid));
 

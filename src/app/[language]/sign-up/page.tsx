@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; slug: string };
+  params: { language: string; slug: string; id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useRegisterGarantiaService } from "@/services/api/services/garantia";
 
@@ -91,6 +91,8 @@ const policyO: TPolicy[] = [
 
 function Form(props: Props) {
   const fetchRegisterGarantia = useRegisterGarantiaService();
+  const router = useRouter();
+  const { t } = useTranslation("register");
   // const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
 
   const validationSchema: yup.ObjectSchema<RegisterFormData> =

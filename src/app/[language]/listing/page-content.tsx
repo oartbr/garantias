@@ -39,6 +39,7 @@ function List(props: Props) {
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
   // const router = useRouter();
+
   // const { t } = useTranslation("register");
   const { user } = useAuth();
   const garantiaId = props.params.id;

@@ -1,0 +1,9 @@
+{
+  "title": "Garantias",
+  "actions": {
+    "submit": "Sign In",
+    "createAccount": "Create Account",
+    "forgotPassword": "Forgot Password?"
+  },
+  "or": "OR"
+}

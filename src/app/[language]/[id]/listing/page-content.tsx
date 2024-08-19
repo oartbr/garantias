@@ -14,21 +14,10 @@ import Grid from "@mui/material/Grid";
 import { ItemCard } from "../../../../components/itemCard/itemCard";
 import { useTranslation } from "@/services/i18n/client";
 
-type ItemCardProps = {
-  description: string;
-  sku: string;
-  garantiaId: string;
-  brand: string;
-  firstName: string;
-  lastName: string;
-  address: string;
-  number: string;
-  city: string;
-  zipcode: string;
-  registeredAt: string;
-};
+type ItemCardProps = Garantia;
 
 import React, { useEffect, useState } from "react";
+import { Garantia } from "../../../../services/api/types/garantia";
 
 type Props = {
   params: { language: string; id: string };
@@ -98,18 +87,3 @@ function Listing(props: Props) {
 }
 
 export default withPageRequiredGuest(Listing);
-/*
-<Paper className="garantiaItem">
-<Grid item xs={12} spacing={10}>
-  <h4>{item.garantiaId}</h4>
-  <div>{item.description}</div>
-  <Grid item xs={3} spacing={10}>
-    <a href="manual" target="_blank">
-      Manual
-    </a>
-    <a href="garantia" target="_blank">
-      Garantia
-    </a>
-  </Grid>
-</Grid>
-</Paper> */

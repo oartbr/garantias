@@ -233,6 +233,32 @@ export function useGetListingByUserService() {
 }
 // GetUserByUserreponse should be a 200 status code with the User's details.
 
+// GetGarantia
+// this will check if the garantia exists and return the details.
+export type GetGarantiaRequest = {
+  garantiaId: string;
+};
+
+export type GetGarantiaResponse = {
+  garantia: Garantia;
+  status: HTTP_CODES_ENUM;
+};
+
+export function useGetGarantiaService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (data: GetGarantiaRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/garantia/${data.garantiaId}`, {
+        method: "GET",
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GetGarantiaResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetGarantia should be a 200 status code with the Garantia's details.
+
 export type GarantiasRequest = {
   page: number;
   limit: number;

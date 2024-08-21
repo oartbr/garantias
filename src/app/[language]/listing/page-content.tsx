@@ -52,7 +52,7 @@ function List(props: Props) {
           setIsLoading(false); // Update loading state
         });
     }
-  }, [user, fetchListGarantias]); // Include 'fetchListGarantias' in the dependency array
+  }, [user, fetchListGarantias, garantiaId]); // Include 'fetchListGarantias' in the dependency array
 
   return (
     <Container maxWidth="sm" className="mainContainer">

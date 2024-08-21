@@ -58,7 +58,7 @@ function AuthProvider(props: PropsWithChildren<{}>) {
     const tokens = JSON.parse(
       Cookies.get(AUTH_TOKEN_KEY) ?? "null"
     ) as TokensInfo;
-    console.log({ logout: tokens });
+
     if (tokensInfoRef.current.token) {
       await fetchBase(
         AUTH_LOGOUT_URL,

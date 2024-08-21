@@ -26,10 +26,6 @@ type RegisterFormData = {
   countryCode: { label: string; value: string };
 };
 
-type Props = {
-  params: { language: string; id: string };
-};
-
 const useValidationSchema = () => {
   const { t } = useTranslation("register");
 
@@ -68,7 +64,7 @@ function FormActions() {
   );
 }
 
-function Form(props: Props) {
+function Form() {
   const { enqueueSnackbar } = useSnackbar();
   const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
@@ -78,7 +74,7 @@ function Form(props: Props) {
   const countryList = getCountryDataList()
     .filter((country: ICountryData) => country.continent === "SA")
     .map((country: ICountryData) => {
-      console.log(country, props.params.language);
+      // console.log(country, props.params.language);
       return {
         label: country.name,
         value: country.iso2,
@@ -143,7 +139,7 @@ function Form(props: Props) {
               </Typography>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <FormSelectInput
                   name="countryCode"
                   label="Select country"
@@ -153,7 +149,7 @@ function Form(props: Props) {
                   testId="example-select-input"
                 />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <FormTextInput<RegisterFormData>
                   name="phoneNumber"
                   label={t("register:inputs.phoneNumber.label")}
@@ -172,8 +168,8 @@ function Form(props: Props) {
   );
 }
 
-function CheckPhoneNumber(props: Props) {
-  return <Form params={props.params} />;
+function CheckPhoneNumber() {
+  return <Form />;
 }
 
 export default CheckPhoneNumber;

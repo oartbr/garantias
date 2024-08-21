@@ -35,7 +35,7 @@ function List(props: Props) {
   const fetchGarantia = useGetGarantiaService();
   const [isLoading, setIsLoading] = useState({});
   const [item, setItem] = useState<Garantia | null>(null);
-  console.log({ user, item });
+  // console.log({ user, item });
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id.toString() })

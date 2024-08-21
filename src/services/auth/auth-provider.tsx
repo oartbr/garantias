@@ -55,16 +55,21 @@ function AuthProvider(props: PropsWithChildren<{}>) {
   );
 
   const logOut = useCallback(async () => {
+    const tokens = JSON.parse(
+      Cookies.get(AUTH_TOKEN_KEY) ?? "null"
+    ) as TokensInfo;
+    console.log({ logout: tokens });
     if (tokensInfoRef.current.token) {
       await fetchBase(
         AUTH_LOGOUT_URL,
         {
           method: "POST",
+          body: JSON.stringify({ refreshToken: tokens?.refreshToken }),
         },
         {
-          token: tokensInfoRef.current.token,
-          refreshToken: tokensInfoRef.current.refreshToken,
-          tokenExpires: tokensInfoRef.current.tokenExpires,
+          token: tokens?.token,
+          refreshToken: tokens?.refreshToken,
+          tokenExpires: tokens?.tokenExpires,
         }
       );
     }

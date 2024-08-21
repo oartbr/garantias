@@ -97,6 +97,7 @@ function Form({ params }: Props) {
     //const params = new URLSearchParams(window.location.search);
     //const hash = params.get("hash");
     const phoneNumber = searchParams.get("p");
+    //const returnTo = searchParams.get("returnTo");
 
     const { data, status } = await fetchCheckCode({
       phoneNumber: phoneNumber ?? "",

@@ -16,6 +16,7 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useRegisterGarantiaService } from "@/services/api/services/garantia";
+import useAuth from "@/services/auth/use-auth";
 
 type TPolicy = {
   id?: string;
@@ -36,7 +37,7 @@ type RegisterFormData = {
   email: string;
   policy: { id?: string; name?: string }[];
   garantiaId?: string;
-  userId?: string;
+  userId?: string | undefined;
   phoneNumber?: string;
 };
 
@@ -94,6 +95,7 @@ function Form(props: Props) {
   const fetchRegisterGarantia = useRegisterGarantiaService();
   const router = useRouter();
   const { t } = useTranslation("register");
+  const { user } = useAuth();
   // const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
 
   const validationSchema: yup.ObjectSchema<RegisterFormData> =
@@ -124,8 +126,8 @@ function Form(props: Props) {
     const extendedFormData: RegisterFormData = {
       ...formData,
       garantiaId: garantiaId,
-      userId: "",
-      phoneNumber: "",
+      userId: user?.id.toString() || "",
+      phoneNumber: user?.phoneNumber?.toString() || "",
     };
 
     const { data: dataRegister, status: statusRegister } =
@@ -150,8 +152,8 @@ function Form(props: Props) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",
       });
-
-      router.replace("listing");
+      console.log("Register success:", dataRegister);
+      router.replace("/listing");
     }
   });
 

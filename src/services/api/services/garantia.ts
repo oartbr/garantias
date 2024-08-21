@@ -237,6 +237,7 @@ export function useGetListingByUserService() {
 // this will check if the garantia exists and return the details.
 export type GetGarantiaRequest = {
   garantiaId: string;
+  userId?: string;
 };
 
 export type GetGarantiaResponse = {
@@ -249,10 +250,24 @@ export function useGetGarantiaService() {
 
   return useCallback(
     (data: GetGarantiaRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/garantia/${data.garantiaId}`, {
-        method: "GET",
-        ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GetGarantiaResponse>);
+      return fetchBase(
+        `${API_URL}/v1/garantia/${data.garantiaId}${data.userId ? "/" + data.userId : ""}`,
+        {
+          method: "GET",
+          ...requestConfig,
+        }
+      )
+        .then(wrapperFetchJsonResponse<GetGarantiaResponse>)
+        .then((response) => {
+          if (
+            response.status === HTTP_CODES_ENUM.OK &&
+            data.userId === response.data.garantia.userId
+          ) {
+            return response;
+          } else {
+            return false;
+          }
+        });
     },
     [fetchBase]
   );

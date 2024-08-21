@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Register from "./page-content";
 import { getServerTranslation } from "@/services/i18n";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function RegisterPage(props: Props) {
   if (!IS_SIGN_UP_ENABLED) {
-    return redirect("/");
+    //return redirect("/");
   }
 
   return <Register {...props} />;

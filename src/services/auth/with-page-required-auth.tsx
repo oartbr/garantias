@@ -47,7 +47,7 @@ function withPageRequiredAuth(
           returnTo: returnToPath,
         });
 
-        let redirectTo = `/${language}/sign-in?${params.toString()}`;
+        let redirectTo = `check-phone-number?${params.toString()}`;
 
         if (user) {
           redirectTo = `/${language}`;

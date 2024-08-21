@@ -5,10 +5,7 @@ import useAuth from "@/services/auth/use-auth";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import {
-  useGetGarantiaService,
-  useGetListingByUserService,
-} from "@/services/api/services/garantia";
+import { useGetGarantiaService } from "@/services/api/services/garantia";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
@@ -34,56 +31,45 @@ function List(props: Props) {
   const { user } = useAuth();
   const garantiaId = props.params.id;
 
-  const fetchListGarantias = useGetListingByUserService();
+  // const fetchListGarantias = useGetListingByUserService();
   const fetchGarantia = useGetGarantiaService();
   const [isLoading, setIsLoading] = useState({});
-  const [item, setItems] = useState<Garantia>({} as Garantia);
-
+  const [item, setItem] = useState<Garantia | null>(null);
+  console.log({ user, item });
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
-    if (user) {
-      fetchGarantia({ garantiaId: garantiaId })
-        .then((data) => {
-          if (data.status === HTTP_CODES_ENUM.OK) {
-            console.log({ data });
-            setItems(data.data.garantia as Garantia); // Step 3: Update state with fetched data
-            setIsLoading(false); // Update loading state
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to fetch client data:", err);
+    fetchGarantia({ garantiaId: garantiaId, userId: user?.id.toString() })
+      .then((data) => {
+        if (data && data.status === HTTP_CODES_ENUM.OK) {
+          setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
           setIsLoading(false); // Update loading state
-        });
-    } else {
-      fetchGarantia({ garantiaId: garantiaId })
-        .then((data) => {
-          if (data.status === HTTP_CODES_ENUM.OK) {
-            //router.replace(`${garantiaId}/check-phone-number`); // if user is not logged in, redirect to check-phone-number
-            setIsLoading(false); // Update loading state
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to fetch client data:", err);
+        } else {
+          //setItem(null);
           setIsLoading(false); // Update loading state
-        });
-      setIsLoading(false); // Update loading state
-    }
-  }, [user, fetchListGarantias, fetchGarantia, garantiaId, router]); // Include 'fetchListGarantias' in the dependency array
+          // console.error("Failed to fetch client data:", err);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch client data:", err);
+        setIsLoading(false); // Update loading state
+      });
+  }, [user, fetchGarantia]);
 
   return (
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          {isLoading ? (
-            <h3>Cargando...</h3>
-          ) : (
+          <h3></h3>
+          {!isLoading && item && item.status === "assigned" && (
             <h3>Desea registrar la garantia de este producto?</h3>
+          )}
+          {!isLoading && item && item.status === "registered" && (
+            <h3>Garantia {item.garantiaId} registrada en su cuenta: </h3>
           )}
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && item && (
             <Grid item xs={12}>
               <ItemCard
                 item={item}
@@ -92,6 +78,9 @@ function List(props: Props) {
                 }}
               />
             </Grid>
+          )}
+          {!isLoading && !item && (
+            <h3>La garantía no fue identificada o ya fue registrada.</h3>
           )}
         </Grid>
       </Grid>

@@ -110,7 +110,7 @@ function Form(props: Props) {
         variant: "success",
       });
 
-      router.replace("confirm-code?p=" + country.phone + formData.phoneNumber);
+      router.replace(`confirm-code?p=${country.phone}${formData.phoneNumber}`);
     }
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {

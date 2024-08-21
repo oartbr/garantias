@@ -8,7 +8,7 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useGetListingByUserService } from "@/services/api/services/garantia";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
@@ -27,7 +27,7 @@ function List(props: Props) {
   // const { setTokensInfo } = useAuthTokens();
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
-  // const router = useRouter();
+  const router = useRouter();
 
   // const { t } = useTranslation("register");
   const { user } = useAuth();
@@ -48,7 +48,7 @@ function List(props: Props) {
           }
         })
         .catch((err) => {
-          console.error("Failed to fetch client data:", err);
+          console.error(`Failed to fetch client data: ${garantiaId}`, err);
           setIsLoading(false); // Update loading state
         });
     }
@@ -69,7 +69,7 @@ function List(props: Props) {
                 <ItemCard
                   item={item}
                   onClick={() => {
-                    console.log("Clicked on item:", item, garantiaId);
+                    router.replace(`${item.garantiaId}`);
                   }}
                 />
               </Grid>

@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import FormCheckboxInput from "@/components/form/checkbox/form-checkbox";
+import PhoneNumberForm from "@/components/phoneNumberForm";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "@/components/link";
@@ -22,7 +23,8 @@ import Chip from "@mui/material/Chip";
 import SocialAuth from "@/services/social-auth/social-auth";
 import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
 import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+// import { Phone } from "@mui/icons-material";
 
 type Props = {
   params: { id: string; language: string };
@@ -39,6 +41,10 @@ type SignUpFormData = {
   email: string;
   password: string;
   phoneNumber?: string;
+  phNumber?: {
+    countryCode?: { value?: string; lable?: string; code?: number };
+    phoneNumber?: string;
+  };
   policy: TPolicy[];
 };
 
@@ -65,6 +71,14 @@ const useValidationSchema = () => {
       .min(1, t("sign-up:inputs.policy.validation.required"))
       .required(),
     phoneNumber: yup.string(),
+    phNumber: yup.object().shape({
+      countryCode: yup.object().shape({
+        value: yup.string(),
+        lable: yup.string(),
+        code: yup.number(),
+      }),
+      phoneNumber: yup.string(),
+    }),
   });
 };
 
@@ -92,7 +106,7 @@ function Form(props: Props) {
   const fetchAuthSignUp = useAuthSignUpService();
   const { t } = useTranslation("sign-up");
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const validationSchema = useValidationSchema();
   const policyOptions = [
     { id: "policy", name: t("sign-up:inputs.policy.agreement") },
@@ -108,14 +122,22 @@ function Form(props: Props) {
       password: "",
       policy: [],
       phoneNumber: "",
+      phNumber: {
+        countryCode: { value: "", lable: "", code: 1 },
+        phoneNumber: "",
+      },
     },
   });
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const phoneNumber = searchParams.get("p") ?? "";
-    formData.phoneNumber = phoneNumber;
+    const { phNumber } = formData;
+    const oPhoneNumber = `${phNumber?.countryCode?.code}${phNumber?.phoneNumber}`;
+    console.log({ oPhoneNumber });
+
+    formData.phoneNumber = oPhoneNumber;
+    delete formData.phNumber;
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -184,6 +206,10 @@ function Form(props: Props) {
                 type="text"
                 testId="last-name"
               />
+            </Grid>
+
+            <Grid item xs={12}>
+              <PhoneNumberForm name="phNumber" />
             </Grid>
 
             <Grid item xs={12}>

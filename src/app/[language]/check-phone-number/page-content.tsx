@@ -153,7 +153,7 @@ function Form(props: Props) {
                   testId="example-select-input"
                 />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <FormTextInput<RegisterFormData>
                   name="phoneNumber"
                   label={t("register:inputs.phoneNumber.label")}
@@ -162,7 +162,7 @@ function Form(props: Props) {
                 />
               </Grid>
             </Grid>
-            <Grid item xs={12} mt={6}>
+            <Grid item xs={7} mt={2}>
               <FormActions />
             </Grid>
           </Grid>

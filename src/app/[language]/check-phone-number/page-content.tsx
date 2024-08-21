@@ -26,6 +26,10 @@ type RegisterFormData = {
   countryCode: { label: string; value: string };
 };
 
+type Props = {
+  params: { language: string; id: string };
+};
+
 const useValidationSchema = () => {
   const { t } = useTranslation("register");
 
@@ -64,17 +68,17 @@ function FormActions() {
   );
 }
 
-function Form() {
+function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
   const validationSchema = useValidationSchema();
   const router = useRouter();
+  console.log(props.params);
 
   const countryList = getCountryDataList()
     .filter((country: ICountryData) => country.continent === "SA")
     .map((country: ICountryData) => {
-      // console.log(country, props.params.language);
       return {
         label: country.name,
         value: country.iso2,
@@ -149,7 +153,7 @@ function Form() {
                   testId="example-select-input"
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid item xs={9}>
                 <FormTextInput<RegisterFormData>
                   name="phoneNumber"
                   label={t("register:inputs.phoneNumber.label")}
@@ -168,8 +172,8 @@ function Form() {
   );
 }
 
-function CheckPhoneNumber() {
-  return <Form />;
+function CheckPhoneNumber(props: Props) {
+  return <Form params={props.params} />;
 }
 
 export default CheckPhoneNumber;

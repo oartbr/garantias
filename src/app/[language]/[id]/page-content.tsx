@@ -53,7 +53,7 @@ function List(props: Props) {
         console.error("Failed to fetch client data:", err);
         setIsLoading(false); // Update loading state
       });
-  }, [user, fetchGarantia]);
+  }, [user, fetchGarantia, garantiaId]);
 
   return (
     <Container maxWidth="sm" className="mainContainer">

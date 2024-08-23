@@ -8,7 +8,8 @@
     "signUp": "Registrarse",
     "profile": "Perfil",
     "users": "Usuarios",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "codes": "Códigos"
   },
   "formInputs": {
     "avatarInput": {

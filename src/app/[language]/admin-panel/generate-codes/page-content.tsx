@@ -19,8 +19,8 @@ import { useRouter } from "next/navigation";
 import FormSelectInput from "@/components/form/select/form-select";
 //import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 
-interface CreateUserFormData {
-  quantity: number;
+interface GenerateCodesFormData {
+  quantity: OptionType;
 }
 
 type OptionType = {
@@ -31,15 +31,17 @@ const useValidationSchema = () => {
   const { t } = useTranslation("admin-panel-users-create");
 
   return yup.object().shape({
-    quantity: yup
-      .number()
-      .required("Quantity is required")
-      .positive("Quantity must be a positive number")
-      .required(t("admin-panel-users-create:inputs.role.validation.required")),
+    quantity: yup.object({
+      id: yup
+        .number()
+        .required(
+          t("admin-panel-users-create:inputs.role.validation.required")
+        ),
+    }),
   });
 };
 
-function CreateUserFormActions() {
+function GenerateCodesFormActions() {
   const { t } = useTranslation("admin-panel-users-create");
   const { isSubmitting, isDirty } = useFormState();
   useLeavePage(isDirty);
@@ -51,35 +53,46 @@ function CreateUserFormActions() {
       type="submit"
       disabled={isSubmitting}
     >
-      {t("admin-panel-users-create:actions.submit")}
+      {t("admin-panel-code-generate:actions.create")}
     </Button>
   );
 }
 
 function FormCreateGarantias() {
   const router = useRouter();
-  const fetchPostGarantia = CreateGarantiasService();
-  const { t } = useTranslation("admin-panel-users-create");
+  const fetchCreateCodes = CreateGarantiasService();
+  const { t } = useTranslation("admin-panel-code-generate");
   const validationSchema = useValidationSchema();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const resolver: Resolver<CreateUserFormData> = yupResolver(validationSchema);
+  const resolver: Resolver<GenerateCodesFormData> =
+    yupResolver(validationSchema);
 
-  const methods = useForm<CreateUserFormData>({
+  const methods = useForm<GenerateCodesFormData>({
     resolver,
     defaultValues: {
-      quantity: 5,
+      quantity: { id: 5 },
     },
   });
 
   const { handleSubmit, setError } = methods;
 
+  // Preprocessing function for select value
+  const preprocessData = (data: GenerateCodesFormData) => {
+    const transformedData = {
+      ...data,
+      quantity: data.quantity.id,
+    };
+    return transformedData;
+  };
+
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchPostGarantia(formData);
+    const preprocessedFormData = preprocessData(formData);
+    const { data, status } = await fetchCreateCodes(preprocessedFormData);
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (Object.keys(data.errors) as Array<keyof CreateUserFormData>).forEach(
+      (Object.keys(data.errors) as Array<keyof GenerateCodesFormData>).forEach(
         (key) => {
           setError(key, {
             type: "manual",
@@ -102,18 +115,18 @@ function FormCreateGarantias() {
   return (
     <FormProvider {...methods}>
       <Container maxWidth="xs">
-        <form onSubmit={onSubmit} autoComplete="create-new-user">
+        <form onSubmit={onSubmit}>
           <Grid container spacing={2} mb={3} mt={3}>
             <Grid item xs={12}>
               <Typography variant="h6">
-                {t("admin-panel-users-create:title")}
+                {t("admin-panel-code-generate:title")}
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <FormSelectInput<CreateUserFormData, OptionType>
+              <FormSelectInput<GenerateCodesFormData, OptionType>
                 name="quantity"
                 testId="quantity"
-                label={t("admin-panel-users-create:inputs.role.label")}
+                label={t("admin-panel-code-generate:inputs.quantity.label")}
                 options={Array.from({ length: 6 }, (_, i) => ({
                   id: (i + 1) * 5,
                 }))}
@@ -123,7 +136,7 @@ function FormCreateGarantias() {
             </Grid>
 
             <Grid item xs={12}>
-              <CreateUserFormActions />
+              <GenerateCodesFormActions />
               <Box ml={1} component="span">
                 <Button
                   variant="contained"
@@ -131,7 +144,7 @@ function FormCreateGarantias() {
                   LinkComponent={Link}
                   href="/admin-panel/users"
                 >
-                  {t("admin-panel-users-create:actions.cancel")}
+                  {t("admin-panel-code-generate:actions.cancel")}
                 </Button>
               </Box>
             </Grid>

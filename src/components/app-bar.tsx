@@ -112,7 +112,7 @@ function ResponsiveAppBar() {
                   {t("common:navigation.home")}
                 </Typography>
               </MenuItem>
-
+              {/* Menu starts here */}
               {!!user?.role &&
                 [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
                   <MenuItem
@@ -120,6 +120,19 @@ function ResponsiveAppBar() {
                     onClick={handleCloseNavMenu}
                     component={Link}
                     href="/admin-panel/users"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.users")}
+                    </Typography>
+                  </MenuItem>,
+                ]}
+              {!!user?.role &&
+                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="codes"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/admin-panel/generate-codes"
                   >
                     <Typography textAlign="center">
                       {t("common:navigation.users")}
@@ -195,7 +208,7 @@ function ResponsiveAppBar() {
             >
               {t("common:navigation.home")}
             </Button>
-
+            {/* Menu starts here */}
             {!!user?.role &&
               [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
                 <Button
@@ -205,6 +218,17 @@ function ResponsiveAppBar() {
                   href="/admin-panel/users"
                 >
                   {t("common:navigation.users")}
+                </Button>
+              )}
+            {!!user?.role &&
+              [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  component={Link}
+                  href="/admin-panel/generate-codes"
+                >
+                  {t("common:navigation.codes")}
                 </Button>
               )}
             {!!user?.role &&

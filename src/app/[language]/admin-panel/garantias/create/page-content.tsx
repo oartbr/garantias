@@ -111,7 +111,7 @@ function FormCreateGarantias() {
           variant: "success",
         }
       );
-      router.push("/admin-panel/users");
+      router.push("/admin-panel/garantias");
     }
   });
 

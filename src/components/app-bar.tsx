@@ -75,9 +75,9 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            {t("common:app-name")}
+            {/* t("common:app-name") */}
           </Typography>
-
+          {/* Menu starts here // SX */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -112,7 +112,7 @@ function ResponsiveAppBar() {
                   {t("common:navigation.home")}
                 </Typography>
               </MenuItem>
-              {/* Menu starts here */}
+
               {!!user?.role &&
                 [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
                   <MenuItem
@@ -135,7 +135,20 @@ function ResponsiveAppBar() {
                     href="/admin-panel/generate-codes"
                   >
                     <Typography textAlign="center">
-                      {t("common:navigation.users")}
+                      {t("common:navigation.generate-codes")}
+                    </Typography>
+                  </MenuItem>,
+                ]}
+              {!!user?.role &&
+                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="codes"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/admin-panel/garantias"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.garantias")}
                     </Typography>
                   </MenuItem>,
                 ]}
@@ -197,7 +210,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            {t("common:app-name")}
+            {/* t("common:app-name") */}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
@@ -208,7 +221,7 @@ function ResponsiveAppBar() {
             >
               {t("common:navigation.home")}
             </Button>
-            {/* Menu starts here */}
+            {/* Menu large browser starts here */}
             {!!user?.role &&
               [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
                 <Button
@@ -226,9 +239,9 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                   component={Link}
-                  href="/admin-panel/generate-codes"
+                  href="/admin-panel/garantias"
                 >
-                  {t("common:navigation.codes")}
+                  {t("common:navigation.garantias")}
                 </Button>
               )}
             {!!user?.role &&

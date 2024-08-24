@@ -292,7 +292,7 @@ export function useGetGarantiasService() {
 
   return useCallback(
     (data: GarantiasRequest, requestConfig?: RequestConfigType) => {
-      const requestUrl = new URL(`${API_URL}/v1/garantias/getAvailable'`);
+      const requestUrl = new URL(`${API_URL}/v1/garantia/getAll`);
       requestUrl.searchParams.append("page", data.page.toString());
       requestUrl.searchParams.append("limit", data.limit.toString());
       if (data.filters) {

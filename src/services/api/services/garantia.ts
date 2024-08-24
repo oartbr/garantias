@@ -11,12 +11,13 @@ import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
 import { Garantia } from "../types/garantia";
 // import { CheckPhoneNumber } from "../types/checkPhoneNumber";
 import { InfinityPaginationType } from "../types/infinity-pagination";
-import { Role } from "../types/role";
+// import { Role } from "../types/role";
 import { SortEnum } from "../types/sort-type";
 import { RequestConfigType } from "./types/request-config";
 import { Tokens } from "@/services/api/types/tokens";
 import { User } from "@/services/api/types/user";
 import HTTP_CODES_ENUM from "../types/http-codes";
+import { Status } from "../types/status";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
@@ -278,7 +279,7 @@ export type GarantiasRequest = {
   page: number;
   limit: number;
   filters?: {
-    roles?: Role[];
+    status?: Status[];
   };
   sort?: Array<{
     order: SortEnum;

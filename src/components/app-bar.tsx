@@ -132,19 +132,6 @@ function ResponsiveAppBar() {
                     key="codes"
                     onClick={handleCloseNavMenu}
                     component={Link}
-                    href="/admin-panel/generate-codes"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.generate-codes")}
-                    </Typography>
-                  </MenuItem>,
-                ]}
-              {!!user?.role &&
-                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
-                  <MenuItem
-                    key="codes"
-                    onClick={handleCloseNavMenu}
-                    component={Link}
                     href="/admin-panel/garantias"
                   >
                     <Typography textAlign="center">

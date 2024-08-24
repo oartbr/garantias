@@ -20,8 +20,8 @@
   },
   "confirm": {
     "delete": {
-      "title": "Eliminar Garantia",
-      "message": "¿Estás seguro de que deseas eliminar este Garantia?"
+      "title": "Borrar Garantia",
+      "message": "¿Estás seguro de que deseas eliminar esta Garantia?"
     }
   },
   "filter": {

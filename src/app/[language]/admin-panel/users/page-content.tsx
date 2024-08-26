@@ -372,8 +372,10 @@ function Users() {
                     src={user?.photo?.path}
                   />
                 </TableCell>
-                <TableCell style={{ width: 100 }}>{user?.id}</TableCell>
-                <TableCell style={{ width: 200 }}>
+                <TableCell style={{ width: 50 }}>
+                  {"+" + user?.phoneNumber}
+                </TableCell>
+                <TableCell style={{ width: 220 }}>
                   {user?.firstName} {user?.lastName}
                 </TableCell>
                 <TableCell>{user?.email}</TableCell>

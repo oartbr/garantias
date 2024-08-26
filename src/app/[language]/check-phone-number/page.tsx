@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CheckPhoneNumber from "./page-content";
+import CheckPhoneNumber from "./page-content-OLD";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {

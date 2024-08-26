@@ -1,7 +1,7 @@
 {
   "title": "Usuarios",
   "table": {
-    "column1": "ID",
+    "column1": "Teléfono",
     "column2": "Nombre",
     "column3": "Correo Electrónico",
     "column4": "Rol"

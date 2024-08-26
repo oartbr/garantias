@@ -19,8 +19,10 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { usePostUserService } from "@/services/api/services/users";
 import { useRouter } from "next/navigation";
-import { Role, RoleEnum } from "@/services/api/types/role";
-import FormSelectInput from "@/components/form/select/form-select";
+//import { Role, RoleEnum } from "@/services/api/types/role";
+//import FormSelectInput from "@/components/form/select/form-select";
+import PhoneNumberInput from "@/components/form/select/form-phoneNumber";
+// import PhoneNumberForm from "@/components/phoneNumberForm";
 
 type CreateUserFormData = {
   email: string;
@@ -29,7 +31,9 @@ type CreateUserFormData = {
   password: string;
   passwordConfirmation: string;
   photo?: FileEntity;
-  role: Role;
+  phoneNumber: string;
+  phNumber?: string;
+  areaCode?: Record<string, string>;
 };
 
 const useValidationSchema = () => {
@@ -54,7 +58,7 @@ const useValidationSchema = () => {
       ),
     password: yup
       .string()
-      .min(6, t("admin-panel-users-create:inputs.password.validation.min"))
+      .min(8, t("admin-panel-users-create:inputs.password.validation.min"))
       .required(
         t("admin-panel-users-create:inputs.password.validation.required")
       ),
@@ -71,13 +75,7 @@ const useValidationSchema = () => {
           "admin-panel-users-create:inputs.passwordConfirmation.validation.required"
         )
       ),
-    role: yup
-      .object()
-      .shape({
-        id: yup.mixed<string | number>().required(),
-        name: yup.string(),
-      })
-      .required(t("admin-panel-users-create:inputs.role.validation.required")),
+    phoneNumber: yup.string().required(),
   });
 };
 
@@ -114,16 +112,17 @@ function FormCreateUser() {
       lastName: "",
       password: "",
       passwordConfirmation: "",
-      role: {
-        id: RoleEnum.USER,
-      },
       photo: undefined,
+      phoneNumber: "",
     },
   });
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    delete formData.phNumber;
+    delete formData.areaCode;
+    // console.log({ formData });
     const { data, status } = await fetchPostUser(formData);
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof CreateUserFormData>).forEach(
@@ -165,6 +164,22 @@ function FormCreateUser() {
 
             <Grid item xs={12}>
               <FormTextInput<CreateUserFormData>
+                name="firstName"
+                testId="first-name"
+                label={t("admin-panel-users-create:inputs.firstName.label")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormTextInput<CreateUserFormData>
+                name="lastName"
+                testId="last-name"
+                label={t("admin-panel-users-create:inputs.lastName.label")}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormTextInput<CreateUserFormData>
                 name="email"
                 testId="new-user-email"
                 autoComplete="new-user-email"
@@ -172,6 +187,19 @@ function FormCreateUser() {
               />
             </Grid>
 
+            <Grid item xs={12}>
+              <PhoneNumberInput
+                name="phoneNumber"
+                numberLabel={t(
+                  "admin-panel-users-create:inputs.phoneNumber.label"
+                )}
+                areaCodeLabel={t(
+                  "admin-panel-users-create:inputs.areaCode.label"
+                )}
+                defaultValue=""
+                region="SA"
+              />
+            </Grid>
             <Grid item xs={12}>
               <FormTextInput<CreateUserFormData>
                 name="password"
@@ -193,22 +221,7 @@ function FormCreateUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <FormTextInput<CreateUserFormData>
-                name="firstName"
-                testId="first-name"
-                label={t("admin-panel-users-create:inputs.firstName.label")}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <FormTextInput<CreateUserFormData>
-                name="lastName"
-                testId="last-name"
-                label={t("admin-panel-users-create:inputs.lastName.label")}
-              />
-            </Grid>
-
+            {/* 
             <Grid item xs={12}>
               <FormSelectInput<CreateUserFormData, Pick<Role, "id">>
                 name="role"
@@ -228,7 +241,7 @@ function FormCreateUser() {
                 }
               />
             </Grid>
-
+            */}
             <Grid item xs={12}>
               <CreateUserFormActions />
               <Box ml={1} component="span">

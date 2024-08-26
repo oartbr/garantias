@@ -27,6 +27,18 @@
         }
       }
     },
+    "phoneNumber": {
+      "label": "Número de teléfono",
+      "validation": {
+        "required": "El número de teléfono es obligatorio"
+      }
+    },
+    "areaCode": {
+      "label": "País",
+      "validation": {
+        "required": "El país es obligatorio"
+      }
+    },
     "password": {
       "label": "Password",
       "validation": {

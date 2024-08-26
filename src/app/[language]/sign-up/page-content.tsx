@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import FormCheckboxInput from "@/components/form/checkbox/form-checkbox";
-import PhoneNumberForm from "@/components/phoneNumberForm";
+import PhoneNumberInput from "@/components/form/select/form-phoneNumber";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "@/components/link";
@@ -40,12 +40,10 @@ type SignUpFormData = {
   lastName: string;
   email: string;
   password: string;
-  phoneNumber?: string;
-  phNumber?: {
-    countryCode?: { value?: string; lable?: string; code?: number };
-    phoneNumber?: string;
-  };
   policy: TPolicy[];
+  phoneNumber: string;
+  phNumber?: string;
+  areaCode?: Record<string, string>;
 };
 
 const useValidationSchema = () => {
@@ -70,15 +68,11 @@ const useValidationSchema = () => {
       .array()
       .min(1, t("sign-up:inputs.policy.validation.required"))
       .required(),
-    phoneNumber: yup.string(),
-    phNumber: yup.object().shape({
-      countryCode: yup.object().shape({
-        value: yup.string(),
-        lable: yup.string(),
-        code: yup.number(),
-      }),
-      phoneNumber: yup.string(),
-    }),
+    phoneNumber: yup
+      .string()
+      .required(t("sign-up:inputs.phoneNumber.validation.required")),
+    phNumber: yup.string().optional(),
+    areaCode: yup.object().optional(),
   });
 };
 
@@ -122,22 +116,14 @@ function Form(props: Props) {
       password: "",
       policy: [],
       phoneNumber: "",
-      phNumber: {
-        countryCode: { value: "", lable: "", code: 1 },
-        phoneNumber: "",
-      },
     },
   });
 
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { phNumber } = formData;
-    const oPhoneNumber = `${phNumber?.countryCode?.code}${phNumber?.phoneNumber}`;
-    console.log({ oPhoneNumber });
-
-    formData.phoneNumber = oPhoneNumber;
     delete formData.phNumber;
+    delete formData.areaCode;
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -209,7 +195,13 @@ function Form(props: Props) {
             </Grid>
 
             <Grid item xs={12}>
-              <PhoneNumberForm name="phNumber" />
+              <PhoneNumberInput
+                name="phoneNumber"
+                numberLabel={t("sign-up:inputs.phoneNumber.label")}
+                areaCodeLabel={t("sign-up:inputs.areaCode.label")}
+                defaultValue=""
+                region="SA"
+              />
             </Grid>
 
             <Grid item xs={12}>

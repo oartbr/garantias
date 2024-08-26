@@ -92,7 +92,7 @@ export function useGetUserService() {
 
 export type UserPostRequest = Pick<
   User,
-  "email" | "firstName" | "lastName" | "photo" | "role"
+  "email" | "firstName" | "lastName" | "photo" | "role" | "phoneNumber"
 > & {
   password: string;
 };

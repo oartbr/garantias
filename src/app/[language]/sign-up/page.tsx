@@ -5,7 +5,7 @@ import { getServerTranslation } from "@/services/i18n";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; slug: string; id: string };
+  params: { language: string; slug: string; id: string; returnToPath: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

@@ -23,11 +23,11 @@ import Chip from "@mui/material/Chip";
 import SocialAuth from "@/services/social-auth/social-auth";
 import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
 import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // import { Phone } from "@mui/icons-material";
 
 type Props = {
-  params: { id: string; language: string };
+  params: { id: string; language: string; slug: string };
 };
 
 type TPolicy = {
@@ -100,12 +100,13 @@ function Form(props: Props) {
   const fetchAuthSignUp = useAuthSignUpService();
   const { t } = useTranslation("sign-up");
   const router = useRouter();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const validationSchema = useValidationSchema();
   const policyOptions = [
     { id: "policy", name: t("sign-up:inputs.policy.agreement") },
   ];
   const garantiaId = props.params.id;
+  const sPhoneNumber = searchParams.get("p");
 
   const methods = useForm<SignUpFormData>({
     resolver: yupResolver<SignUpFormData>(validationSchema),
@@ -124,6 +125,7 @@ function Form(props: Props) {
   const onSubmit = handleSubmit(async (formData) => {
     delete formData.phNumber;
     delete formData.areaCode;
+    formData.phoneNumber = sPhoneNumber || "";
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -157,13 +159,15 @@ function Form(props: Props) {
       });
       setUser(dataSignUp.user);
 
-      if (garantiaId) {
-        console.log({ go: "register" });
-        router.replace(`register`);
-      } else {
-        console.log({ go: "listing" });
-        router.replace("listing");
-      }
+      setTimeout(() => {
+        if (garantiaId) {
+          console.log({ go: `${props.params.id}/register` });
+          router.replace(`${props.params.id}/register`);
+        } else {
+          console.log({ go: "listing" });
+          router.replace("listing");
+        }
+      }, 1000); // 2 seconds delay to make this work because of the API. To-do: fix this with a better solution.
     }
   });
 
@@ -194,13 +198,14 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ display: "none" }}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t("sign-up:inputs.phoneNumber.label")}
                 areaCodeLabel={t("sign-up:inputs.areaCode.label")}
-                defaultValue=""
+                defaultValue={sPhoneNumber || ""}
                 region="SA"
+                areaCodeDefault="BR"
               />
             </Grid>
 

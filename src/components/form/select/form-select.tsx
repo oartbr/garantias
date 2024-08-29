@@ -23,6 +23,7 @@ type SelectInputProps<T extends object> = {
   testId?: string;
   keyValue: keyof T;
   options: T[];
+  ref?: null;
   renderOption: (option: T) => React.ReactNode;
 };
 
@@ -114,6 +115,7 @@ function FormSelectInput<
           options={props.options}
           renderOption={props.renderOption}
           keyValue={props.keyValue}
+          ref={null}
         />
       )}
     />

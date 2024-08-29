@@ -280,6 +280,9 @@ function Users() {
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useUserListQuery({ filter, sort: { order, orderBy } });
+  console.log({
+    fetch: { data, hasNextPage, isFetchingNextPage, fetchNextPage },
+  });
   const handleScroll = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     fetchNextPage();

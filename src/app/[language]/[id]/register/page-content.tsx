@@ -153,7 +153,7 @@ function Form(props: Props) {
         variant: "success",
       });
       console.log("Register success:", dataRegister);
-      router.replace("/listing");
+      router.replace("/" + garantiaId);
     }
   });
 

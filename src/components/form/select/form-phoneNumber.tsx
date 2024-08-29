@@ -58,12 +58,14 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     }
   }, [areaCode, phNumber, setValue, name]);
 
+  setValue(name, `${areaCode}${phNumber}`);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
         <Controller
           name={`areaCode`}
-          defaultValue={areaCodeDefault ? areaCodeDefault : ""}
+          defaultValue={areaCodeDefault ? countryCodes[0] : {}}
           control={control}
           render={({ field, fieldState }) => (
             <FormSelectInput
@@ -73,6 +75,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
               error={fieldState.error?.message}
               renderOption={countryRenderOption}
               keyValue={"value"}
+              ref={null}
             />
           )}
         />
@@ -80,7 +83,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       <Grid item xs={7}>
         <Controller
           name={`phNumber`}
-          defaultValue={defaultValue ? defaultValue.slice(0, 3) : ""}
+          defaultValue={defaultValue ? defaultValue : ""}
           control={control}
           render={({ field, fieldState }) => (
             <FormTextInput

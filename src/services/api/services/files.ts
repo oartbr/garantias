@@ -9,7 +9,7 @@ import HTTP_CODES_ENUM from "../types/http-codes";
 export type FileUploadRequest = File;
 
 export type FileUploadResponse = {
-  file: FileEntity;
+  url: FileEntity;
   uploadSignedUrl: string;
 };
 
@@ -17,16 +17,23 @@ export function useFileUploadService() {
   const fetchClient = useFetch();
 
   return useCallback(
-    async (data: FileUploadRequest, requestConfig?: RequestConfigType) => {
+    async (
+      data: FileUploadRequest,
+      folder: String,
+      requestConfig?: RequestConfigType
+    ) => {
       if (process.env.NEXT_PUBLIC_FILE_DRIVER === "s3-presigned") {
-        const result = await fetchClient(`${API_URL}/v1/files/upload`, {
-          method: "POST",
-          body: JSON.stringify({
-            fileName: data.name,
-            fileSize: data.size,
-          }),
-          ...requestConfig,
-        }).then(wrapperFetchJsonResponse<FileUploadResponse>);
+        const result = await fetchClient(
+          `${API_URL}/v1/files/upload/${folder}`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              fileName: data.name,
+              fileSize: data.size,
+            }),
+            ...requestConfig,
+          }
+        ).then(wrapperFetchJsonResponse<FileUploadResponse>);
 
         if (result.status === HTTP_CODES_ENUM.CREATED) {
           await fetch(result.data.uploadSignedUrl, {
@@ -43,7 +50,7 @@ export function useFileUploadService() {
         const formData = new FormData();
         formData.append("file", data);
 
-        return fetchClient(`${API_URL}/v1/files/upload`, {
+        return fetchClient(`${API_URL}/v1/files/upload/${folder}`, {
           method: "POST",
           body: formData,
           ...requestConfig,

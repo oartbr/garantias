@@ -77,15 +77,20 @@ const StyledAvatar = styled(Avatar)(({}) => ({
 
 function AvatarInput(props: AvatarInputProps) {
   const { onChange } = props;
+  console.log({ props });
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const fetchFileUpload = useFileUploadService();
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       setIsLoading(true);
-      const { status, data } = await fetchFileUpload(acceptedFiles[0]);
+      const { status, data } = await fetchFileUpload(
+        acceptedFiles[0],
+        "avatar"
+      );
       if (status === HTTP_CODES_ENUM.CREATED) {
-        onChange(data.file);
+        console.log({ data: data.url });
+        onChange(data.url);
       }
       setIsLoading(false);
     },
@@ -138,7 +143,7 @@ function AvatarInput(props: AvatarInputProps) {
       )}
       {props?.value ? (
         <StyledWrapperAvatar>
-          <StyledAvatar src={props.value?.path} />
+          <StyledAvatar src={props.value?.toString()} />
           <StyledOverlay>
             <IconButton
               disableRipple
@@ -152,7 +157,7 @@ function AvatarInput(props: AvatarInputProps) {
           </StyledOverlay>
         </StyledWrapperAvatar>
       ) : (
-        <StyledAvatar src={props.value?.path} />
+        <StyledAvatar src={props.value?.toString()} />
       )}
 
       <Box sx={{ mt: 2 }}>

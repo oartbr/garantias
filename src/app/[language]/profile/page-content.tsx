@@ -26,7 +26,7 @@ function Profile() {
           <StyledAvatar
             alt={user?.firstName + " " + user?.lastName}
             data-testid="user-icon"
-            src={user?.photo?.path}
+            src={user?.photo?.toString()}
           />
         </Grid>
         <Grid item>

@@ -256,7 +256,7 @@ function ResponsiveAppBar() {
                 >
                   <Avatar
                     alt={user?.firstName + " " + user?.lastName}
-                    src={user.photo?.path}
+                    src={user.photo?.toString()}
                   />
                 </IconButton>
               </Tooltip>

@@ -190,7 +190,7 @@ function FormBasicInfo() {
 
     if (status === HTTP_CODES_ENUM.OK) {
       setUser(data);
-
+      reset(data);
       enqueueSnackbar(t("profile:alerts.profile.success"), {
         variant: "success",
       });

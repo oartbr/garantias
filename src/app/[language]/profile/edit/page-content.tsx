@@ -170,6 +170,14 @@ function FormBasicInfo() {
 
   const { handleSubmit, setError, reset } = methods;
 
+  useEffect(() => {
+    reset({
+      firstName: user?.firstName ?? "",
+      lastName: user?.lastName ?? "",
+      photo: user?.photo,
+    });
+  }, [user, reset]);
+
   const onSubmit = handleSubmit(async (formData) => {
     const { data, status } = await fetchAuthPatchMe(formData);
 
@@ -190,20 +198,16 @@ function FormBasicInfo() {
 
     if (status === HTTP_CODES_ENUM.OK) {
       setUser(data);
-      reset(data);
+
+      setTimeout(() => {
+        reset();
+      }, 1000);
+
       enqueueSnackbar(t("profile:alerts.profile.success"), {
         variant: "success",
       });
     }
   });
-
-  useEffect(() => {
-    reset({
-      firstName: user?.firstName ?? "",
-      lastName: user?.lastName ?? "",
-      photo: user?.photo,
-    });
-  }, [user, reset]);
 
   return (
     <FormProvider {...methods}>

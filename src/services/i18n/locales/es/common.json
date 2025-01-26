@@ -10,7 +10,8 @@
     "users": "Usuarios",
     "logout": "Cerrar Sesión",
     "generate-codes": "Generar Garantias",
-    "garantias": "Garantias"
+    "garantias": "Garantias",
+    "skus": "Equipos"
   },
   "formInputs": {
     "avatarInput": {

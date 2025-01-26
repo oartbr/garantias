@@ -1,0 +1,51 @@
+{
+  "title": "Equipos",
+  "table": {
+    "column1": "SKU",
+    "column2": "Categoria",
+    "column3": "Capacidad",
+    "column4": "Detalles"
+  },
+  "status": {
+    "assigned": "Pendiente",
+    "registered": "Registrada",
+    "canceled": "Status",
+    "created": "Nueva"
+  },
+  "actions": {
+    "add": "Agregar SKU",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "create": "Crear Equipo"
+  },
+  "confirm": {
+    "delete": {
+      "title": "Borrar Equipo",
+      "message": "¿Estás seguro de que deseas eliminar este Equipo?"
+    }
+  },
+  "filter": {
+    "actions": {
+      "filter": "Filtrar",
+      "apply": "Aplicar"
+    },
+    "inputs": {
+      "role": {
+        "label": "Rol",
+        "options": {
+          "1": "Administrador",
+          "2": "SKU"
+        }
+      },
+      "status": {
+        "label": "Status",
+        "options": {
+          "created": "Nuevos",
+          "assigned": "Asignados",
+          "registered": "Registrados",
+          "canceled": "Cancelados"
+        }
+      }
+    }
+  }
+}

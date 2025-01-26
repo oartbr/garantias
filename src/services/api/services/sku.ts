@@ -1,14 +1,9 @@
 import { useCallback } from "react";
 import useFetch from "../use-fetch";
 import useFetchBase from "../use-fetch-base";
-import {
-  API_URL,
-  GARANTIA_CODE_LENGTH,
-  GARANTIA_CODE_TYPE,
-  GARANTIA_CODE_PREFIX,
-} from "../config";
+import { API_URL } from "../config";
 import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { Garantia } from "../types/garantia";
+import { SKU } from "../types/sku";
 // import { CheckPhoneNumber } from "../types/checkPhoneNumber";
 import { InfinityPaginationType } from "../types/infinity-pagination";
 // import { Role } from "../types/role";
@@ -103,10 +98,10 @@ export function useCheckCodeService() {
 }
 // CheckCode reponse should be a 200 status code, but the response is void.
 
-// GetUserByGarantiaId
-// this will send the garantiaId to the server to check if there is a User linked to the phone number on the garantia.
-export type GetUserByGarantiaIdRequest = {
-  garantiaId: string;
+// GetUserBySKUId
+// this will send the skuId to the server to check if there is a User linked to the phone number on the sku.
+export type GetUserBySKUIdRequest = {
+  skuId: string;
 };
 
 type TPolicy = {
@@ -115,44 +110,41 @@ type TPolicy = {
 };
 
 type RegisterFormData = {
-  id?: string;
-  phoneNumber?: string;
-  garantiaId?: string;
-  userId?: string;
-  number: number;
-  address: string;
-  email?: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  zipcode: string;
-  policy: TPolicy[];
-  isEmailVerified?: boolean;
+  skuId: string;
+  name: string;
+  description?: number;
+  category?: string;
+  capacity?: number;
+  length?: number;
+  width?: number;
+  height?: number;
+  weight?: number;
+  material?: string;
 };
 
-export type GetUserByGarantiaIdResponse = {
+export type GetUserBySKUIdResponse = {
   data: RegisterFormData;
   status: HTTP_CODES_ENUM;
 };
 
-export function useGetUserByGarantiaIdService() {
+export function useGetUserBySKUIdService() {
   const fetchBase = useFetchBase();
 
   return useCallback(
-    (data: GetUserByGarantiaIdRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/garantia/getUser/${data.garantiaId}`, {
+    (data: GetUserBySKUIdRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/sku/getUser/${data.skuId}`, {
         method: "GET",
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GetUserByGarantiaIdResponse>);
+      }).then(wrapperFetchJsonResponse<GetUserBySKUIdResponse>);
     },
     [fetchBase]
   );
 }
-// GetUserByGarantiaId reponse should be a 200 status code with the User's details.
+// GetUserBySKUId reponse should be a 200 status code with the User's details.
 
-// RegisterGarantia
-// this will send the details to register the actual garantia.
-export type RegisterGarantiaRequest = {
+// RegisterSKU
+// this will send the details to register the actual sku.
+export type RegisterSKURequest = {
   firstName: string;
   lastName: string;
   address: string;
@@ -161,58 +153,55 @@ export type RegisterGarantiaRequest = {
   zipcode: string;
   email: string;
   policy: TPolicy[];
-  garantiaId?: string;
+  skuId?: string;
   userId?: string;
   phoneNumber?: string;
 };
 
-export type RegisterGarantiaResponse = void;
+export type RegisterSKUResponse = void;
 
-export function useRegisterGarantiaService() {
+export function useRegisterSKUService() {
   const fetchBase = useFetchBase();
 
   return useCallback(
-    (data: RegisterGarantiaRequest, requestConfig?: RequestConfigType) => {
-      console.log({ garantiaData: data });
-      return fetchBase(`${API_URL}/v1/garantia/register`, {
+    (data: RegisterSKURequest, requestConfig?: RequestConfigType) => {
+      console.log({ skuData: data });
+      return fetchBase(`${API_URL}/v1/sku/register`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<RegisterGarantiaResponse>);
+      }).then(wrapperFetchJsonResponse<RegisterSKUResponse>);
     },
     [fetchBase]
   );
 }
-// RegisterGarantia reponse should be a 200 status code
+// RegisterSKU reponse should be a 200 status code
 
-// GetListingByGarantiaId
-// this will send the garantiaId to the server to get a list of the User's garantias.
-export type GetListingByGarantiaIdRequest = {
-  garantiaId: string;
+// GetListingBySKUId
+// this will send the skuId to the server to get a list of the User's skus.
+export type GetListingBySKUIdRequest = {
+  skuId: string;
 };
 
-export type GetListingByGarantiaIdResponse = void;
+export type GetListingBySKUIdResponse = void;
 
-export function useGetListingByGarantiaIdService() {
+export function useGetListingBySKUIdService() {
   const fetchBase = useFetchBase();
 
   return useCallback(
-    (
-      data: GetListingByGarantiaIdRequest,
-      requestConfig?: RequestConfigType
-    ) => {
-      return fetchBase(`${API_URL}/v1/garantia/getList/${data.garantiaId}`, {
+    (data: GetListingBySKUIdRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/sku/getList/${data.skuId}`, {
         method: "GET",
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GetListingByGarantiaIdResponse>);
+      }).then(wrapperFetchJsonResponse<GetListingBySKUIdResponse>);
     },
     [fetchBase]
   );
 }
-// GetUserByGarantiaId reponse should be a 200 status code with the User's details.
+// GetUserBySKUId reponse should be a 200 status code with the User's details.
 
 // GetListingByUser
-// this will send the user info to the server to get a list of the User's garantias.
+// this will send the user info to the server to get a list of the User's skus.
 export type GetListingByUserRequest = {
   userId: string;
 };
@@ -224,7 +213,7 @@ export function useGetListingByUserService() {
 
   return useCallback(
     (data: GetListingByUserRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/garantia/getList/${data.userId}`, {
+      return fetchBase(`${API_URL}/v1/sku/getList/${data.userId}`, {
         method: "GET",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<GetListingByUserResponse>);
@@ -234,48 +223,42 @@ export function useGetListingByUserService() {
 }
 // GetUserByUserreponse should be a 200 status code with the User's details.
 
-// GetGarantia
-// this will check if the garantia exists and return the details.
-export type GetGarantiaRequest = {
-  garantiaId: string;
+// GetSKU
+// this will check if the sku exists and return the details.
+export type GetSKURequest = {
+  id: string;
   userId?: string;
 };
 
-export type GetGarantiaResponse = {
-  garantia: Garantia;
+export type GetSKUResponse = {
+  sku: SKU;
   status: HTTP_CODES_ENUM;
 };
 
-export function useGetGarantiaService() {
+export function useGetSKUService() {
   const fetchBase = useFetchBase();
 
   return useCallback(
-    (data: GetGarantiaRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(
-        `${API_URL}/v1/garantia/${data.garantiaId}${data.userId ? "/" + data.userId : ""}`,
-        {
-          method: "GET",
-          ...requestConfig,
-        }
-      )
-        .then(wrapperFetchJsonResponse<GetGarantiaResponse>)
+    (data: GetSKURequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/sku/${data.id}`, {
+        method: "GET",
+        ...requestConfig,
+      })
+        .then(wrapperFetchJsonResponse<GetSKUResponse>)
         .then((response) => {
-          if (
-            response.status === HTTP_CODES_ENUM.OK &&
-            data.userId === response.data.garantia.userId
-          ) {
+          if (response.status === HTTP_CODES_ENUM.OK) {
             return response;
           } else {
-            return response; // need to understand what is the effect of just sending false or something else
+            return response;
           }
         });
     },
     [fetchBase]
   );
 }
-// GetGarantia should be a 200 status code with the Garantia's details.
+// GetSKU should be a 200 status code with the SKU's details.
 
-export type GarantiasRequest = {
+export type SKUsRequest = {
   page: number;
   limit: number;
   filters?: {
@@ -286,14 +269,14 @@ export type GarantiasRequest = {
   }>;
 };
 
-export type GarantiasResponse = InfinityPaginationType<Garantia>;
+export type SKUsResponse = InfinityPaginationType<SKU>;
 
-export function useGetGarantiasService() {
+export function useGetSKUsService() {
   const fetch = useFetch();
 
   return useCallback(
-    (data: GarantiasRequest, requestConfig?: RequestConfigType) => {
-      const requestUrl = new URL(`${API_URL}/v1/garantia/getAll`);
+    (data: SKUsRequest, requestConfig?: RequestConfigType) => {
+      const requestUrl = new URL(`${API_URL}/v1/sku/getAll`);
       requestUrl.searchParams.append("page", data.page.toString());
       requestUrl.searchParams.append("limit", data.limit.toString());
       if (data.filters) {
@@ -306,30 +289,34 @@ export function useGetGarantiasService() {
       return fetch(requestUrl, {
         method: "GET",
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiasResponse>);
+      }).then(wrapperFetchJsonResponse<SKUsResponse>);
     },
     [fetch]
   );
 }
 
-export type CreateGarantiaRequest = {
-  quantity: number;
-  length?: number;
-  type?: string;
-  prefix?: string;
+export type CreateSKURequest = {
+  skuId: string;
+  name: string;
+  description: string;
+  category: string;
+  capacity: number;
+  length: number;
+  width: number;
+  height: number;
+  weight: number;
+  material: string;
+  cost: string;
+  price: string;
+  brand: string;
 };
 
-export function CreateGarantiasService() {
+export function CreateSKUsService() {
   const fetch = useFetch();
 
   return useCallback(
-    (data: CreateGarantiaRequest, requestConfig?: RequestConfigType) => {
-      const requestUrl = new URL(`${API_URL}/v1/garantia/create`);
-
-      data.quantity = data.quantity;
-      data.length = Number(GARANTIA_CODE_LENGTH);
-      data.type = GARANTIA_CODE_TYPE;
-      data.prefix = GARANTIA_CODE_PREFIX;
+    (data: CreateSKURequest, requestConfig?: RequestConfigType) => {
+      const requestUrl = new URL(`${API_URL}/v1/sku/create`);
 
       return fetch(requestUrl, {
         method: "POST",
@@ -337,109 +324,115 @@ export function CreateGarantiasService() {
           ...data,
         }),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiasResponse>);
+      }).then(wrapperFetchJsonResponse<SKUsResponse>);
     },
     [fetch]
   );
 }
 
-export type GarantiaPostRequest = Pick<
-  Garantia,
-  | "garantiaId"
-  | "brand"
-  | "builtOn"
+export type SKUPostRequest = Pick<
+  SKU,
+  | "skuId"
   | "description"
-  | "sku"
-  | "reseller"
-  | "shippedDate"
-  | "soldTo"
-  | "soldDate"
+  | "category"
+  | "capacity"
+  | "length"
+  | "width"
+  | "height"
+  | "weight"
+  | "material"
+  | "cost"
+  | "price"
+  | "brand"
+  | "madeOn"
+  | "madeIn"
+  | "createdAt"
+  | "updatedAt"
 > & {
   password: string;
 };
 
-export type GarantiaPostResponse = Garantia;
+export type SKUPostResponse = SKU;
 
-export function usePostGarantiaService() {
+export function usePostSKUService() {
   const fetch = useFetch();
 
   return useCallback(
-    (data: GarantiaPostRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/v1/garantia`, {
+    (data: SKUPostRequest, requestConfig?: RequestConfigType) => {
+      return fetch(`${API_URL}/v1/sku`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiaPostResponse>);
+      }).then(wrapperFetchJsonResponse<SKUPostResponse>);
     },
     [fetch]
   );
 }
 
-export type GarantiaPatchRequest = {
-  garantiaId: Garantia["garantiaId"];
-  data: Partial<Pick<Garantia, "brand">>;
+export type SKUPatchRequest = {
+  skuId: SKU["skuId"];
+  data: Partial<Pick<SKU, "brand">>;
 };
 
-export type GarantiaPatchResponse = Garantia;
+export type SKUPatchResponse = SKU;
 
-export function usePatchGarantiaService() {
+export function usePatchSKUService() {
   const fetch = useFetch();
 
   return useCallback(
-    (data: GarantiaPatchRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/v1/garantia/${data.garantiaId}`, {
+    (data: SKUPatchRequest, requestConfig?: RequestConfigType) => {
+      return fetch(`${API_URL}/v1/sku/${data.skuId}`, {
         method: "PATCH",
         body: JSON.stringify(data.data),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiaPatchResponse>);
+      }).then(wrapperFetchJsonResponse<SKUPatchResponse>);
     },
     [fetch]
   );
 }
 
-export type GarantiasDeleteRequest = {
-  id: Garantia["garantiaId"];
+export type SKUsDeleteRequest = {
+  id: SKU["skuId"];
 };
 
-export type GarantiasDeleteResponse = undefined;
+export type SKUsDeleteResponse = undefined;
 
-export function useDeleteGarantiasService() {
+export function useDeleteSKUsService() {
   const fetch = useFetch();
 
   return useCallback(
-    (data: GarantiasDeleteRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/v1/garantia/${data.id}`, {
+    (data: SKUsDeleteRequest, requestConfig?: RequestConfigType) => {
+      return fetch(`${API_URL}/v1/sku/${data.id}`, {
         method: "DELETE",
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiasDeleteResponse>);
+      }).then(wrapperFetchJsonResponse<SKUsDeleteResponse>);
     },
     [fetch]
   );
 }
 
 /*
- * Garantia
+ * SKU
  * Server-side calls
  * ### THIS WHOLE SHIT NEEDS REFACTORING ###
  */
-export type GarantiaRequest = {
-  garantiaId: Garantia["garantiaId"];
+export type SKURequest = {
+  skuId: SKU["skuId"];
 };
 
-export type GarantiaResponse = Garantia;
+export type SKUResponse = SKU;
 
-export async function getGarantiaService(garantiaId: string) {
-  const requestUrl = new URL(
-    `${process.env.GARANTIA_API_URL}/v1/garantia/${garantiaId}`
-  );
+export async function getSKUService(skuId: string) {
+  const requestUrl = new URL(`${process.env.SKU_API_URL}/v1/sku/${skuId}`);
 
   try {
     const response = await fetch(requestUrl);
 
     const data = (await response.json()) || {};
+    console.log({ data });
     if (response.status !== 404) {
       data.exists = typeof data.id === "string";
-      return data.garantia;
+      return data.sku;
     } else {
       data.exists = false;
       return data;

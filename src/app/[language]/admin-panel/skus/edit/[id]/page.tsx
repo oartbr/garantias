@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import EditGarantia from "./page-content";
+import EditSku from "./page-content";
 import { getServerTranslation } from "@/services/i18n";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
@@ -10,7 +10,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslation(
     params.language,
-    "admin-panel-garantias-edit"
+    "admin-panel-skus-edit"
   );
 
   return {
@@ -24,5 +24,5 @@ export default function ListingPage(props: Props) {
     //return redirect("/");
   }
 
-  return <EditGarantia searchParams={{}} userId={""} {...props} />;
+  return <EditSku {...props} />;
 }

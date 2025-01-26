@@ -8,6 +8,7 @@ import { RoleEnum } from "../api/types/role";
 type PropsType = {
   params: { slug: string; id: string; language: string };
   searchParams: { [key: string]: string | string[] | undefined };
+  userId: string | number;
 };
 
 type OptionsType = {
@@ -62,7 +63,7 @@ function withPageRequiredAuth(
     return user &&
       user?.role?.id &&
       optionRoles.includes(Number(user?.role.id)) ? (
-      <Component {...props} />
+      <Component {...props} userId={user.id} />
     ) : null;
   };
 }

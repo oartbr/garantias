@@ -238,7 +238,7 @@ export function useGetListingByUserService() {
 // this will check if the garantia exists and return the details.
 export type GetGarantiaRequest = {
   garantiaId: string;
-  userId?: string;
+  userId: string | number | undefined;
 };
 
 export type GetGarantiaResponse = {

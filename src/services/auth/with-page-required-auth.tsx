@@ -7,8 +7,8 @@ import { RoleEnum } from "../api/types/role";
 
 type PropsType = {
   params: { slug: string; id: string; language: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-  userId: string | number;
+  searchParams?: { [key: string]: string | string[] | undefined };
+  userId?: string | number;
 };
 
 type OptionsType = {

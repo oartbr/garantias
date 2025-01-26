@@ -24,16 +24,7 @@ import { useParams } from "next/navigation";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { Garantia } from "@/services/api/types/garantia";
-
-type Props = {
-  params: {
-    language: string;
-    id: string;
-    userId: string | number;
-    slug: string;
-  };
-  userId: string | number;
-};
+import { PropsType } from "@/services/api/types/propsType";
 
 type EditUserFormData = {
   description: string;
@@ -116,7 +107,7 @@ function EditGarantiaFormActions() {
   );
 }
 
-function FormEditGarantia({ ...props }) {
+function FormEditGarantia(props: PropsType) {
   const params = useParams();
 
   const garantiaId = params.id;
@@ -183,7 +174,7 @@ function FormEditGarantia({ ...props }) {
     const getInitialDataForEdit = async () => {
       const { status: getStatus, data: results } = await fetchGetGarantia({
         garantiaId: garantiaId.toString(),
-        userId: userId,
+        userId: userId || undefined,
       });
 
       if (getStatus === HTTP_CODES_ENUM.OK) {
@@ -293,7 +284,7 @@ function FormEditGarantia({ ...props }) {
               <FormTextInput<EditUserFormData>
                 name="zipcode"
                 testId="zip-code"
-                label={t("admin-panel-garantias-edit:inputs.zipCode.label")}
+                label={t("admin-panel-garantias-edit:inputs.zipcode.label")}
               />
             </Grid>
 
@@ -317,10 +308,10 @@ function FormEditGarantia({ ...props }) {
   );
 }
 
-function EditGarantia({ ...props }: Props) {
+function EditGarantia({ params, userId }: PropsType) {
   return (
     <>
-      <FormEditGarantia props={props.params} userId={props.userId} />
+      <FormEditGarantia params={params} userId={userId} />
     </>
   );
 }

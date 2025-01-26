@@ -1,7 +1,7 @@
 "use client";
 
-//import { RoleEnum } from "@/services/api/types/role";
-//import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
+import { RoleEnum } from "@/services/api/types/role";
+import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -413,5 +413,4 @@ function Garantias() {
   );
 }
 
-// export default withPageRequiredAuth(Garantias, { roles: [RoleEnum.ADMIN] });
-export default Garantias;
+export default withPageRequiredAuth(Garantias, { roles: [RoleEnum.ADMIN] });

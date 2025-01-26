@@ -1,9 +1,9 @@
 export type Garantia = {
   description?: string;
-  sku: string;
+  sku?: string;
   garantiaId: string;
-  status: string;
-  brand: string;
+  status?: string;
+  brand?: string;
   firstName?: string;
   lastName?: string;
   address?: string;

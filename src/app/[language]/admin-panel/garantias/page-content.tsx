@@ -50,10 +50,6 @@ import dayjs from "dayjs";
 
 type GarantiasKeys = keyof Garantia;
 
-type Props = {
-  params: { language: string };
-};
-
 const TableCellLoadingContainer = styled(TableCell)(() => ({
   padding: 0,
 }));
@@ -254,7 +250,7 @@ function Actions({ garantia }: { garantia: Garantia }) {
   );
 }
 
-function Garantias(props: Props) {
+function Garantias() {
   const { t: tGarantias } = useTranslation("admin-panel-garantias");
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -308,7 +304,7 @@ function Garantias(props: Props) {
     const result =
       (data?.pages.flatMap((page) => page?.data) as Garantia[]) ??
       ([] as Garantia[]);
-
+    console.log({ data });
     return result; // removeDuplicatesFromArrayObjects(result, "garantiaId");
   }, [data]);
 
@@ -348,9 +344,7 @@ function Garantias(props: Props) {
             fixedHeaderContent={() => (
               <>
                 <TableRow>
-                  <TableCell style={{ width: 50 }}>
-                    {props.params.language}
-                  </TableCell>
+                  <TableCell style={{ width: 50 }}></TableCell>
                   <TableSortCellWrapper
                     width={100}
                     orderBy={orderBy}

@@ -3,7 +3,7 @@ import { getServerTranslation } from "@/services/i18n";
 import Garantias from "./page-content";
 
 type Props = {
-  params: { language: string };
+  params: { slug: string; id: string; language: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

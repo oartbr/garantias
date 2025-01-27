@@ -227,7 +227,6 @@ export function useGetListingByUserService() {
 // this will check if the sku exists and return the details.
 export type GetSKURequest = {
   id: string;
-  userId?: string;
 };
 
 export type GetSKUResponse = {

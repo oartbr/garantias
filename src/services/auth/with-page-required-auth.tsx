@@ -5,10 +5,9 @@ import React, { FunctionComponent, useEffect } from "react";
 import useLanguage from "../i18n/use-language";
 import { RoleEnum } from "../api/types/role";
 
-type PropsType = {
+type PropsTy = {
   params: { slug: string; id: string; language: string };
   searchParams?: { [key: string]: string | string[] | undefined };
-  userId?: string | number;
 };
 
 type OptionsType = {
@@ -20,12 +19,12 @@ const roles = Object.values(RoleEnum).filter(
 ) as RoleEnum[];
 
 function withPageRequiredAuth(
-  Component: FunctionComponent<PropsType>,
+  Component: FunctionComponent<PropsTy>,
   options?: OptionsType
 ) {
   const optionRoles = options?.roles || roles;
 
-  return function WithPageRequiredAuth(props: PropsType) {
+  return function WithPageRequiredAuth(props: PropsTy) {
     const { user, isLoaded } = useAuth();
     const router = useRouter();
     const language = useLanguage();
@@ -63,7 +62,7 @@ function withPageRequiredAuth(
     return user &&
       user?.role?.id &&
       optionRoles.includes(Number(user?.role.id)) ? (
-      <Component {...props} userId={user.id} />
+      <Component {...props} />
     ) : null;
   };
 }

@@ -4,7 +4,7 @@ import { getServerTranslation } from "@/services/i18n";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; slug: string; id: string; userId: string };
+  params: { language: string; slug: string; id: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -24,5 +24,5 @@ export default function ListingPage(props: Props) {
     //return redirect("/");
   }
 
-  return <EditGarantia searchParams={{}} userId={""} {...props} />;
+  return <EditGarantia searchParams={{}} {...props} />;
 }

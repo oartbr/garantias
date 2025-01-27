@@ -22,5 +22,5 @@ export default function ListingPage(props: Props) {
     //return redirect("/");
   }
 
-  return <Listing userId={""} {...props} />;
+  return <Listing {...props} />;
 }

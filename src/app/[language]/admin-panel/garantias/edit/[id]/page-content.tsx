@@ -9,6 +9,7 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
+import useAuth from "@/services/auth/use-auth";
 import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Link from "@/components/link";
@@ -24,7 +25,6 @@ import { useParams } from "next/navigation";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { Garantia } from "@/services/api/types/garantia";
-import { PropsType } from "@/services/api/types/propsType";
 
 type EditUserFormData = {
   description: string;
@@ -107,11 +107,12 @@ function EditGarantiaFormActions() {
   );
 }
 
-function FormEditGarantia(props: PropsType) {
+function FormEditGarantia() {
   const params = useParams();
 
   const garantiaId = params.id;
-  const userId = props.userId;
+  const { user } = useAuth();
+  const userId = user?.id;
 
   const router = useRouter();
 
@@ -308,10 +309,10 @@ function FormEditGarantia(props: PropsType) {
   );
 }
 
-function EditGarantia({ params, userId }: PropsType) {
+function EditGarantia() {
   return (
     <>
-      <FormEditGarantia params={params} userId={userId} />
+      <FormEditGarantia />
     </>
   );
 }

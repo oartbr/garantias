@@ -20,19 +20,11 @@ import {
   usePatchSKUService,
 } from "@/services/api/services/sku";
 import { useParams } from "next/navigation";
+import useAuth from "@/services/auth/use-auth";
 // import FormSelectInput from "@/components/form/select/form-select";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { SKU } from "@/services/api/types/sku";
-
-type Props = {
-  params: {
-    language: string;
-    id: string;
-    slug: string;
-    userId: string;
-  };
-};
 
 type EditSkuFormData = {
   skuId: string;
@@ -115,11 +107,12 @@ function EditSkuFormActions() {
   );
 }
 
-function FormEditSku({ ...props }) {
+function FormEditSku() {
   const params = useParams();
 
+  const { user } = useAuth();
+  const userId = user?.id;
   const id = params.id;
-  const userId = props.userId;
 
   const router = useRouter();
 
@@ -184,7 +177,6 @@ function FormEditSku({ ...props }) {
     const getInitialDataForEdit = async () => {
       const { status: getStatus, data: results } = await fetchGetSku({
         id: id.toString(),
-        userId: userId,
       });
 
       if (
@@ -326,10 +318,10 @@ function FormEditSku({ ...props }) {
   );
 }
 
-function EditSku({ ...props }: Props) {
+function EditSku() {
   return (
     <>
-      <FormEditSku props={props.params} />
+      <FormEditSku />
     </>
   );
 }

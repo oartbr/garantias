@@ -4,7 +4,8 @@
     "column1": "Código",
     "column2": "SKU",
     "column3": "Status",
-    "column4": "Registro"
+    "column4": "Usuário",
+    "column5": "Registro"
   },
   "status": {
     "assigned": "Pendiente",

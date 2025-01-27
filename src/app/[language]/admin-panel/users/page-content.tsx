@@ -280,9 +280,6 @@ function Users() {
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useUserListQuery({ filter, sort: { order, orderBy } });
-  console.log({
-    fetch: { data, hasNextPage, isFetchingNextPage, fetchNextPage },
-  });
   const handleScroll = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     fetchNextPage();
@@ -331,6 +328,7 @@ function Users() {
             fixedHeaderContent={() => (
               <>
                 <TableRow>
+                  <TableCell style={{ width: 130 }}></TableCell>
                   <TableCell style={{ width: 50 }}></TableCell>
                   <TableSortCellWrapper
                     width={100}
@@ -356,7 +354,6 @@ function Users() {
                   <TableCell style={{ width: 80 }}>
                     {tUsers("admin-panel-users:table.column4")}
                   </TableCell>
-                  <TableCell style={{ width: 130 }}></TableCell>
                 </TableRow>
                 {isFetchingNextPage && (
                   <TableRow>
@@ -369,10 +366,13 @@ function Users() {
             )}
             itemContent={(index, user) => (
               <>
+                <TableCell style={{ width: 130 }}>
+                  {!!user && <Actions user={user} />}
+                </TableCell>
                 <TableCell style={{ width: 50 }}>
                   <Avatar
                     alt={user?.firstName + " " + user?.lastName}
-                    src={user?.photo?.path}
+                    src={user?.photo ? user?.photo.toString() : undefined}
                   />
                 </TableCell>
                 <TableCell style={{ width: 50 }}>
@@ -384,9 +384,6 @@ function Users() {
                 <TableCell>{user?.email}</TableCell>
                 <TableCell style={{ width: 80 }}>
                   {tRoles(`role.${user?.role?.id}`)}
-                </TableCell>
-                <TableCell style={{ width: 130 }}>
-                  {!!user && <Actions user={user} />}
                 </TableCell>
               </>
             )}

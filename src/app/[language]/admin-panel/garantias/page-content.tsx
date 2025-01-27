@@ -365,16 +365,17 @@ function Garantias() {
                   >
                     {tGarantias("admin-panel-garantias:table.column3")}
                   </TableSortCellWrapper>
-
+                  <TableCell style={{ width: 200 }}>
+                    {tGarantias("admin-panel-garantias:table.column4")}
+                  </TableCell>
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
                     column="registeredAt"
                     handleRequestSort={handleRequestSort}
                   >
-                    {tGarantias("admin-panel-garantias:table.column4")}
+                    {tGarantias("admin-panel-garantias:table.column5")}
                   </TableSortCellWrapper>
-                  <TableCell style={{ width: 130 }}></TableCell>
                 </TableRow>
                 {isFetchingNextPage && (
                   <TableRow>
@@ -387,7 +388,9 @@ function Garantias() {
             )}
             itemContent={(index, garantia) => (
               <>
-                <TableCell style={{ width: 50 }}></TableCell>
+                <TableCell style={{ width: 130 }}>
+                  {!!garantia && <Actions garantia={garantia} />}
+                </TableCell>
                 <TableCell style={{ width: 100 }}>
                   {garantia?.garantiaId}
                 </TableCell>
@@ -397,12 +400,12 @@ function Garantias() {
                     "admin-panel-garantias:status." + garantia?.status
                   )}
                 </TableCell>
+                <TableCell style={{ width: 200 }}>
+                  {garantia?.firstName} {garantia?.lastName}
+                </TableCell>
                 <TableCell style={{ width: 80 }}>
                   {daysToNow(garantia?.registeredAt)}
                   {/* Change how the date is shown */}
-                </TableCell>
-                <TableCell style={{ width: 130 }}>
-                  {!!garantia && <Actions garantia={garantia} />}
                 </TableCell>
               </>
             )}

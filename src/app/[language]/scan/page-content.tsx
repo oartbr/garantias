@@ -39,27 +39,29 @@ function Scan() {
         userId: user?.id, // Add null check for user object
       });
 
-      const garantia = data?.garantia || "";
+      if (data && "garantia" in data) {
+        const garantia = data.garantia;
 
-      if (status === 200 && garantia) {
-        setGarantiaStatus(garantia.status);
+        if (status === 200 && garantia) {
+          setGarantiaStatus(garantia.status ?? null);
 
-        if (user && user.role.name === "ADMIN") {
-          router.push(`./${garantia.garantiaId}`);
+          if (user && user.role && user.role.name === "ADMIN") {
+            router.push(`./${garantia.garantiaId}`);
+          } else {
+            // Handle non-admin user logic here
+            console.log("User is not admin");
+          }
+          // Decide next steps based on garantia status
+          if (garantia.status === "active") {
+            console.log("Garantia is active");
+            // Add your logic for active garantia
+          } else {
+            console.log("Garantia is not active");
+            // Add your logic for non-active garantia
+          }
         } else {
-          // Handle non-admin user logic here
-          console.log("User is not admin");
+          console.log("Garantia does not exist");
         }
-        // Decide next steps based on garantia status
-        if (garantia.status === "active") {
-          console.log("Garantia is active");
-          // Add your logic for active garantia
-        } else {
-          console.log("Garantia is not active");
-          // Add your logic for non-active garantia
-        }
-      } else {
-        console.log("Garantia does not exist");
       }
     } catch (error) {
       console.error("Error fetching garantia:", error);

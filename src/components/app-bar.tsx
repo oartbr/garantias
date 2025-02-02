@@ -3,7 +3,8 @@ import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import logowse from "../../public/assets/images/logowse.white.svg";
+//import logowse from "../../public/assets/images/logowse.white.svg";
+import logoSWEshort from "../../public/assets/images/logo.WSE.short.svg";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -55,7 +56,7 @@ function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <Image
             className="logoHeader"
-            src={logowse.src}
+            src={logoSWEshort.src}
             alt="logo"
             fill={true}
           />

@@ -12,9 +12,10 @@ import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-import { ItemCard } from "../../../components/itemCard/itemCard";
+import { ItemCard } from "@/components/itemCard/itemCard";
 import React, { useEffect, useState } from "react";
-import { Garantia } from "../../../services/api/types/garantia";
+import { Garantia } from "@/services/api/types/garantia";
+import Button from "@mui/material/Button";
 
 type Props = {
   params: { language: string; id: string };
@@ -38,7 +39,7 @@ function List(props: Props) {
   // console.log({ user, item });
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
-    fetchGarantia({ garantiaId: garantiaId, userId: user?.id.toString() })
+    fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
       .then((data) => {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
           setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
@@ -74,13 +75,39 @@ function List(props: Props) {
               <ItemCard
                 item={item}
                 onClick={() => {
-                  router.replace(`${garantiaId}/register`);
+                  router.replace(`admin-panel/garantias/edit/${garantiaId}`);
                 }}
               />
             </Grid>
           )}
           {!isLoading && !item && (
-            <h3>La garantía no fue identificada o ya fue registrada.</h3>
+            <>
+              <Grid item xs={12}>
+                <h3>La garantía no fue identificada o ya fue registrada.</h3>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  data-testid="resend-code/"
+                  onClick={() => router.replace("sign-in")}
+                >
+                  Iniciar sesión
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  data-testid="resend-code/"
+                  onClick={() => router.replace("sign-up")}
+                >
+                  Registrarse
+                </Button>
+              </Grid>
+            </>
           )}
         </Grid>
       </Grid>

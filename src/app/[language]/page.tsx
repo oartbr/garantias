@@ -8,6 +8,9 @@ import { Trans } from "react-i18next/TransWithoutContext";
 import tanque from "../../../public/assets/images/tanque.svg";
 import scan from "../../../public/assets/images/scan.svg";
 import Image from "next/image";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 type Props = {
   params: { language: string };
@@ -65,6 +68,18 @@ export default async function Home({ params }: Props) {
               />
             </Typography>
           </div>
+        </Grid>
+        <Grid item sx={{ mx: "auto" }}>
+          <Box ml={1} component="span">
+            <Button
+              variant="contained"
+              LinkComponent={Link}
+              href="/scan"
+              data-testid="scan-qr"
+            >
+              {t("scan")}
+            </Button>
+          </Box>
         </Grid>
         <Grid item sx={{ mx: "auto" }}>
           <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>

@@ -15,8 +15,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
-import { useRegisterGarantiaService } from "@/services/api/services/garantia";
+import {
+  useGetUserByGarantiaIdService,
+  useRegisterGarantiaService,
+} from "@/services/api/services/garantia";
 import useAuth from "@/services/auth/use-auth";
+import { Garantia } from "@/services/api/types/garantia";
+import { useEffect, useState } from "react";
 
 type TPolicy = {
   id?: string;
@@ -96,7 +101,8 @@ function Form(props: Props) {
   const router = useRouter();
   const { t } = useTranslation("register");
   const { user } = useAuth();
-  // const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
+  const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
+  const [garantiaData, setGarantiaData] = useState<Garantia | null>(null);
 
   const validationSchema: yup.ObjectSchema<RegisterFormData> =
     useValidationSchema();
@@ -156,6 +162,25 @@ function Form(props: Props) {
       router.replace("/" + garantiaId);
     }
   });
+
+  useEffect(() => {
+    // Add useEffect hook to fetch garantia data
+    if (garantiaId) {
+      const fetchGarantia = async () => {
+        const { data, status } = await fetchUserByGarantiaId({ garantiaId });
+        if (status === HTTP_CODES_ENUM.OK) {
+          const garantia: Garantia = {
+            ...data,
+            garantiaId: "", // Add the missing property
+            registeredAt: "", // Add the missing property
+            status: status.toString(), // Convert the 'status' property to a string
+          };
+          setGarantiaData(garantia);
+        }
+      };
+      fetchGarantia();
+    }
+  }, [fetchUserByGarantiaId, garantiaId, garantiaData]);
 
   return (
     <FormProvider {...methods}>

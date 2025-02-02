@@ -264,9 +264,19 @@ export function useGetGarantiaService() {
             response.status === HTTP_CODES_ENUM.OK &&
             data.userId === response.data.garantia.userId
           ) {
-            return response;
+            return {
+              data: {
+                garantia: response.data.garantia,
+              },
+              status: response.status,
+            };
           } else {
-            return response; // need to understand what is the effect of just sending false or something else
+            return {
+              data: {
+                garantia: { status: "undefined" } as Garantia,
+              },
+              status: response.status,
+            };
           }
         });
     },

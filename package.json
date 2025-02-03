@@ -1,7 +1,8 @@
 {
-  "name": "reactjs-boilerplate",
+  "name": "garantias",
   "version": "1.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -45,6 +46,7 @@
     "mailparser": "^3.7.0",
     "nanoid": "^5.0.1",
     "next": "14.2.3",
+    "next-pwa": "^5.6.0",
     "node": "^22.3.0",
     "notistack": "^3.0.1",
     "react": "18.3.1",

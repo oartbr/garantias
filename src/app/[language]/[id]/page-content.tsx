@@ -77,10 +77,10 @@ function List(props: Props) {
                 item={item}
                 onClick={() => {
                   user && user?.role?.name === "ADMIN"
-                    ? router.replace(`/${garantiaId}/check-phone-number`)
-                    : router.replace(
+                    ? router.replace(
                         `/admin-panel/garantias/edit/${garantiaId}`
-                      );
+                      )
+                    : router.replace(`${garantiaId}/check-phone-number`);
                 }}
               />
             </Grid>

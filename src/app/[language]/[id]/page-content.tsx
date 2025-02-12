@@ -44,6 +44,7 @@ function List(props: Props) {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
           setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
           setIsLoading(false); // Update loading state
+          console.log({ user });
         } else {
           //setItem(null);
           setIsLoading(false); // Update loading state
@@ -75,7 +76,11 @@ function List(props: Props) {
               <ItemCard
                 item={item}
                 onClick={() => {
-                  router.replace(`admin-panel/garantias/edit/${garantiaId}`);
+                  user && user?.role?.name === "ADMIN"
+                    ? router.replace(`/${garantiaId}/check-phone-number`)
+                    : router.replace(
+                        `/admin-panel/garantias/edit/${garantiaId}`
+                      );
                 }}
               />
             </Grid>

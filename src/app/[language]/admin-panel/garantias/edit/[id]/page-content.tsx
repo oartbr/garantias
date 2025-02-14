@@ -132,28 +132,37 @@ function FormEditGarantia() {
   const { enqueueSnackbar } = useSnackbar();
 
   const skuAllList = useGetSKUsService();
-  const [skuList, setSkuTotal] = useState<number>(0);
+  const [skuList, setSkuTotal] = useState<
+    {
+      label: string;
+      value: string;
+      description: string | undefined;
+      brand: string | undefined;
+    }[]
+  >([]);
 
   useEffect(() => {
     const fetchSkuTotal = async () => {
       try {
         const response = await skuAllList({ page: 0, limit: 999 });
-        const skus = response?.data?.results?.map((sku: SKU) => {
-          return {
+        if (response && response.data && "results" in response.data) {
+          const skus = (response.data.results as SKU[]).map((sku: SKU) => ({
             label: sku.skuId,
             value: sku.skuId,
             description: sku.description,
             brand: sku.brand,
-          };
-        });
-        setSkuTotal(skus);
+          }));
+          setSkuTotal(skus);
+        } else {
+          console.error("Error: No results found in response");
+        }
       } catch (error) {
         console.error("Error fetching sku total:", error);
       }
     };
 
     fetchSkuTotal();
-  }, [skuList, skuAllList]);
+  }, [skuAllList]);
   /*.map((sku: SKU) => {
     return {
       label: sku.skuId,

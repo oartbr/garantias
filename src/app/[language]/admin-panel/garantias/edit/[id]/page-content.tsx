@@ -21,16 +21,18 @@ import {
   usePatchGarantiaService,
 } from "@/services/api/services/garantia";
 import { useParams } from "next/navigation";
-// import FormSelectInput from "@/components/form/select/form-select";
+import FormSelectInput from "@/components/form/select/form-select";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { Garantia } from "@/services/api/types/garantia";
+import { useGetSKUsService } from "@/services/api/services/sku";
+import { SKU } from "../../../../../../services/api/types/sku";
 
 type EditUserFormData = {
   description: string;
   firstName: string;
   lastName: string;
-  sku: string;
+  sku: { label: string; value: string; description?: string; brand?: string };
   brand: string;
   address: string;
   number: number;
@@ -58,14 +60,18 @@ const useValidationEditUserSchema = () => {
         t("admin-panel-garantias-edit:inputs.lastName.validation.required")
       ),
     sku: yup
-      .string()
-      .required(
-        t("admin-panel-garantias-edit:inputs.lastName.validation.required")
-      ),
+      .object()
+      .shape({
+        label: yup.string().required(),
+        value: yup.string().required(),
+        description: yup.string(),
+        brand: yup.string(),
+      })
+      .required(t("admin-panel-garantias-edit:inputs.sku.validation.required")),
     brand: yup
       .string()
       .required(
-        t("admin-panel-garantias-edit:inputs.lastName.validation.required")
+        t("admin-panel-garantias-edit:inputs.brand.validation.required")
       ),
     address: yup
       .string()
@@ -125,11 +131,45 @@ function FormEditGarantia() {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const skuAllList = useGetSKUsService();
+  const [skuList, setSkuTotal] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchSkuTotal = async () => {
+      try {
+        const response = await skuAllList({ page: 0, limit: 999 });
+        const skus = response?.data?.results?.map((sku: SKU) => {
+          return {
+            label: sku.skuId,
+            value: sku.skuId,
+            description: sku.description,
+            brand: sku.brand,
+          };
+        });
+        setSkuTotal(skus);
+      } catch (error) {
+        console.error("Error fetching sku total:", error);
+      }
+    };
+
+    fetchSkuTotal();
+  }, [skuList, skuAllList]);
+  /*.map((sku: SKU) => {
+    return {
+      label: sku.skuId,
+      value: sku.skuId,
+      description: sku.description,
+      brand: sku.brand,
+    };
+  });*/
+
+  const skuRenderOption = (option: { label: string }) => option.label;
+
   const methods = useForm<EditUserFormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       description: "",
-      sku: "",
+      sku: { label: "", value: "" },
       firstName: "",
       lastName: "",
       brand: "",
@@ -143,10 +183,16 @@ function FormEditGarantia() {
   const { handleSubmit, setError, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    const skuAsStringFormData = {
+      ...formData,
+      sku: formData.sku.value,
+      description: formData.sku.description,
+      brand: formData.sku.brand,
+    };
     const { data, status } = await fetchPatchGarantia({
       garantiaId: garantiaId.toString(),
       data: {
-        ...formData,
+        ...skuAsStringFormData,
       },
     });
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
@@ -183,7 +229,10 @@ function FormEditGarantia() {
 
         reset({
           description: results.garantia?.description ?? "",
-          sku: results.garantia?.sku ?? "",
+          sku: {
+            value: results.garantia?.sku,
+            label: results.garantia?.sku,
+          } ?? { value: results.garantia?.sku, label: results.garantia?.sku },
           firstName: results.garantia?.firstName ?? "",
           lastName: results.garantia?.lastName ?? "",
           brand: results.garantia?.brand ?? "",
@@ -196,7 +245,7 @@ function FormEditGarantia() {
     };
 
     getInitialDataForEdit();
-  }, [garantiaId, userId, reset, fetchGetGarantia]);
+  }, [garantiaId, userId, reset, fetchGetGarantia, skuList]);
 
   if (!garantiaData) {
     return <div>Loading...</div>;
@@ -214,10 +263,13 @@ function FormEditGarantia() {
             </Grid>
 
             <Grid item xs={12}>
-              <FormTextInput<EditUserFormData>
+              <FormSelectInput
                 name="sku"
-                testId="sku"
-                label={t("admin-panel-garantias-edit:inputs.sku.label")}
+                label="Select SKU"
+                options={skuList}
+                renderOption={skuRenderOption}
+                keyValue="value" // Assuming options is an array of objects with an 'id' key
+                testId="example-select-input"
               />
             </Grid>
 

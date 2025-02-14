@@ -59,8 +59,9 @@ function List(props: Props) {
       });
   }, [user, fetchGarantia, garantiaId]);
 
-  const workflowService =
-    item && user ? new WorkflowService(item, user, workflowGarantia) : null;
+  const workflowService = item
+    ? new WorkflowService(item, user, workflowGarantia)
+    : null;
   const workflowData = workflowService
     ? workflowService.getWorkflowData()
     : null;

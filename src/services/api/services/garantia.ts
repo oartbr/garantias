@@ -262,7 +262,8 @@ export function useGetGarantiaService() {
         .then((response) => {
           if (
             response.status === HTTP_CODES_ENUM.OK &&
-            data.userId === response.data.garantia.userId
+            (data.userId === response.data.garantia.userId ||
+              response.data.garantia.userId === undefined)
           ) {
             return {
               data: {

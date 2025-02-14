@@ -71,6 +71,7 @@ function List(props: Props) {
                   onClick={() => {
                     router.replace(`${item.garantiaId}`);
                   }}
+                  action="Ver detalles"
                 />
               </Grid>
             ))

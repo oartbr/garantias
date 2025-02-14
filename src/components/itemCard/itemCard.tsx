@@ -11,9 +11,10 @@ import { Garantia } from "../../services/api/types/garantia";
 export type ItemCardProps = {
   item: Garantia;
   onClick: () => void;
+  action: string;
 };
 
-export function ItemCard({ item, onClick }: ItemCardProps) {
+export function ItemCard({ item, onClick, action }: ItemCardProps) {
   // console.log({ item });
 
   return (
@@ -49,10 +50,10 @@ export function ItemCard({ item, onClick }: ItemCardProps) {
           )}
         </CardContent>
         <CardActions>
-          {item.status !== "assigned" ? (
-            <Button onClick={onClick}>Abrir</Button>
+          {item.status !== "assigned" || true ? (
+            <Button onClick={onClick}>{action}</Button>
           ) : (
-            <Button onClick={onClick}>Registrar</Button>
+            <Button onClick={onClick}>{action}</Button>
           )}
         </CardActions>
       </Card>

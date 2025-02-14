@@ -16,6 +16,8 @@ import { ItemCard } from "@/components/itemCard/itemCard";
 import React, { useEffect, useState } from "react";
 import { Garantia } from "@/services/api/types/garantia";
 import Button from "@mui/material/Button";
+import { WorkflowService } from "@/services/workflows/workflowService";
+import workflowGarantia from "@/services/workflows/workflowGarantia";
 
 type Props = {
   params: { language: string; id: string };
@@ -42,13 +44,13 @@ function List(props: Props) {
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
       .then((data) => {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
+          // console.log({ item: data });
           setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
           setIsLoading(false); // Update loading state
-          console.log({ user });
         } else {
-          //setItem(null);
+          setItem(null);
           setIsLoading(false); // Update loading state
-          // console.error("Failed to fetch client data:", err);
+          console.error("Failed to fetch client data:", data);
         }
       })
       .catch((err) => {
@@ -57,16 +59,25 @@ function List(props: Props) {
       });
   }, [user, fetchGarantia, garantiaId]);
 
+  const workflowService =
+    item && user ? new WorkflowService(item, user, workflowGarantia) : null;
+  const workflowData = workflowService
+    ? workflowService.getWorkflowData()
+    : null;
+
   return (
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          <h3></h3>
           {!isLoading && item && item.status === "assigned" && (
-            <h3>Desea registrar la garantia de este producto?</h3>
+            <div>
+              <h3>Desea registrar la garantia de este producto?</h3>
+            </div>
           )}
           {!isLoading && item && item.status === "registered" && (
-            <h3>Garantia {item.garantiaId} registrada en su cuenta: </h3>
+            <div>
+              <h3>Garantia {item.garantiaId} registrada en su cuenta: </h3>
+            </div>
           )}
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
@@ -75,12 +86,9 @@ function List(props: Props) {
             <Grid item xs={12}>
               <ItemCard
                 item={item}
+                action={workflowData?.action || "Close"}
                 onClick={() => {
-                  user && user?.role?.name === "ADMIN"
-                    ? router.replace(
-                        `/admin-panel/garantias/edit/${garantiaId}`
-                      )
-                    : router.replace(`${garantiaId}/check-phone-number`);
+                  router.replace(`${workflowData?.route}`);
                 }}
               />
             </Grid>

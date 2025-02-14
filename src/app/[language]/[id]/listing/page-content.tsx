@@ -72,6 +72,7 @@ function List(props: Props) {
                   onClick={() => {
                     console.log("Clicked on item:", item);
                   }}
+                  action="Ver detalles"
                 />
               </Grid>
             ))

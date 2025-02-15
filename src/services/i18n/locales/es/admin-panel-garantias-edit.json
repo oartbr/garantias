@@ -15,6 +15,12 @@
         }
       }
     },
+    "brand": {
+      "label": "Marca",
+      "validation": {
+        "required": "La marca es obligatoria"
+      }
+    },
     "firstName": {
       "label": "Nombre",
       "validation": {

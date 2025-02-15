@@ -163,14 +163,6 @@ function FormEditGarantia() {
 
     fetchSkuTotal();
   }, [skuAllList]);
-  /*.map((sku: SKU) => {
-    return {
-      label: sku.skuId,
-      value: sku.skuId,
-      description: sku.description,
-      brand: sku.brand,
-    };
-  });*/
 
   const skuRenderOption = (option: { label: string }) => option.label;
 
@@ -305,7 +297,6 @@ function FormEditGarantia() {
                 name="firstName"
                 testId="first-name"
                 label={t("admin-panel-garantias-edit:inputs.firstName.label")}
-                disabled // Add the disabled prop to make the field unable to be edited
               />
             </Grid>
 
@@ -314,7 +305,6 @@ function FormEditGarantia() {
                 name="lastName"
                 testId="last-name"
                 label={t("admin-panel-garantias-edit:inputs.lastName.label")}
-                disabled // Add the disabled prop to make the field unable to be edited
               />
             </Grid>
 

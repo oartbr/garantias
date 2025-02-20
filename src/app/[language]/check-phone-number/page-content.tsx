@@ -6,18 +6,24 @@ import { useCheckPhoneNumberLoginService } from "@/services/api/services/garanti
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import PhoneNumberInput from "@/components/form/select/form-phoneNumber";
+import FormTextInput from "@/components/form/text-input/form-text-input";
+import FormSelectInput from "@/components/form/select/form-select";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
+import {
+  getCountryData,
+  getCountryDataList,
+  ICountryData,
+  TCountryCode,
+} from "countries-list";
 
 type RegisterFormData = {
   phoneNumber: string;
-  phNumber?: string;
-  areaCode?: Record<string, string>;
+  countryCode: { label: string; value: string };
 };
 
 type Props = {
@@ -35,8 +41,13 @@ const useValidationSchema = () => {
         t("register:inputs.phoneNumber.validation.invalid")
       )
       .required(t("register:inputs.phoneNumber.validation.required")),
-    phNumber: yup.string().optional(),
-    areaCode: yup.object().optional(),
+    countryCode: yup
+      .object()
+      .shape({
+        label: yup.string().required(),
+        value: yup.string().required(),
+      })
+      .required(t("register:inputs.phoneNumber.validation.required")),
   });
 };
 
@@ -63,11 +74,24 @@ function Form(props: Props) {
   const { t } = useTranslation("register");
   const validationSchema = useValidationSchema();
   const router = useRouter();
-  console.log({ props });
+  console.log(props.params);
+
+  const countryList = getCountryDataList()
+    .filter((country: ICountryData) => country.continent === "SA")
+    .map((country: ICountryData) => {
+      return {
+        label: country.name,
+        value: country.iso2,
+      };
+    });
+
+  const countryRenderOption = (option: { label: string }) => option.label;
+
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver<RegisterFormData>(validationSchema),
     defaultValues: {
       phoneNumber: "",
+      countryCode: { label: "", value: "" },
     },
   });
 
@@ -76,10 +100,9 @@ function Form(props: Props) {
   const onSubmit = handleSubmit(async (formData) => {
     //const params = new URLSearchParams(window.location.search);
     //const hash = params.get("hash");
-    delete formData.phNumber;
-    delete formData.areaCode;
+    const country = getCountryData(formData.countryCode.value as TCountryCode);
     const { data, status } = await fetchSendCode({
-      phoneNumber: formData.phoneNumber,
+      phoneNumber: "+" + country.phone + formData.phoneNumber,
     });
 
     if (status === HTTP_CODES_ENUM.OK) {
@@ -87,7 +110,7 @@ function Form(props: Props) {
         variant: "success",
       });
 
-      router.replace(`confirm-code?p=${formData.phoneNumber}`);
+      router.replace(`confirm-code?p=${country.phone}${formData.phoneNumber}`);
     }
 
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
@@ -119,18 +142,25 @@ function Form(props: Props) {
                 {t("register:workflow.confirm-phone.subtitle")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <PhoneNumberInput
-                name="phoneNumber"
-                numberLabel={t(
-                  "admin-panel-users-create:inputs.phoneNumber.label"
-                )}
-                areaCodeLabel={t(
-                  "admin-panel-users-create:inputs.areaCode.label"
-                )}
-                defaultValue=""
-                region="SA"
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={5}>
+                <FormSelectInput
+                  name="countryCode"
+                  label={t("register:inputs.countryCode.label")}
+                  options={countryList}
+                  renderOption={countryRenderOption}
+                  keyValue="value" // Assuming options is an array of objects with an 'id' key
+                  testId="example-select-input"
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <FormTextInput<RegisterFormData>
+                  name="phoneNumber"
+                  label={t("register:inputs.phoneNumber.label")}
+                  type="phoneNumber"
+                  testId="phoneNumber"
+                />
+              </Grid>
             </Grid>
             <Grid item xs={7} mt={2}>
               <FormActions />

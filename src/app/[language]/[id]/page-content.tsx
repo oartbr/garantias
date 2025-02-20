@@ -6,7 +6,7 @@ import useAuth from "@/services/auth/use-auth";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useGetGarantiaService } from "@/services/api/services/garantia";
-// import { useTranslation } from "@/services/i18n/client";
+import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
@@ -30,7 +30,7 @@ function List(props: Props) {
   // const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
-  // const { t } = useTranslation("register");
+  const { t } = useTranslation("listing");
   const { user } = useAuth();
   const garantiaId = props.params.id;
 
@@ -87,7 +87,9 @@ function List(props: Props) {
             <Grid item xs={12}>
               <ItemCard
                 item={item}
-                action={workflowData?.action || "Close"}
+                action={t(
+                  "listing:actions." + (workflowData?.action || "Close")
+                )}
                 onClick={() => {
                   router.replace(`${workflowData?.route}`);
                 }}

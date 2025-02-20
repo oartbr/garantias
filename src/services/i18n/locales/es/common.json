@@ -11,12 +11,18 @@
     "logout": "Cerrar Sesión",
     "generate-codes": "Generar Garantias",
     "garantias": "Garantias",
-    "skus": "Equipos"
+    "skus": "Equipos",
+    "create-sku": "Crear Equipo",
+    "create-garantia": "Crear Garantias",
+    "edit-sku": "Editar Equipo",
+    "edit-garantia": "Editar Garantias",
+    "scan": "Escanear",
+    "profile-menu": "Perfil"
   },
   "formInputs": {
     "avatarInput": {
       "dropzoneText": "Suelta la imagen aquí ...",
-      "dragAndDrop": "O arrastra y suelta algunos archivos aquí",
+      "dragAndDrop": "O arrastra una imagen y sueltala aquí",
       "selectFile": "Selecciona una imagen"
     }
   },

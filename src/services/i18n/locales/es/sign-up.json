@@ -1,29 +1,29 @@
 {
-  "title": "Sign Up",
+  "title": "Crear cuenta",
   "actions": {
-    "submit": "Sign Up",
-    "accountAlreadyExists": "Already have an account?"
+    "submit": "Crear",
+    "accountAlreadyExists": "Ya tiene una cuenta?"
   },
   "inputs": {
     "firstName": {
-      "label": "First Name",
+      "label": "Nombre",
       "validation": {
-        "required": "First Name is required"
+        "required": "El nombre es obligatório"
       }
     },
     "lastName": {
-      "label": "Last Name",
+      "label": "Apellido",
       "validation": {
-        "required": "Last Name is required"
+        "required": "El apellido es obligatório"
       }
     },
     "email": {
       "label": "Email",
       "validation": {
-        "required": "Email is required",
-        "invalid": "Email is not valid",
+        "required": "El email es obligatório",
+        "invalid": "Email o contraseña incorrectos",
         "server": {
-          "emailAlreadyExists": "Email already exists"
+          "emailAlreadyExists": "El email ya está registrado"
         }
       }
     },
@@ -40,20 +40,20 @@
       }
     },
     "password": {
-      "label": "Password",
+      "label": "Contraseña",
       "validation": {
-        "required": "Password is required",
-        "min": "Password must be at least 6 characters long",
+        "required": "La contraseña es obligatoria",
+        "min": "La contraseña debe tener al menos 8 caracteres",
         "server": {
-          "incorrectPassword": "Password is not valid"
+          "incorrectPassword": "Contraseña inválida"
         }
       }
     },
     "policy": {
-      "label": "Privacy Policy",
-      "agreement": "I have read and accept ",
+      "label": "Política de Privacidad",
+      "agreement": "Lei y acepto las condiciones",
       "validation": {
-        "required": "Consent to the Privacy Policy is required"
+        "required": "Concordar con la política de privacidad es obligatório"
       }
     }
   },

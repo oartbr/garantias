@@ -14,7 +14,7 @@ const workflows: StatusWorkflows = {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} needs to be assigned",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     FACTORY: {
       message: "Factory: Garantia {garantiaId} needs to be assigned",
@@ -24,82 +24,82 @@ const workflows: StatusWorkflows = {
     default: {
       message: "USER: Access denied for garantia {garantiaId}",
       route: "/error",
-      action: "Contact support",
+      action: "support",
     },
   },
   assigned: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was assigned",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     FACTORY: {
       message: "ADMIN: Garantia {garantiaId} was assigned",
       route: "/{garantiaId}/assign",
-      action: "Reassign",
+      action: "reassign",
     },
     default: {
       message: "Garantia {garantiaId} is assigned",
       route: "/{garantiaId}/check-phone-number",
-      action: "Register",
+      action: "register",
     },
   },
   shipped: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was shipped",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     CARRIER: {
       message: "FACTORY: Garantia {garantiaId} was shipped",
       route: "/{garantiaId}/deliver",
-      action: "Deliver",
+      action: "deliver",
     },
     default: {
       message: "Garantia {garantiaId} was shipped",
       route: "/{garantiaId}/check-phone-number",
-      action: "Register",
+      action: "register",
     },
   },
   delivered: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was delivered",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     CARRIER: {
       message: "CARRIER: Garantia {garantiaId} was delivered",
       route: "/CARRIER/delivered/{garantiaId}",
-      action: "Correct",
+      action: "correct",
     },
     default: {
       message: "Garantia {garantiaId} is delivered",
       route: "/{garantiaId}/check-phone-number",
-      action: "Register",
+      action: "register",
     },
   },
   void: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was void",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     default: {
       message: "Garantia {garantiaId} is void",
       route: "/error",
-      action: "Close",
+      action: "close",
     },
   },
   registered: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was registered",
       route: "admin-panel/garantias/edit/{garantiaId}",
-      action: "Edit",
+      action: "edit",
     },
     default: {
       message: "Garantia {garantiaId} is already registered",
       route: "/{garantiaId}/check-phone-number",
-      action: "Open",
+      action: "open",
     },
   },
 };

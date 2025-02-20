@@ -1,9 +1,10 @@
 {
   "title": "Garantias",
   "actions": {
-    "submit": "Sign In",
-    "createAccount": "Create Account",
-    "forgotPassword": "Forgot Password?"
+    "submit": "Entrar",
+    "createAccount": "Crear una cuenta",
+    "forgotPassword": "Se olvidó la contraseña?",
+    "register": "Registrar Garantia"
   },
   "or": "OR"
 }

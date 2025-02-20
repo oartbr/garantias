@@ -38,15 +38,25 @@ export default async function Home({ params }: Props) {
         sx={{ height: "90vh", justifyContent: "space-between" }}
       >
         <Grid item>
-          <div className="scanning">
-            <Image
-              className="qrTanque"
-              src={tanque.src}
-              alt="tanque"
-              fill={true}
-            />
-            <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
-          </div>
+          <Box ml={1} component="div" className="scan">
+            <div className="scanning">
+              <Image
+                className="qrTanque"
+                src={tanque.src}
+                alt="tanque"
+                fill={true}
+              />
+              <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
+              <Button
+                variant="contained"
+                LinkComponent={Link}
+                href="/scan"
+                data-testid="scan-qr"
+              >
+                {t("scan")}
+              </Button>
+            </div>
+          </Box>
           <div className="mensagem">
             <Typography variant="h3" data-testid="home-title" gutterBottom>
               {t("title")}
@@ -68,18 +78,6 @@ export default async function Home({ params }: Props) {
               />
             </Typography>
           </div>
-        </Grid>
-        <Grid item sx={{ mx: "auto" }}>
-          <Box ml={1} component="span">
-            <Button
-              variant="contained"
-              LinkComponent={Link}
-              href="/scan"
-              data-testid="scan-qr"
-            >
-              {t("scan")}
-            </Button>
-          </Box>
         </Grid>
         <Grid item sx={{ mx: "auto" }}>
           <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>

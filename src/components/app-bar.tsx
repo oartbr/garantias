@@ -113,7 +113,16 @@ function ResponsiveAppBar() {
                   {t("common:navigation.home")}
                 </Typography>
               </MenuItem>
-
+              <MenuItem
+                key="scan"
+                onClick={handleCloseNavMenu}
+                component={Link}
+                href="/scan"
+              >
+                <Typography textAlign="center">
+                  {t("common:navigation.scan")}
+                </Typography>
+              </MenuItem>
               {!!user?.role &&
                 [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
                   <MenuItem
@@ -163,6 +172,19 @@ function ResponsiveAppBar() {
                   >
                     <Typography textAlign="center">
                       {t("common:navigation.listing")}
+                    </Typography>
+                  </MenuItem>,
+                ]}
+              {!!user?.role &&
+                [RoleEnum.USER].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="lscan"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/scan"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.scan")}
                     </Typography>
                   </MenuItem>,
                 ]}
@@ -223,6 +245,14 @@ function ResponsiveAppBar() {
               {t("common:navigation.home")}
             </Button>
             {/* Menu large browser starts here */}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              component={Link}
+              href="/scan"
+            >
+              {t("common:navigation.scan")}
+            </Button>
             {!!user?.role &&
               [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
                 <Button
@@ -273,7 +303,7 @@ function ResponsiveAppBar() {
             <CircularProgress color="inherit" />
           ) : user ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Profile menu">
+              <Tooltip title={t("common:navigation.profile")}>
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0 }}

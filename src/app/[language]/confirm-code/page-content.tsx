@@ -49,25 +49,31 @@ function FormActions() {
   //const params = new URLSearchParams(window.location.search);
   return (
     <div>
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        disabled={isSubmitting}
-        data-testid="confirm-code/"
-      >
-        {t("register:workflow.get-code.submit")}
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        type="button"
-        disabled={isSubmitting}
-        data-testid="resend-code/"
-        onClick={() => router.replace("check-phone-number")}
-      >
-        {t("register:workflow.get-code.resend")}
-      </Button>
+      <Grid container spacing={0} mb={2}>
+        <Grid item xs={4} mt={3}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={isSubmitting}
+            data-testid="confirm-code/"
+          >
+            {t("register:workflow.get-code.submit")}
+          </Button>
+        </Grid>
+        <Grid item xs={4} mt={3}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            disabled={isSubmitting}
+            data-testid="resend-code/"
+            onClick={() => router.replace("check-phone-number")}
+          >
+            {t("register:workflow.get-code.resend")}
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

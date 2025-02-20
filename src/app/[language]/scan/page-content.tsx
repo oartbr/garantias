@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/services/auth/use-auth";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 function checkScannedData(url: string, checkGarantia: (id: string) => void) {
   const aUrl = url.split("/");
@@ -88,14 +90,16 @@ function Scan() {
         </Grid>
       </Grid>
       <Grid container spacing={3} wrap="nowrap" pt={3}>
-        <Grid item>
-          <Typography variant="h4" gutterBottom>
-            {t("title")}
-          </Typography>
-          <Typography>
-            {t("description")}
-            {garantiaStatus}
-          </Typography>
+        <Grid item className="scanScreenButton">
+          <Button
+            variant="contained"
+            LinkComponent={Link}
+            href="/"
+            data-testid="scan-qr"
+          >
+            {t("cancel")}
+          </Button>
+          <Typography>{garantiaStatus}</Typography>
         </Grid>
       </Grid>
     </Container>

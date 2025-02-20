@@ -58,6 +58,15 @@ body {
   animation: qrScanAnimation 4s 1s forwards;
 }
 
+.scanScreenButton {
+  width: 100%;
+  padding-top: 0px !important;
+}
+
+.scanScreenButton a {
+  width: 100%;
+}
+
 @keyframes qrScanAnimation {
   0% {
     opacity: 0;

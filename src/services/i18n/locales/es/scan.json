@@ -1,6 +1,6 @@
 {
-  "title": "Escanea el código QR",
-  "description": "Bienvenido a la plataforma de registro de garantias, escanea el código QR de tu producto para registrar tu garantia.",
+  "title": "Escanea código QR",
+  "description": "",
   "registerWarranty": "Registrar Garantia",
   "notFound": "Código no identificado",
   "notFoundMessage": "El código que ingresaste no existe en nuestra base de datos, por favor verifica que sea correcto o entra en contacto con la empresa.",

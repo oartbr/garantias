@@ -24,6 +24,7 @@ import Divider from "@mui/material/Divider";
 import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 import Image from "next/image";
+import InstallButton from "@/components/pwa/installButton";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -53,6 +54,9 @@ function ResponsiveAppBar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
+        <div className="PWA_installButton">
+          <InstallButton />
+        </div>
         <Toolbar disableGutters>
           <Image
             className="logoHeader"

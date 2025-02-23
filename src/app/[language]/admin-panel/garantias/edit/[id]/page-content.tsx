@@ -239,7 +239,10 @@ function FormEditGarantia() {
           brand: results.garantia?.brand ?? "",
           address: results.garantia?.address ?? "",
           city: results.garantia?.city ?? "",
-          number: Number(results.garantia?.number) ?? 0,
+          number:
+            typeof results.garantia?.number !== "undefined"
+              ? Number(results.garantia?.number)
+              : 0,
           zipcode: results.garantia?.zipcode ?? "",
         });
       }

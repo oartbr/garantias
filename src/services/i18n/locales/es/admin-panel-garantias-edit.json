@@ -1,8 +1,14 @@
 {
   "title1": "Editar garantia",
+  "titleAssign": "Asignar SKU a garantia",
   "actions": {
     "submit": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "assign": "Asignar",
+    "unassign": "Desasignar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Volver"
   },
   "inputs": {
     "email": {

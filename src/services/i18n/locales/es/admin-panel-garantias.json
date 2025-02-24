@@ -17,7 +17,12 @@
     "add": "Agregar Garantia",
     "edit": "Editar",
     "delete": "Eliminar",
-    "create": "Crear Garantias"
+    "create": "Crear Garantias",
+    "submit": "Guardar",
+    "cancel": "Cancelar",
+    "assign": "Asignar",
+    "unassign": "Desasignar",
+    "back": "Volver"
   },
   "confirm": {
     "delete": {

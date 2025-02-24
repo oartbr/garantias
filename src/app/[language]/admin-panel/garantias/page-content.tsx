@@ -36,7 +36,7 @@ import MenuList from "@mui/material/MenuList";
 import { Garantia } from "@/services/api/types/garantia";
 // import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
-// import useAuth from "@/services/auth/use-auth";
+import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useDeleteGarantiasService } from "@/services/api/services/garantia";
 // import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
@@ -90,17 +90,25 @@ function TableSortCellWrapper(
 
 function Actions({ garantia }: { garantia: Garantia }) {
   const [open, setOpen] = useState(false);
-  // const { user: authUser } = useAuth();
+  const router = useRouter();
+  const user = useAuth().user;
+  const [role] = user?.role ? [user.role] : [{ name: RoleEnum.USER }];
   const { confirmDialog } = useConfirmDialog();
   const fetchGarantiaDelete = useDeleteGarantiasService();
   const queryClient = useQueryClient();
   const anchorRef = useRef<HTMLDivElement>(null);
 
-  const canDelete = garantia.status === "created"; // user.id !== authUser?.id;
+  const canDelete = garantia.status !== "created"; // user.id !== authUser?.id;
   const { t: tGarantias } = useTranslation("admin-panel-garantias");
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleAction = (event: React.MouseEvent<unknown>) => {
+    setOpen(false);
+    const sAction = (event.target as HTMLElement).title.toLowerCase();
+    router.push(`/admin-panel/garantias/${sAction}/${garantia.garantiaId}`);
   };
 
   const handleClose = (event: Event) => {
@@ -175,9 +183,9 @@ function Actions({ garantia }: { garantia: Garantia }) {
       size="small"
       variant="contained"
       LinkComponent={Link}
-      href={`/admin-panel/garantias/edit/${garantia.garantiaId}`}
+      href={`/admin-panel/garantias/assign/${garantia.garantiaId}`}
     >
-      {tGarantias("admin-panel-garantias:actions.edit")}
+      {tGarantias("admin-panel-garantias:actions.assign")}
     </Button>
   );
 
@@ -227,16 +235,13 @@ function Actions({ garantia }: { garantia: Garantia }) {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {canDelete && (
-                    <MenuItem
-                      sx={{
-                        bgcolor: "error.main",
-                        "&:hover": {
-                          bgcolor: "error.light",
-                        },
-                      }}
-                      onClick={handleDelete}
-                    >
+                  {role.name === "ADMIN" && (
+                    <MenuItem onClick={handleAction} title="edit">
+                      {tGarantias("admin-panel-garantias:actions.edit")}
+                    </MenuItem>
+                  )}
+                  {canDelete && role.name === "ADMIN" && (
+                    <MenuItem onClick={handleDelete}>
                       {tGarantias("admin-panel-garantias:actions.delete")}
                     </MenuItem>
                   )}

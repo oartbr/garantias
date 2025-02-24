@@ -96,7 +96,9 @@ function FormSelectInput<
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >(
   props: SelectInputProps<T> &
-    Pick<ControllerProps<TFieldValues, TName>, "name" | "defaultValue">
+    Pick<ControllerProps<TFieldValues, TName>, "name" | "defaultValue"> & {
+      onChange?: (value: T) => void;
+    }
 ) {
   return (
     <Controller
@@ -115,6 +117,10 @@ function FormSelectInput<
           options={props.options}
           renderOption={props.renderOption}
           keyValue={props.keyValue}
+          onChange={(newValue) => {
+            if (!newValue || typeof props.onChange === "undefined") return;
+            props.onChange(newValue);
+          }}
           ref={null}
         />
       )}

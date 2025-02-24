@@ -408,6 +408,29 @@ export function usePatchGarantiaService() {
   );
 }
 
+// Assign a garantia to the SKU
+export type GarantiaAssignRequest = {
+  garantiaId: Garantia["garantiaId"];
+  data: Partial<Pick<Garantia, "brand">>;
+};
+
+export type GarantiaAssignResponse = Garantia;
+
+export function useAssignGarantiaService() {
+  const fetch = useFetch();
+
+  return useCallback(
+    (data: GarantiaAssignRequest, requestConfig?: RequestConfigType) => {
+      return fetch(`${API_URL}/v1/garantia/assign/${data.garantiaId}`, {
+        method: "PATCH",
+        body: JSON.stringify(data.data),
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GarantiaAssignResponse>);
+    },
+    [fetch]
+  );
+}
+
 export type GarantiasDeleteRequest = {
   id: Garantia["garantiaId"];
 };

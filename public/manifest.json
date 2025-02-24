@@ -9,7 +9,14 @@
     {
       "src": "/assets/images/WSE192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/WSE512x512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -29,8 +36,38 @@
   ],
   "splash_pages": [
     {
-      "src": "/assets/images/splash-screen.png",
+      "src": "/assets/images/splash-2048x2732.png",
       "sizes": "2048x2732",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-1536x2048.png",
+      "sizes": "1536x2048",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-1125x2436.png",
+      "sizes": "1125x2436",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-828x1792.png",
+      "sizes": "828x1792",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-1242x2208.png",
+      "sizes": "1242x2208",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-750x1334.png",
+      "sizes": "750x1334",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/splash-640x1136.png",
+      "sizes": "640x1136",
       "type": "image/png"
     }
   ]

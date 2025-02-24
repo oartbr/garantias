@@ -165,7 +165,7 @@ export function useRegisterSKUService() {
 
   return useCallback(
     (data: RegisterSKURequest, requestConfig?: RequestConfigType) => {
-      console.log({ skuData: data });
+      // console.log({ skuData: data });
       return fetchBase(`${API_URL}/v1/sku/register`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -428,7 +428,7 @@ export async function getSKUService(skuId: string) {
     const response = await fetch(requestUrl);
 
     const data = (await response.json()) || {};
-    console.log({ data });
+    // console.log({ data });
     if (response.status !== 404) {
       data.exists = typeof data.id === "string";
       return data.sku;

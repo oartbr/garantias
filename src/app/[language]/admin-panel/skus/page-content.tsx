@@ -291,7 +291,7 @@ function Skus() {
   const result = useMemo(() => {
     const result =
       (data?.pages.flatMap((page) => page?.data) as SKU[]) ?? ([] as SKU[]);
-    console.log({ data });
+    // console.log({ data });
     return result; // removeDuplicatesFromArrayObjects(result, "skuId");
   }, [data]);
 

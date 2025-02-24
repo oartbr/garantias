@@ -309,7 +309,6 @@ function Garantias() {
     const result =
       (data?.pages.flatMap((page) => page?.data) as Garantia[]) ??
       ([] as Garantia[]);
-    console.log({ data });
     return result; // removeDuplicatesFromArrayObjects(result, "garantiaId");
   }, [data]);
 

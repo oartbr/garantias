@@ -30,7 +30,7 @@ export default async function Home({ params }: Props) {
     exists: false,
     status: "not-found",
   };
-  console.log({ existingCode });
+  // console.log({ existingCode });
   if (
     !existingCode.exists &&
     (existingCode.status === "assigned" ||

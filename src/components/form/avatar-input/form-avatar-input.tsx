@@ -77,7 +77,7 @@ const StyledAvatar = styled(Avatar)(({}) => ({
 
 function AvatarInput(props: AvatarInputProps) {
   const { onChange } = props;
-  console.log({ props });
+  // console.log({ props });
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const fetchFileUpload = useFileUploadService();
@@ -89,7 +89,7 @@ function AvatarInput(props: AvatarInputProps) {
         "avatar"
       );
       if (status === HTTP_CODES_ENUM.CREATED) {
-        console.log({ data: data.url });
+        // console.log({ data: data.url });
         onChange(data.url);
       }
       setIsLoading(false);

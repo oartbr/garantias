@@ -161,10 +161,10 @@ function Form(props: Props) {
 
       setTimeout(() => {
         if (garantiaId) {
-          console.log({ go: `${props.params.id}/register` });
+          // console.log({ go: `${props.params.id}/register` });
           router.replace(`${props.params.id}/register`);
         } else {
-          console.log({ go: "listing" });
+          // console.log({ go: "listing" });
           router.replace("listing");
         }
       }, 1000); // 2 seconds delay to make this work because of the API. To-do: fix this with a better solution.

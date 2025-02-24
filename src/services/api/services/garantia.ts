@@ -173,7 +173,7 @@ export function useRegisterGarantiaService() {
 
   return useCallback(
     (data: RegisterGarantiaRequest, requestConfig?: RequestConfigType) => {
-      console.log({ garantiaData: data });
+      // console.log({ garantiaData: data });
       return fetchBase(`${API_URL}/v1/garantia/register`, {
         method: "POST",
         body: JSON.stringify(data),

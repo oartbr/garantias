@@ -182,7 +182,7 @@ function FormEditUser() {
   useEffect(() => {
     const getInitialDataForEdit = async () => {
       const { status, data: user } = await fetchGetUser({ id: userId });
-      console.log({ user });
+      //console.log({ user });
       if (status === HTTP_CODES_ENUM.OK) {
         reset({
           email: user?.email ?? "",

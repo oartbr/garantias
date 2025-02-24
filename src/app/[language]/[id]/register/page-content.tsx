@@ -158,7 +158,7 @@ function Form(props: Props) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",
       });
-      console.log("Register success:", dataRegister);
+      // console.log("Register success:", dataRegister);
       router.replace("/" + garantiaId);
     }
   });

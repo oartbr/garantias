@@ -4,8 +4,7 @@
   "description": "App para gestionar garantías y post-venta",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "background_color": "#1976d2",
   "icons": [
     {
       "src": "/assets/images/WSE192x192.png",
@@ -26,6 +25,13 @@
       "type": "image/png",
       "platform": "wide",
       "label": "Desktop"
+    }
+  ],
+  "splash_pages": [
+    {
+      "src": "/assets/images/splash-screen.png",
+      "sizes": "2048x2732",
+      "type": "image/png"
     }
   ]
 }

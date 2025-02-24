@@ -70,7 +70,7 @@ function List(props: Props) {
                 <ItemCard
                   item={item}
                   onClick={() => {
-                    console.log("Clicked on item:", item);
+                    // console.log("Clicked on item:", item);
                   }}
                   action="Ver detalles"
                 />

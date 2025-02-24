@@ -21,6 +21,6 @@ export default function RegisterPage(props: Props) {
   if (!IS_SIGN_UP_ENABLED) {
     //return redirect("/");
   }
-  console.log(props);
+  // console.log(props);
   return <Register {...props} />;
 }

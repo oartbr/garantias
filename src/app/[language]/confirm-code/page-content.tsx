@@ -151,14 +151,14 @@ function Form({ params }: Props) {
         });
         setUser(data.user);
         if (params.id) {
-          console.log({ go: "register" });
+          // console.log({ go: "register" });
           router.replace(`register`);
         } else {
-          console.log({ go: "listing" });
+          // console.log({ go: "listing" });
           router.replace(`/listing`);
         }
       } else {
-        console.log({ go: "sign-up" });
+        // console.log({ go: "sign-up" });
         router.replace(`sign-up?p=${phoneNumber}`);
       }
     }

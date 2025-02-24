@@ -8,7 +8,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
     const data = detectedCodes[0] || null;
     if (data) {
       setQrData(data.rawValue.toString());
-      console.log(data.rawValue.toString());
+      // console.log(data.rawValue.toString());
       callBack(data.rawValue.toString());
     }
   };

@@ -95,6 +95,10 @@ function Form(props: Props) {
     },
   });
 
+  const changeCountry = (country: { label: string; value: string }) => {
+    methods.setValue("countryCode", country);
+  };
+
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
@@ -151,6 +155,7 @@ function Form(props: Props) {
                   renderOption={countryRenderOption}
                   keyValue="value" // Assuming options is an array of objects with an 'id' key
                   testId="example-select-input"
+                  onChange={changeCountry}
                 />
               </Grid>
               <Grid item xs={7}>

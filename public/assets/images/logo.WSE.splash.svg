@@ -2,15 +2,15 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="2048"
-   height="2732"
-   viewBox="0 0 541.86646 722.84166"
+   width="640"
+   height="1136"
+   viewBox="0 0 169.33327 300.56667"
    version="1.1"
    id="svg1"
    xml:space="preserve"
    sodipodi:docname="logo.WSE.splash.svg"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   inkscape:export-filename="splash-screen.png"
+   inkscape:export-filename="splash-640x1136.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,19 +27,19 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showguides="true"
-     inkscape:zoom="0.33396819"
-     inkscape:cx="1.4971486"
-     inkscape:cy="1636.3834"
-     inkscape:window-width="2560"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
+     inkscape:zoom="0.23615117"
+     inkscape:cx="215.96336"
+     inkscape:cy="1111.5761"
+     inkscape:window-width="1536"
+     inkscape:window-height="793"
+     inkscape:window-x="2552"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"><inkscape:page
        x="0"
        y="0"
-       width="541.86646"
-       height="722.84167"
+       width="169.33327"
+       height="300.56668"
        id="page2"
        margin="0"
        bleed="0" /></sodipodi:namedview><defs
@@ -49,7 +49,7 @@
      id="layer1"
      transform="translate(-6.2117939,-113.19671)"><g
        id="g1"
-       transform="translate(57.062407,160.301)"><rect
+       transform="matrix(0.44441286,0,0,0.44441286,-7.634319,123.42992)"><rect
          style="display:none;fill:#ffffff;stroke-width:5.5452;paint-order:markers fill stroke"
          id="rect1"
          width="290.69165"

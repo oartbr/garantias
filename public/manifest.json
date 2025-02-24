@@ -10,13 +10,13 @@
       "src": "/assets/images/WSE192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "/assets/images/WSE512x512.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
@@ -24,14 +24,16 @@
       "src": "/assets/images/screenshot_mobile_1080x1920.png",
       "sizes": "1080x1920",
       "type": "image/png",
-      "platform": "mobile"
+      "platform": "mobile",
+      "orientation": "portrait"
     },
     {
       "src": "/assets/images/screenshot_desktop_1280x800.png",
       "sizes": "1280x800",
       "type": "image/png",
       "platform": "wide",
-      "label": "Desktop"
+      "label": "Desktop",
+      "orientation": "landscape"
     }
   ],
   "splash_pages": [

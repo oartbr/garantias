@@ -38,11 +38,14 @@ body {
   margin: 0px;
 }
 
-.scan a {
-  margin-top: 12rem;
-  position: absolute;
-  left: 50%;
-  margin-left: -25%;
+.mensagem a {
+  font-size: 2rem;
+  margin-left: 50%;
+  left: -25%;
+  margin-bottom: 30px;
+  margin-top: 15px;
+  padding: 1.5rem;
+  text-align: center;
 }
 
 .qrTanque {

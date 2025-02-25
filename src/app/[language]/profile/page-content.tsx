@@ -21,7 +21,14 @@ function Profile() {
   const { t } = useTranslation("profile");
   return (
     <Container maxWidth="sm">
-      <Grid container spacing={3} wrap="nowrap" pt={3}>
+      <Grid
+        container
+        spacing={3}
+        wrap="nowrap"
+        pt={3}
+        direction="column"
+        alignItems="center"
+      >
         <Grid item xs="auto">
           <StyledAvatar
             alt={user?.firstName + " " + user?.lastName}

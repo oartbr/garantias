@@ -47,20 +47,18 @@ export default async function Home({ params }: Props) {
                 fill={true}
               />
               <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
-              <Button
-                variant="contained"
-                LinkComponent={Link}
-                href="/scan"
-                data-testid="scan-qr"
-              >
-                {t("scan")}
-              </Button>
             </div>
           </Box>
           <div className="mensagem">
-            <Typography variant="h3" data-testid="home-title" gutterBottom>
-              {t("title")}
-            </Typography>
+            <Button
+              variant="contained"
+              LinkComponent={Link}
+              href="/scan"
+              data-testid="scan-qr"
+              className="scanButton"
+            >
+              {t("scan")}
+            </Button>
             <Typography>
               <Trans
                 i18nKey={`description`}

@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiLink from "@mui/material/Link";
 import { Trans } from "react-i18next/TransWithoutContext";
-import tanque from "../../../public/assets/images/tanque.svg";
+import tanque from "../../../public/assets/images/nf.png";
 import scan from "../../../public/assets/images/scan.svg";
 import Image from "next/image";
 import Box from "@mui/material/Box";

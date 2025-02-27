@@ -36,6 +36,7 @@ function Scan() {
   const { user } = useAuth();
 
   const checkGarantia = async (garantiaId: string) => {
+    console.log(garantiaId);
     try {
       const { status, data } = await getGarantia({
         garantiaId,

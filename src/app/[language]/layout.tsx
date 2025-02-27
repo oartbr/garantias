@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 import SnackbarProvider from "@/components/snackbar-provider";
 import { getServerTranslation } from "@/services/i18n";
 import StoreLanguageProvider from "@/services/i18n/store-language-provider";
-import ThemeProvider from "@/components/theme/theme-provider";
+import { ThemeProvider } from "@mui/material/styles";
 import LeavePageProvider from "@/services/leave-page/leave-page-provider";
 import QueryClientProvider from "@/services/react-query/query-client-provider";
 import queryClient from "@/services/react-query/query-client";
@@ -22,6 +22,8 @@ import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provid
 import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
 import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import mamutTheme from "@/components/theme/mamut-theme";
 
 type Props = {
   params: { language: string };
@@ -33,7 +35,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("title"),
     manifest: "/manifest.json",
-    themeColor: "#007bff",
   };
 }
 
@@ -51,29 +52,31 @@ export default function RootLayout({
   return (
     <html lang={language} dir={dir(language)} suppressHydrationWarning>
       <body suppressHydrationWarning={true}>
-        <InitColorSchemeScript />
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <ThemeProvider>
-            <CssBaseline />
-            <SnackbarProvider maxSnack={3}>
-              <StoreLanguageProvider>
-                <ConfirmDialogProvider>
-                  <AuthProvider>
-                    <GoogleAuthProvider>
-                      <FacebookAuthProvider>
-                        <LeavePageProvider>
-                          <ResponsiveAppBar />
-                          {children}
-                        </LeavePageProvider>
-                      </FacebookAuthProvider>
-                    </GoogleAuthProvider>
-                  </AuthProvider>
-                </ConfirmDialogProvider>
-              </StoreLanguageProvider>
-            </SnackbarProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
+        <AppRouterCacheProvider>
+          <InitColorSchemeScript />
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <ThemeProvider theme={mamutTheme}>
+              <CssBaseline />
+              <SnackbarProvider maxSnack={3}>
+                <StoreLanguageProvider>
+                  <ConfirmDialogProvider>
+                    <AuthProvider>
+                      <GoogleAuthProvider>
+                        <FacebookAuthProvider>
+                          <LeavePageProvider>
+                            <ResponsiveAppBar />
+                            {children}
+                          </LeavePageProvider>
+                        </FacebookAuthProvider>
+                      </GoogleAuthProvider>
+                    </AuthProvider>
+                  </ConfirmDialogProvider>
+                </StoreLanguageProvider>
+              </SnackbarProvider>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

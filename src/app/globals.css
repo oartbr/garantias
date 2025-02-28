@@ -115,3 +115,10 @@ body {
 .normalCard button {
   color: teal;
 }
+
+
+.scanScreenSuccess{
+  margin-top: -50%!important;
+  margin-left: 50%!important;
+  z-index: 999;
+}

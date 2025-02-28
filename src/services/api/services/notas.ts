@@ -149,8 +149,9 @@ export type CheckNotaRequest = {
 
 // The response will be a Nota object and a status code.
 export type CheckNotaResponse = {
-  data: object;
+  nota?: Nota;
   status: HTTP_CODES_ENUM;
+  data?: { nota?: Nota };
 };
 
 // The service function itself, which will be used in the components to make the request to the server.
@@ -159,12 +160,13 @@ export function useCheckNotaService() {
   const fetchBase = useFetchBase();
 
   return useCallback(
-    (data: CheckNotaRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/nota/check`, {
+    async (data: CheckNotaRequest, requestConfig?: RequestConfigType) => {
+      const response = await fetchBase(`${API_URL}/v1/nota/check`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<CheckNotaResponse>);
+      });
+      return wrapperFetchJsonResponse<CheckNotaResponse>(response);
     },
     [fetchBase]
   );

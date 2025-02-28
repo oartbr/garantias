@@ -6,16 +6,19 @@ import Typography from "@mui/material/Typography";
 import QRscanner from "@/components/QRscanner/QRscanner";
 //import { useEffect } from "react";
 // import { Garantia } from "@/services/api/types/garantia";
-import { useCheckNotaService } from "@/services/api/services/notas";
+import {
+  useCheckNotaService,
+  CheckNotaRequest,
+} from "@/services/api/services/notas";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/services/auth/use-auth";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import { Nota } from "@/services/api/types/nota";
 
 function checkScannedData(url: string, checkQRcode: (id: string) => void) {
-  console.log({ url });
   const aUrl = url.split("/");
   if (aUrl[2] === "www.sefaz.rs.gov.br" || aUrl[2] === "localhost:3000") {
     checkQRcode(url);
@@ -24,22 +27,21 @@ function checkScannedData(url: string, checkQRcode: (id: string) => void) {
 
 function Scan() {
   const { t } = useTranslation("scan");
-  const [notaStatus, setNotaStatus] = useState<string | null>(null);
+  const [oNota, setNotaStatus] = useState<Nota | null>(null);
   const checkNota = useCheckNotaService();
 
   const router = useRouter();
   const { user } = useAuth();
 
   const checkQRcode = async (notaUrl: string) => {
-    console.log({ notaUrl });
     try {
-      const { status, data } = await checkNota({
+      const requestData: CheckNotaRequest = {
         notaUrl,
         userId: user?.id, // Add null check for user object
-      });
-      // const { status } = data || {};
-      console.log({ status, data });
-      if (status === HTTP_CODES_ENUM.OK) {
+      };
+      const response = await checkNota(requestData);
+
+      if (response.status === HTTP_CODES_ENUM.OK) {
         router.push(`./check-phone-number`);
       }
       /*
@@ -74,9 +76,12 @@ function Scan() {
         }
       } else {
         router.push(`./${garantiaId}/register`);
+      }*/
+      if (response.data && "nota" in response.data) {
+        if (response.data.nota) {
+          setNotaStatus(response.data.nota);
+        }
       }
-      */
-      setNotaStatus(data?.notaUrl || "not found");
     } catch (error) {
       console.error("Error fetching garantia:", error);
     }
@@ -90,17 +95,25 @@ function Scan() {
         </Grid>
       </Grid>
       <Grid container spacing={3} wrap="nowrap" pt={3}>
-        <Grid item className="scanScreenButton">
-          <Button
-            variant="contained"
-            LinkComponent={Link}
-            href="/"
-            data-testid="scan-qr"
-          >
-            {t("cancel")}
-          </Button>
-          <Typography>{notaStatus}</Typography>
-        </Grid>
+        {oNota?.url && oNota.url === "" && (
+          <Grid item className="scanScreenButton">
+            <Button
+              variant="contained"
+              LinkComponent={Link}
+              href="/"
+              data-testid="scan-qr"
+            >
+              {t("cancel")}
+            </Button>
+          </Grid>
+        )}
+        {oNota?.url && oNota.url !== "" && (
+          <Grid item className="scanScreenSuccess">
+            <Typography variant="h2" component="h2">
+              {"🦖"}
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

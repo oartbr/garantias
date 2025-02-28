@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import QRscanner from "@/components/QRscanner/QRscanner";
 //import { useEffect } from "react";
 // import { Garantia } from "@/services/api/types/garantia";
-import { useGetGarantiaService } from "@/services/api/services/garantia";
+import { useCheckNotaService } from "@/services/api/services/notas";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/services/auth/use-auth";
@@ -14,36 +14,35 @@ import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
-function checkScannedData(url: string, checkGarantia: (id: string) => void) {
+function checkScannedData(url: string, checkQRcode: (id: string) => void) {
+  console.log({ url });
   const aUrl = url.split("/");
-  if (
-    aUrl[2] === "garantias.xpand.international" ||
-    aUrl[2] === "localhost:3000"
-  ) {
-    const garantiaId = aUrl[3];
-    if (garantiaId.length === 10) {
-      checkGarantia(garantiaId);
-    }
+  if (aUrl[2] === "www.sefaz.rs.gov.br" || aUrl[2] === "localhost:3000") {
+    checkQRcode(url);
   }
 }
 
 function Scan() {
   const { t } = useTranslation("scan");
-  const [garantiaStatus, setGarantiaStatus] = useState<string | null>(null);
-  const getGarantia = useGetGarantiaService();
+  const [notaStatus, setNotaStatus] = useState<string | null>(null);
+  const checkNota = useCheckNotaService();
 
   const router = useRouter();
   const { user } = useAuth();
 
-  const checkGarantia = async (garantiaId: string) => {
-    console.log(garantiaId);
+  const checkQRcode = async (notaUrl: string) => {
+    console.log({ notaUrl });
     try {
-      const { status, data } = await getGarantia({
-        garantiaId,
+      const { status, data } = await checkNota({
+        notaUrl,
         userId: user?.id, // Add null check for user object
       });
-      const { garantia } = data || {};
-
+      // const { status } = data || {};
+      console.log({ status, data });
+      if (status === HTTP_CODES_ENUM.OK) {
+        router.push(`./check-phone-number`);
+      }
+      /*
       // Handle status codes here
       // https://miro.com/app/board/uXjVKoN4LQA=/
       // 1. is the user logged in?
@@ -76,8 +75,8 @@ function Scan() {
       } else {
         router.push(`./${garantiaId}/register`);
       }
-
-      setGarantiaStatus(garantia.status || "not found");
+      */
+      setNotaStatus(data?.notaUrl || "not found");
     } catch (error) {
       console.error("Error fetching garantia:", error);
     }
@@ -87,7 +86,7 @@ function Scan() {
     <Container maxWidth="md">
       <Grid container spacing={3} wrap="nowrap" pt={3}>
         <Grid item xs={12} style={{ width: "100%" }}>
-          <QRscanner callBack={(url) => checkScannedData(url, checkGarantia)} />
+          <QRscanner callBack={(url) => checkScannedData(url, checkQRcode)} />
         </Grid>
       </Grid>
       <Grid container spacing={3} wrap="nowrap" pt={3}>
@@ -100,7 +99,7 @@ function Scan() {
           >
             {t("cancel")}
           </Button>
-          <Typography>{garantiaStatus}</Typography>
+          <Typography>{notaStatus}</Typography>
         </Grid>
       </Grid>
     </Container>

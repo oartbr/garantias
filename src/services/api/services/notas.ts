@@ -108,20 +108,23 @@ export type NotasRequest = {
   sort?: Array<{
     order: SortEnum;
   }>;
+  userId: string;
 };
 
 // ## The response should be a list of Notas.
 // ## Here we define that we expect a Nota - as defined above - and the pagination data.
 export type NotasResponse = InfinityPaginationType<Nota>;
 
-export function useGetNotasService() {
+export function useGetListingNotasByUserService() {
   const fetch = useFetch();
 
   return useCallback(
     (data: NotasRequest, requestConfig?: RequestConfigType) => {
       const requestUrl = new URL(`${API_URL}/v1/nota/getAll`);
+      const oFilters = { ...data.filters, user: data.userId };
       requestUrl.searchParams.append("page", data.page.toString());
       requestUrl.searchParams.append("limit", data.limit.toString());
+      requestUrl.searchParams.append("filters", JSON.stringify(oFilters));
       if (data.filters) {
         requestUrl.searchParams.append("filters", JSON.stringify(data.filters));
       }

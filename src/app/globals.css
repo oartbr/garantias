@@ -138,3 +138,13 @@ body {
     transform: scale(1, 1);
   }
 }
+
+.PWA_installButton{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #ff0000;
+}
+.installButton{
+  background-color: transparent;
+}

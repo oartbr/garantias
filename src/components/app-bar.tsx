@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <div className="PWA_installButton">
           <InstallButton
-            buttonText={t("common:install")}
+            buttonText={t("common:install.button")}
             className="installButton"
           />
         </div>

@@ -5,7 +5,7 @@ import useAuth from "@/services/auth/use-auth";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useGetListingByUserService } from "@/services/api/services/garantia";
+import { useGetListingNotasByUserService } from "@/services/api/services/notas";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
@@ -14,13 +14,13 @@ import Grid from "@mui/material/Grid";
 
 import { ItemCard } from "../../../components/itemCard/itemCard";
 import React, { useEffect, useState } from "react";
-import { Garantia } from "../../../services/api/types/garantia";
+import { Nota } from "@/services/api/types/nota";
 
 type Props = {
-  params: { language: string; id: string };
+  params: { language: string };
 };
 
-type ItemCardProps = Garantia;
+type ItemCardProps = Nota;
 
 function List(props: Props) {
   // const { setUser } = useAuthActions();
@@ -28,31 +28,30 @@ function List(props: Props) {
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-
+  console.log(props);
   // const { t } = useTranslation("register");
   const { user } = useAuth();
-  const garantiaId = props.params.id;
 
-  const fetchListGarantias = useGetListingByUserService();
+  const fetchListNotas = useGetListingNotasByUserService();
   const [isLoading, setIsLoading] = useState({});
   const [items, setItems] = useState<ItemCardProps[]>([]);
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     if (user) {
-      fetchListGarantias({ userId: user.id.toString() })
+      fetchListNotas({ userId: user.id.toString(), page: 1, limit: 10 })
         .then((data) => {
           if (data.status === HTTP_CODES_ENUM.OK) {
-            setItems(data.data as ItemCardProps[]); // Step 3: Update state with fetched data
+            setItems(data.data.results as ItemCardProps[]); // Step 3: Update state with fetched data
             setIsLoading(false); // Update loading state
           }
         })
         .catch((err) => {
-          console.error(`Failed to fetch client data: ${garantiaId}`, err);
+          console.error(`Failed to fetch client data: ${user.id}`, err);
           setIsLoading(false); // Update loading state
         });
     }
-  }, [user, fetchListGarantias, garantiaId]); // Include 'fetchListGarantias' in the dependency array
+  }, [user, fetchListNotas]); // Include 'fetchListGarantias' in the dependency array
 
   return (
     <Container maxWidth="sm" className="mainContainer">
@@ -69,7 +68,7 @@ function List(props: Props) {
                 <ItemCard
                   item={item}
                   onClick={() => {
-                    router.replace(`${item.garantiaId}`);
+                    router.replace(`${item.status}`);
                   }}
                   action="Ver detalles"
                 />

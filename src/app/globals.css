@@ -148,3 +148,9 @@ body {
 .installButton{
   background-color: transparent;
 }
+
+.mainContainer h1{
+  text-align: center;
+  font-weight: 100;
+  
+}

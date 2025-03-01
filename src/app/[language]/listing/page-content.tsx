@@ -57,7 +57,7 @@ function List(props: Props) {
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          <h3>Suas notas fiscais:</h3>
+          <h1>Notas Fiscais</h1>
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
           {isLoading ? (

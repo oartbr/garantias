@@ -141,16 +141,21 @@ body {
 
 .PWA_installButton{
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 5px;
+  left: 60%;
   background-color: #ff0000;
 }
 .installButton{
   background-color: transparent;
+  color: #fff;
+  padding: 20px;
+  font-size: large;
+  border: 0px;
+  border-radius: 30px;
 }
 
 .mainContainer h1{
   text-align: center;
   font-weight: 100;
-  
+
 }

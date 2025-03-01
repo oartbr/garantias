@@ -1,5 +1,8 @@
 {
   "app-name": "Registro de Garantías",
+  "install": {
+    "button": "Instalar como App"
+  },
   "loading": "Cargando ...",
   "navigation": {
     "home": "Inicio",

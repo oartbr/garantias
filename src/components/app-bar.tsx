@@ -55,7 +55,10 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <div className="PWA_installButton">
-          <InstallButton />
+          <InstallButton
+            buttonText={t("common:install")}
+            className="installButton"
+          />
         </div>
         <Toolbar disableGutters>
           <Image

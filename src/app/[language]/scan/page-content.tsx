@@ -80,6 +80,7 @@ function Scan() {
       if (response.data && "nota" in response.data) {
         if (response.data.nota) {
           setNotaStatus(response.data.nota);
+          router.push(`listing`);
         }
       }
     } catch (error) {
@@ -109,8 +110,8 @@ function Scan() {
         )}
         {oNota?.url && oNota.url !== "" && (
           <Grid item className="scanScreenSuccess">
-            <Typography variant="h2" component="h2">
-              {"🦖"}
+            <Typography variant="h1" component="h1">
+              {"✅"}
             </Typography>
           </Grid>
         )}

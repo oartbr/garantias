@@ -118,7 +118,23 @@ body {
 
 
 .scanScreenSuccess{
-  margin-top: -50%!important;
-  margin-left: 50%!important;
+  position: absolute;
   z-index: 999;
+  top: 50%;
+  left: 50%;
+  margin-left: -5rem !important;
+  margin-top: -2rem !important;
+  opacity: 0; /* Initial opacity */
+  animation: qrReadAnimation 0.5s 0.5s forwards;
+}
+
+@keyframes qrReadAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(2, 2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
 }

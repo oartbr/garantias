@@ -5,7 +5,15 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
 
-export default function InstallButton() {
+type InstallButtonProps = {
+  buttonText: string;
+  className?: string; // Add the className prop
+};
+
+export default function InstallButton({
+  buttonText,
+  className,
+}: InstallButtonProps) {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -41,6 +49,8 @@ export default function InstallButton() {
   };
 
   return isVisible ? (
-    <button onClick={handleInstallClick}>Install App</button>
+    <button onClick={handleInstallClick} className={className}>
+      {buttonText}
+    </button>
   ) : null;
 }

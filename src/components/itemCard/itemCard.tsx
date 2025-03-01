@@ -25,11 +25,11 @@ export function ItemCard({ item, onClick, action }: ItemCardProps) {
             {(() => {
               switch (item.status) {
                 case "pending":
-                  return "🧲 Nota Pendente";
+                  return "⌛ Nota Pendente";
                 case "read":
                   return "📃 Nota Completa";
                 case "canceled":
-                  return "😱 Nota Cancelda";
+                  return "😱 Nota Cancelada";
                 case "flagged":
                   return "📣 Nota com Alerta";
                 default:

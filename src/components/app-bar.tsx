@@ -21,7 +21,8 @@ import { useTranslation } from "@/services/i18n/client";
 import Link from "@/components/link";
 import { RoleEnum } from "@/services/api/types/role";
 import Divider from "@mui/material/Divider";
-import ThemeSwitchButton from "@/components/switch-theme-button";
+// import ThemeSwitchButton from "@/components/switch-theme-button";
+import ScanButton from "@/components/scan-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 import Image from "next/image";
 import InstallButton from "@/components/pwa/installButton";
@@ -118,16 +119,6 @@ function ResponsiveAppBar() {
               <MenuItem onClick={handleCloseNavMenu} component={Link} href="/">
                 <Typography textAlign="center">
                   {t("common:navigation.home")}
-                </Typography>
-              </MenuItem>
-              <MenuItem
-                key="scan"
-                onClick={handleCloseNavMenu}
-                component={Link}
-                href="/scan"
-              >
-                <Typography textAlign="center">
-                  {t("common:navigation.scan")}
                 </Typography>
               </MenuItem>
               {!!user?.role &&
@@ -363,7 +354,8 @@ function ResponsiveAppBar() {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <ThemeSwitchButton />
+              {/* <ThemeSwitchButton /> */}
+              <ScanButton />
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -389,7 +381,8 @@ function ResponsiveAppBar() {
               display: { xs: "flex", md: "none" },
             }}
           >
-            <ThemeSwitchButton />
+            {/* <ThemeSwitchButton /> */}
+            <ScanButton />
           </Box>
         </Toolbar>
       </Container>

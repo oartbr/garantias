@@ -42,7 +42,12 @@ function List(props: Props) {
       fetchListNotas({ userId: user.id.toString(), page: 1, limit: 10 })
         .then((data) => {
           if (data.status === HTTP_CODES_ENUM.OK) {
-            setItems(data.data.results as ItemCardProps[]); // Step 3: Update state with fetched data
+            const sortedItems = (data.data.results as ItemCardProps[]).sort(
+              (a: ItemCardProps, b: ItemCardProps) =>
+                new Date(b.registeredAt).getTime() -
+                new Date(a.registeredAt).getTime()
+            );
+            setItems(sortedItems); // Step 3: Update state with sorted data
             setIsLoading(false); // Update loading state
           }
         })

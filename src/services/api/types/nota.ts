@@ -4,6 +4,15 @@ export type Nota = {
   purchaseDate: Date;
   registeredAt: Date;
   status: String;
-  processDate: Date;
+  readAt: Date;
   code: String;
+  vendor: {
+    name: String;
+    CNPJ: String;
+    address: Object;
+    gps: Object;
+  };
+  items: Array<Object>;
+  total: Number;
+  vendorName: String;
 };

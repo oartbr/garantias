@@ -116,7 +116,47 @@ body {
   color: teal;
 }
 
+.readCard {
+  border-left: solid teal 5px;
+  border-radius: 0.5rem;
+}
 
+.readCard strong,
+.readCard button {
+  color: teal;
+}
+
+.pendingCard {
+  border-left: solid #99ccff 5px;
+  border-radius: 0.5rem;
+}
+
+.pendingCard strong,
+.pendingCard button {
+  color: #99ccff;
+}
+
+.canceledCard {
+  border-left: solid #cccccc 5px;
+  border-radius: 0.5rem;
+}
+
+.canceledCard strong,
+.canceledCard button,
+.canceledCard p,
+.canceledCard div{
+  color: #cccccc ;
+}
+
+.flaggedCard {
+  border-left: solid gold 5px;
+  border-radius: 0.5rem;
+}
+
+.flaggedCard strong,
+.flaggedCard button {
+  color: gold;
+}
 .scanScreenSuccess{
   position: absolute;
   z-index: 999;

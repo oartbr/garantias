@@ -12,9 +12,11 @@ export type Garantia = {
   zipcode?: string;
   registeredAt: string;
   builtOn?: string;
+  qualityChecked?: string;
   reseller?: string;
   shippedDate?: string;
   soldTo?: string;
   soldDate?: string;
   userId?: string;
+  qualityCheck?: Object[];
 };

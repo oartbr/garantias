@@ -249,11 +249,26 @@ function FormEditUser() {
                   {
                     id: RoleEnum.USER,
                   },
+                  {
+                    id: RoleEnum.QA,
+                  },
+                  {
+                    id: RoleEnum.LOGISTICS,
+                  },
+                  {
+                    id: RoleEnum.SALES,
+                  },
+                  {
+                    id: RoleEnum.MAINTENANCE,
+                  },
                 ]}
                 keyValue="id"
                 renderOption={(option) =>
                   t(`admin-panel-users-edit:inputs.role.options.${option.id}`)
                 }
+                onChange={(option) => {
+                  console.log({ option: option.id });
+                }}
               />
             </Grid>
 

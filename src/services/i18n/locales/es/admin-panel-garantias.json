@@ -11,7 +11,8 @@
     "assigned": "Pendiente",
     "registered": "Registrada",
     "canceled": "Status",
-    "created": "Nueva"
+    "created": "Nueva",
+    "qualityChecked": "Chequeada"
   },
   "actions": {
     "add": "Agregar Garantia",
@@ -22,7 +23,8 @@
     "cancel": "Cancelar",
     "assign": "Asignar",
     "unassign": "Desasignar",
-    "back": "Volver"
+    "back": "Volver",
+    "check": "Chequear Calidad"
   },
   "confirm": {
     "delete": {

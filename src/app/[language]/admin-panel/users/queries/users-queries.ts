@@ -47,7 +47,7 @@ export const useUserListQuery = ({
       );
 
       if (status === HTTP_CODES_ENUM.OK) {
-        //console.log({ fetch: data.results });
+        console.log({ fetch: data.results, sort, filter });
         return {
           data: data.results,
           nextPage: data.hasNextPage ? pageParam + 1 : undefined,

@@ -1,6 +1,10 @@
 {
   "role": {
-    "1": "Admin",
-    "2": "User"
+    "1": "Administrador",
+    "2": "Usuario",
+    "3": "Calidad",
+    "4": "Logística",
+    "5": "Ventas",
+    "6": "Mantenimiento"
   }
 }

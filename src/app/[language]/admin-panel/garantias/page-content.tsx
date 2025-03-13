@@ -236,9 +236,14 @@ function Actions({ garantia }: { garantia: Garantia }) {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
                   {role.name === "ADMIN" && (
-                    <MenuItem onClick={handleAction} title="edit">
-                      {tGarantias("admin-panel-garantias:actions.edit")}
-                    </MenuItem>
+                    <>
+                      <MenuItem onClick={handleAction} title="check">
+                        {tGarantias("admin-panel-garantias:actions.check")}
+                      </MenuItem>
+                      <MenuItem onClick={handleAction} title="edit">
+                        {tGarantias("admin-panel-garantias:actions.edit")}
+                      </MenuItem>
+                    </>
                   )}
                   {canDelete && role.name === "ADMIN" && (
                     <MenuItem onClick={handleDelete}>

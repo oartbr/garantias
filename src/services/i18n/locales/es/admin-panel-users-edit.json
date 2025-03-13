@@ -35,7 +35,11 @@
       },
       "options": {
         "1": "Administrador",
-        "2": "Usuario"
+        "2": "Usuario",
+        "3": "Calidad",
+        "4": "Logística",
+        "5": "Ventas",
+        "6": "Mantenimiento"
       }
     },
     "password": {

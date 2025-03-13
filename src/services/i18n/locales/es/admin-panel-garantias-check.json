@@ -1,0 +1,94 @@
+{
+  "title1": "Control de calidad",
+  "titleAssign": "Control de Calidad",
+  "actions": {
+    "submit": "Guardar",
+    "cancel": "Cancelar",
+    "assign": "Asignar",
+    "unassign": "Desasignar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Volver"
+  },
+  "options": {
+    "title": "Confirmar todos los items",
+    "option1": { "id": "a", "label": "Rotomoldeo" },
+    "option2": { "id": "b", "label": "Armado" },
+    "option3": { "id": "c", "label": "Limpieza y Empaque" },
+    "option4": { "id": "d", "label": "Kit Bio" }
+  },
+  "inputs": {
+    "email": {
+      "label": "Email",
+      "validation": {
+        "invalid": "El email es inválido",
+        "required": "El email es obligatorio",
+        "server": {
+          "emailAlreadyExists": "El email ya existe"
+        }
+      }
+    },
+    "brand": {
+      "label": "Marca",
+      "validation": {
+        "required": "La marca es obligatoria"
+      }
+    },
+    "firstName": {
+      "label": "Nombre",
+      "validation": {
+        "required": "El nombre es obligatorio"
+      }
+    },
+    "lastName": {
+      "label": "Apellido",
+      "validation": {
+        "required": "El apellido es obligatorio"
+      }
+    },
+    "address": {
+      "label": "Dirección",
+      "validation": {
+        "required": "La dirección es obligatória"
+      }
+    },
+    "zipcode": {
+      "label": "Código postal",
+      "validation": {
+        "required": "El código postal es obligatorio"
+      }
+    },
+    "city": {
+      "label": "Ciudad",
+      "validation": {
+        "required": "La ciudad es obligatória"
+      }
+    },
+    "number": {
+      "label": "Número",
+      "validation": {
+        "required": "El número es obligatório"
+      }
+    },
+    "description": {
+      "label": "Descripción",
+      "validation": {
+        "required": "La descripción es obligatória"
+      }
+    },
+    "sku": {
+      "label": "SKU",
+      "validation": {
+        "required": "El SKU es obligatório"
+      }
+    }
+  },
+  "alerts": {
+    "password": {
+      "success": "La contraseña se ha actualizado correctamente"
+    },
+    "user": {
+      "success": "El perfil del usuario se ha actualizado correctamente"
+    }
+  }
+}

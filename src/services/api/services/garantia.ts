@@ -431,6 +431,29 @@ export function useAssignGarantiaService() {
   );
 }
 
+// QualityCheck items to the Garantia
+export type GarantiaQualityCheckRequest = {
+  garantiaId: Garantia["garantiaId"];
+  data: Partial<Pick<Garantia, "qualityCheck">>;
+};
+
+export type GarantiaQualityCheckResponse = Garantia;
+
+export function useQualityCheckGarantiaService() {
+  const fetch = useFetch();
+
+  return useCallback(
+    (data: GarantiaQualityCheckRequest, requestConfig?: RequestConfigType) => {
+      return fetch(`${API_URL}/v1/garantia/qualityCheck/${data.garantiaId}`, {
+        method: "PATCH",
+        body: JSON.stringify(data.data),
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GarantiaQualityCheckResponse>);
+    },
+    [fetch]
+  );
+}
+
 export type GarantiasDeleteRequest = {
   id: Garantia["garantiaId"];
 };

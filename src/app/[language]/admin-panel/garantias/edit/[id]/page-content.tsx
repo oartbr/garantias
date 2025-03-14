@@ -233,7 +233,7 @@ function FormEditGarantia() {
           sku: {
             value: results.garantia?.sku,
             label: results.garantia?.sku,
-          } ?? { value: results.garantia?.sku, label: results.garantia?.sku },
+          },
           firstName: results.garantia?.firstName ?? "",
           lastName: results.garantia?.lastName ?? "",
           brand: results.garantia?.brand ?? "",

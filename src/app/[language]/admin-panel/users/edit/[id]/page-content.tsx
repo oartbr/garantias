@@ -253,7 +253,7 @@ function FormEditUser() {
                     id: RoleEnum.QA,
                   },
                   {
-                    id: RoleEnum.LOGISTICS,
+                    id: RoleEnum.CARRIER,
                   },
                   {
                     id: RoleEnum.SALES,

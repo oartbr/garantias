@@ -4,7 +4,20 @@
     "submit": "Entrar",
     "createAccount": "Crear una cuenta",
     "forgotPassword": "Se olvidó la contraseña?",
-    "register": "Registrar Garantia"
+    "register": "Registrar Garantia",
+    "edit": "Editar Garantia"
   },
-  "or": "OR"
+  "status": {
+    "assigned": { "label": "Pendiente", "description": "Asignada en: " },
+    "registered": { "label": "Registrada", "description": "Registrada en: " },
+    "canceled": { "label": "Cancelada", "description": " " },
+    "created": { "label": "Nueva", "description": "Creada en: " },
+    "qualityChecked": {
+      "label": "Chequeada",
+      "description": "Control de calidad en: "
+    }
+  },
+
+  "or": " o ",
+  "at": " en "
 }

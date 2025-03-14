@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Garantia } from "../../services/api/types/garantia";
+import { useTranslation } from "@/services/i18n/client";
 // import { Label } from "@mui/icons-material";
 // import IconName from '@mui/icons-material/IconName'
 
@@ -16,6 +17,7 @@ export type ItemCardProps = {
 
 export function ItemCard({ item, onClick, action }: ItemCardProps) {
   // console.log({ item });
+  const { t } = useTranslation("listing");
 
   return (
     <div>
@@ -26,23 +28,37 @@ export function ItemCard({ item, onClick, action }: ItemCardProps) {
             <strong>Código de Garantia:</strong> {item.garantiaId}
           </Typography>
           <Typography variant="body2">
-            <strong>Marca:</strong> {item.brand}
+            <strong>Status: </strong>
+            {t("listing:status." + (item.status || "pendiente") + ".label")}
           </Typography>
-          {item.status !== "assigned" ? (
+          {item.status === "qualityChecked" ? (
             <div>
               <Typography variant="body2">
-                <strong>Registrada por: </strong>
-                {item.firstName} {item.lastName}
+                <strong>
+                  {t(
+                    `listing:status.${item.status || "pendiente"}.description`
+                  )}
+                </strong>
+                {new Date(item.qualityCheckedAt!).toLocaleDateString()}
               </Typography>
+              {item.qualityCheck!.map((qc, index) => (
+                <Typography key={qc.id || index} variant="body2">
+                  <div className="qualityCheckItem">{qc.label}</div>
+                </Typography>
+              ))}
+            </div>
+          ) : (
+            <div />
+          )}
+          {item.status === "assigned" ? (
+            <div>
               <Typography variant="body2">
-                <strong>Dirección:</strong> {item.address}, {item.number}
-              </Typography>
-              <Typography variant="body2">
-                <strong>City:</strong> {item.city} - {item.zipcode}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Registrada en:</strong>{" "}
-                {new Date(item.registeredAt).toLocaleDateString()}
+                <strong>
+                  {t(
+                    `listing:status.${item.status || "pendiente"}.description`
+                  )}
+                </strong>
+                {new Date(item.registeredAt!).toLocaleDateString()}
               </Typography>
             </div>
           ) : (

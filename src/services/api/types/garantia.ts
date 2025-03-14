@@ -1,3 +1,8 @@
+export interface OptionItem {
+  id: string;
+  label: string;
+}
+
 export type Garantia = {
   description?: string;
   sku?: string;
@@ -12,11 +17,11 @@ export type Garantia = {
   zipcode?: string;
   registeredAt: string;
   builtOn?: string;
-  qualityChecked?: string;
+  qualityCheckedAt?: string;
   reseller?: string;
   shippedDate?: string;
   soldTo?: string;
   soldDate?: string;
   userId?: string;
-  qualityCheck?: Object[];
+  qualityCheck?: OptionItem[];
 };

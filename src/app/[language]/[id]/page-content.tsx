@@ -44,8 +44,8 @@ function List(props: Props) {
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
       .then((data) => {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
-          // console.log({ item: data });
           setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
+          console.log({ garantia: data.data.garantia });
           setIsLoading(false); // Update loading state
         } else {
           setItem(null);
@@ -70,11 +70,14 @@ function List(props: Props) {
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          {!isLoading && item && item.status === "assigned" && (
-            <div>
-              <h3>Desea registrar la garantia de este producto?</h3>
-            </div>
-          )}
+          {!isLoading &&
+            item &&
+            (item.status === "assigned" ||
+              item.status === "qualityChecked") && (
+              <div>
+                <h3>Desea registrar la garantia de este producto?</h3>
+              </div>
+            )}
           {!isLoading && item && item.status === "registered" && (
             <div>
               <h3>Garantia {item.garantiaId} registrada en su cuenta: </h3>

@@ -400,7 +400,11 @@ function Garantias() {
                 <TableCell style={{ width: 130 }}>
                   {!!garantia && <Actions garantia={garantia} />}
                 </TableCell>
-                <TableCell style={{ width: 100 }}>
+                <TableCell
+                  style={{ width: 100 }}
+                  onClick={() => router.push(`/${garantia?.garantiaId}`)}
+                  className="itemLink"
+                >
                   {garantia?.garantiaId}
                 </TableCell>
                 <TableCell style={{ width: 200 }}>{garantia?.sku}</TableCell>

@@ -114,3 +114,15 @@ body {
 .normalCard button {
   color: teal;
 }
+
+.qualityCheckItem::before {
+  content: "✅"; /* This is the check emoji */
+  margin-right: 0.5em; /* Adds spacing between the emoji and the text */
+  margin-left: 0.5em; /* Adds spacing before the emoji */
+}
+
+.itemLink {
+  text-decoration: underline;
+  color: teal;
+  cursor: pointer;
+}

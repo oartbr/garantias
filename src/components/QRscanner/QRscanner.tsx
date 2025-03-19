@@ -16,35 +16,52 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const devices = useDevices();
-  const streamRef = useRef<MediaStream | null>(null); // Store the camera stream
+  const streamRef = useRef<MediaStream | null>(null);
 
   const cameras = devices.filter((device) => device.kind === "videoinput");
 
-  // Request camera permissions and store the stream
+  // Log browser and device info for debugging
+  useEffect(() => {
+    console.log("Browser Info:", navigator.userAgent);
+    console.log("Navigator.mediaDevices available:", !!navigator.mediaDevices);
+    console.log("Available cameras:", cameras);
+  }, [cameras]);
+
+  // Request camera permissions
   useEffect(() => {
     const requestCameraPermission = async () => {
       try {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("Media devices not supported in this context.");
+          throw new Error(
+            "Media devices not supported in this browser. Ensure the app is running over HTTPS."
+          );
         }
+        console.log("Requesting camera permissions...");
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: { facingMode: "environment" }, // Prefer rear camera
         });
-        streamRef.current = stream; // Store the stream for cleanup
-        setPermissionGranted(true);
-      } catch (err) {
-        setError(
-          "Camera access denied or unavailable. Please grant camera permissions."
+        streamRef.current = stream;
+        console.log(
+          "Camera permissions granted. Stream active:",
+          stream.active
         );
-        console.error("Error requesting camera permissions:", err);
+        console.log("Stream tracks:", stream.getTracks());
+        setPermissionGranted(true);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(`Failed to access camera: ${error.name} - ${error.message}`);
+        } else {
+          setError("Failed to access camera: Unknown error");
+        }
+        console.error("Error requesting camera permissions:", error);
       }
     };
 
     requestCameraPermission();
 
-    // Cleanup: Stop the camera stream when the component unmounts
     return () => {
       if (streamRef.current) {
+        console.log("Cleaning up camera stream...");
         streamRef.current.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
       }
@@ -53,12 +70,13 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
 
   // Set the initial camera after permissions are granted
   useEffect(() => {
-    if (permissionGranted && cameras.length > 1 && !selectedDeviceId) {
-      setCurrentCameraIndex(1);
-      setSelectedDeviceId(cameras[1].deviceId);
-    } else if (permissionGranted && cameras.length === 1 && !selectedDeviceId) {
-      setCurrentCameraIndex(0);
-      setSelectedDeviceId(cameras[0].deviceId);
+    if (permissionGranted && cameras.length > 0 && !selectedDeviceId) {
+      const initialIndex = cameras.length > 1 ? 1 : 0;
+      console.log(
+        `Setting initial camera: ${cameras[initialIndex].label || cameras[initialIndex].deviceId}`
+      );
+      setCurrentCameraIndex(initialIndex);
+      setSelectedDeviceId(cameras[initialIndex].deviceId);
     }
   }, [cameras, selectedDeviceId, permissionGranted]);
 
@@ -67,15 +85,26 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
     if (data) {
       setQrData(data.rawValue.toString());
       callBack(data.rawValue.toString());
+      console.log("Scanned QR code:", data.rawValue.toString());
     }
   };
 
   const handleCameraSwitch = () => {
-    if (cameras.length === 0) return;
+    if (cameras.length <= 1) return;
 
     const nextIndex = (currentCameraIndex + 1) % cameras.length;
+    console.log(
+      `Switching to camera: ${cameras[nextIndex].label || cameras[nextIndex].deviceId}`
+    );
     setCurrentCameraIndex(nextIndex);
     setSelectedDeviceId(cameras[nextIndex].deviceId);
+
+    // Stop the current stream to ensure the new camera is used
+    if (streamRef.current) {
+      console.log("Stopping current stream before switching...");
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
   };
 
   if (error) {
@@ -108,21 +137,28 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
             top: 8,
             right: 8,
             color: "#ffffff",
-            zIndex: 999,
+            zIndex: 10001,
           }}
           aria-label="Switch camera"
         >
-          <CameraAltIcon sx={{ height: 48, width: 48 }} />
+          <CameraAltIcon sx={{ height: 60, width: 60 }} />
         </IconButton>
       )}
 
       {selectedDeviceId ? (
         <Box>
           <Scanner
+            key={selectedDeviceId} // Force remount when deviceId changes
             onScan={handleScan}
             components={{ audio: false }}
             constraints={{
               deviceId: selectedDeviceId,
+            }}
+            onError={(error) => {
+              if (error instanceof Error) {
+                console.error("Scanner error:", error);
+                setError(`Scanner error: ${error.name} - ${error.message}`);
+              }
             }}
           />
         </Box>

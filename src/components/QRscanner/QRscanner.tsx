@@ -1,179 +1,138 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  IDetectedBarcode,
-  Scanner,
-  useDevices,
-} from "@yudiel/react-qr-scanner";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import React, { useState, useEffect, useCallback } from "react";
+import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
 
 const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
   const [qrData, setQrData] = useState<string | null>(null);
-  const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
-  const [currentCameraIndex, setCurrentCameraIndex] = useState<number>(0);
-  const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const devices = useDevices();
-  const streamRef = useRef<MediaStream | null>(null);
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+  const [currentDeviceId, setCurrentDeviceId] = useState<string | null>(null);
+  const [isSwitching, setIsSwitching] = useState(false);
 
-  const cameras = devices.filter((device) => device.kind === "videoinput");
-
-  // Log browser and device info for debugging
   useEffect(() => {
-    console.log("Browser Info:", navigator.userAgent);
-    console.log("Navigator.mediaDevices available:", !!navigator.mediaDevices);
-    console.log("Available cameras:", cameras);
-  }, [cameras]);
+    let mounted = true;
 
-  // Request camera permissions
-  useEffect(() => {
-    const requestCameraPermission = async () => {
+    const getDevices = async () => {
       try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error(
-            "Media devices not supported in this browser. Ensure the app is running over HTTPS."
-          );
-        }
-        console.log("Requesting camera permissions...");
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" }, // Prefer rear camera
-        });
-        streamRef.current = stream;
-        console.log(
-          "Camera permissions granted. Stream active:",
-          stream.active
+        const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = mediaDevices.filter(
+          (device) => device.kind === "videoinput"
         );
-        console.log("Stream tracks:", stream.getTracks());
-        setPermissionGranted(true);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(`Failed to access camera: ${error.name} - ${error.message}`);
-        } else {
-          setError("Failed to access camera: Unknown error");
+        console.log("Available video devices:", videoDevices);
+
+        if (mounted && videoDevices.length > 0) {
+          setDevices(videoDevices);
+          if (!currentDeviceId) {
+            setCurrentDeviceId(videoDevices[0].deviceId);
+            console.log("Initial device set to:", videoDevices[0].deviceId);
+          }
         }
-        console.error("Error requesting camera permissions:", error);
+      } catch (error) {
+        console.error("Error getting devices:", error);
       }
     };
 
-    requestCameraPermission();
-
+    getDevices();
     return () => {
-      if (streamRef.current) {
-        console.log("Cleaning up camera stream...");
-        streamRef.current.getTracks().forEach((track) => track.stop());
-        streamRef.current = null;
-      }
+      mounted = false;
     };
-  }, []);
+  }, []); // Empty array since we only want this to run once
 
-  // Set the initial camera after permissions are granted
-  useEffect(() => {
-    if (permissionGranted && cameras.length > 0 && !selectedDeviceId) {
-      const initialIndex = cameras.length > 1 ? 1 : 0;
-      console.log(
-        `Setting initial camera: ${cameras[initialIndex].label || cameras[initialIndex].deviceId}`
-      );
-      setCurrentCameraIndex(initialIndex);
-      setSelectedDeviceId(cameras[initialIndex].deviceId);
-    }
-  }, [cameras, selectedDeviceId, permissionGranted]);
+  const handleScan = useCallback(
+    (detectedCodes: IDetectedBarcode[]) => {
+      const data = detectedCodes[0] || null;
+      if (data) {
+        setQrData(data.rawValue.toString());
+        callBack(data.rawValue.toString());
+      }
+    },
+    [callBack]
+  );
 
-  const handleScan = (detectedCodes: IDetectedBarcode[]) => {
-    const data = detectedCodes[0] || null;
-    if (data) {
-      setQrData(data.rawValue.toString());
-      callBack(data.rawValue.toString());
-      console.log("Scanned QR code:", data.rawValue.toString());
+  const switchCamera = useCallback(() => {
+    if (devices.length <= 1 || isSwitching) {
+      console.log("Switch prevented: not enough devices or already switching");
+      return;
     }
+
+    setIsSwitching(true);
+    const currentIndex = devices.findIndex(
+      (device) => device.deviceId === currentDeviceId
+    );
+    const nextIndex = (currentIndex + 1) % devices.length;
+    const nextDeviceId = devices[nextIndex].deviceId;
+
+    console.log("Switching from:", currentDeviceId, "to:", nextDeviceId);
+    setCurrentDeviceId(nextDeviceId);
+
+    setTimeout(() => {
+      setIsSwitching(false);
+      console.log("Switching complete");
+    }, 500);
+  }, [devices, currentDeviceId, isSwitching]);
+
+  const containerStyle: React.CSSProperties = {
+    position: "relative",
+    width: "100%",
+    maxWidth: "none",
   };
 
-  const handleCameraSwitch = () => {
-    if (cameras.length <= 1) return;
-
-    const nextIndex = (currentCameraIndex + 1) % cameras.length;
-    console.log(
-      `Switching to camera: ${cameras[nextIndex].label || cameras[nextIndex].deviceId}`
-    );
-    setCurrentCameraIndex(nextIndex);
-    setSelectedDeviceId(cameras[nextIndex].deviceId);
-
-    // Stop the current stream to ensure the new camera is used
-    if (streamRef.current) {
-      console.log("Stopping current stream before switching...");
-      streamRef.current.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
-    }
+  const scannerStyle: React.CSSProperties = {
+    width: "100%",
+    height: "auto",
   };
 
-  if (error) {
-    return (
-      <Box>
-        <Typography variant="body2" color="error">
-          {error}
-        </Typography>
-      </Box>
-    );
-  }
-
-  if (!permissionGranted) {
-    return (
-      <Box>
-        <Typography variant="body2" color="textSecondary">
-          Requesting camera permissions...
-        </Typography>
-      </Box>
-    );
-  }
+  const buttonStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    background: "white",
+    border: "none",
+    borderRadius: "50%",
+    width: "40px",
+    height: "40px",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+    opacity: isSwitching ? 0.5 : 1,
+    pointerEvents: isSwitching ? "none" : "auto",
+  };
 
   return (
-    <Box sx={{ position: "relative" }}>
-      {cameras.length > 1 && (
-        <IconButton
-          onClick={handleCameraSwitch}
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            color: "#ffffff",
-            zIndex: 10001,
+    <div style={containerStyle}>
+      {currentDeviceId ? (
+        <Scanner
+          onScan={handleScan}
+          components={{ audio: false }}
+          constraints={{
+            deviceId: currentDeviceId ? { exact: currentDeviceId } : undefined,
           }}
-          aria-label="Switch camera"
-        >
-          <CameraAltIcon sx={{ height: 60, width: 60 }} />
-        </IconButton>
-      )}
-
-      {selectedDeviceId ? (
-        <Box>
-          <Scanner
-            key={selectedDeviceId} // Force remount when deviceId changes
-            onScan={handleScan}
-            components={{ audio: false }}
-            constraints={{
-              deviceId: selectedDeviceId,
-            }}
-            onError={(error) => {
-              if (error instanceof Error) {
-                console.error("Scanner error:", error);
-                setError(`Scanner error: ${error.name} - ${error.message}`);
-              }
-            }}
-          />
-        </Box>
+          styles={{ container: scannerStyle }}
+        />
       ) : (
-        <Typography variant="body2" color="textSecondary">
-          No cameras found.
-        </Typography>
+        <p>Loading camera...</p>
       )}
-
-      {qrData && (
-        <Typography variant="body2" color="textPrimary">
-          Scanned Data: {qrData}
-        </Typography>
+      {devices.length > 1 && (
+        <button
+          onClick={switchCamera}
+          style={buttonStyle}
+          title="Switch Camera"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            strokeWidth="2"
+          >
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+            <circle cx="12" cy="13" r="4" />
+          </svg>
+        </button>
       )}
-    </Box>
+      {qrData && <p>Scanned Data: {qrData}</p>}
+    </div>
   );
 };
 

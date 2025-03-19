@@ -20,9 +20,22 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
 
         if (mounted && videoDevices.length > 0) {
           setDevices(videoDevices);
+
+          // Get saved camera preference
+          const savedDeviceId = localStorage.getItem("preferredCameraId");
+
+          // Check if saved device exists in current devices
+          const savedDeviceExists =
+            savedDeviceId &&
+            videoDevices.some((device) => device.deviceId === savedDeviceId);
+
           if (!currentDeviceId) {
-            setCurrentDeviceId(videoDevices[0].deviceId);
-            console.log("Initial device set to:", videoDevices[0].deviceId);
+            const initialDeviceId = savedDeviceExists
+              ? savedDeviceId
+              : videoDevices[0].deviceId;
+
+            setCurrentDeviceId(initialDeviceId);
+            console.log("Initial device set to:", initialDeviceId);
           }
         }
       } catch (error) {
@@ -62,6 +75,9 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
 
     console.log("Switching from:", currentDeviceId, "to:", nextDeviceId);
     setCurrentDeviceId(nextDeviceId);
+
+    // Save the selected camera to localStorage
+    localStorage.setItem("preferredCameraId", nextDeviceId);
 
     setTimeout(() => {
       setIsSwitching(false);

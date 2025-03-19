@@ -36,5 +36,11 @@
     "facebook": {
       "action": "Iniciar sesión con Facebook"
     }
+  },
+  "install": {
+    "prompt": "Instalar como un app",
+    "message": "Esta aplicación se puede instalar en tu dispositivo para tener más funcionalidades y ser de fácil acceso. ¿Quieres instalarla?",
+    "button": "Instalar",
+    "cancel": "Cancelar"
   }
 }

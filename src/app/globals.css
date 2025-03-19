@@ -126,3 +126,33 @@ body {
   color: teal;
   cursor: pointer;
 }
+
+.PWA_installButton {
+  position: absolute;
+  top: 1rem;
+  z-index: 999;
+  color: "#ffffff99";
+  padding: 10px;
+  text-align: center;
+  border-radius: 5;
+  display: "flex";
+  left: 50%;
+  margin-left: -200px;
+}
+
+.PWA_installButton img {
+  margin-bottom: 1.5rem;
+}
+
+.installPrompt {
+  padding: 2rem;
+}
+
+.installPromptActions {
+  display: "flex";
+  justify-content: "space-between";
+  margin-top: 1rem;
+}
+.installPromptActions button {
+  margin-right: 10px;
+}

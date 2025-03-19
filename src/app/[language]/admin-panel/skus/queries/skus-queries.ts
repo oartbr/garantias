@@ -29,7 +29,6 @@ export const useSkuListQuery = ({
   sort?: SkuSortType | undefined;
 } = {}) => {
   const fetch = useGetSKUsService();
-
   const query = useInfiniteQuery({
     queryKey: skusQueryKeys.list().sub.by({ sort, filter }).key,
     initialPageParam: 1,

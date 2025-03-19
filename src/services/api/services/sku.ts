@@ -12,7 +12,7 @@ import { RequestConfigType } from "./types/request-config";
 import { Tokens } from "@/services/api/types/tokens";
 import { User } from "@/services/api/types/user";
 import HTTP_CODES_ENUM from "../types/http-codes";
-import { Status } from "../types/status";
+// import { Status } from "../types/status";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
@@ -261,7 +261,7 @@ export type SKUsRequest = {
   page: number;
   limit: number;
   filters?: {
-    status?: Status[];
+    category?: String[];
   };
   sort?: Array<{
     order: SortEnum;
@@ -279,6 +279,7 @@ export function useGetSKUsService() {
       requestUrl.searchParams.append("page", data.page.toString());
       requestUrl.searchParams.append("limit", data.limit.toString());
       if (data.filters) {
+        console.log({ filtersSKU: data.filters });
         requestUrl.searchParams.append("filters", JSON.stringify(data.filters));
       }
       if (data.sort) {

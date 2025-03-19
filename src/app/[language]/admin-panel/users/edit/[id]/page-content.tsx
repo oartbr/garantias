@@ -179,6 +179,16 @@ function FormEditUser() {
     }
   });
 
+  const updateRole = (option: { id: string | number; value?: string }) => {
+    if (option) {
+      reset((formData) => ({
+        ...formData,
+        role: option,
+      }));
+    }
+    return option;
+  };
+
   useEffect(() => {
     const getInitialDataForEdit = async () => {
       const { status, data: user } = await fetchGetUser({ id: userId });
@@ -266,9 +276,7 @@ function FormEditUser() {
                 renderOption={(option) =>
                   t(`admin-panel-users-edit:inputs.role.options.${option.id}`)
                 }
-                onChange={(option) => {
-                  console.log({ option: option.id });
-                }}
+                onChange={updateRole}
               />
             </Grid>
 

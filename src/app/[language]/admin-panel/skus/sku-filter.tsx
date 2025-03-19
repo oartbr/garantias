@@ -1,7 +1,7 @@
 "use client";
 
 import FormMultipleSelectInput from "@/components/form/multiple-select/form-multiple-select";
-import { Status, StatusEnum } from "@/services/api/types/status";
+import { Category, CategoryEnum } from "@/services/api/types/category";
 import { useTranslation } from "@/services/i18n/client";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -21,7 +21,7 @@ function SkuFilter() {
 
   const methods = useForm<SkuFilterFormData>({
     defaultValues: {
-      status: [],
+      category: [],
     },
   });
 
@@ -77,22 +77,22 @@ function SkuFilter() {
           >
             <Grid container spacing={2} mb={3} mt={3}>
               <Grid item xs={12}>
-                <FormMultipleSelectInput<SkuFilterFormData, Pick<Status, "id">>
-                  name="status"
-                  testId="status"
+                <FormMultipleSelectInput<
+                  SkuFilterFormData,
+                  Pick<Category, "id">
+                >
+                  name="category"
+                  testId="category"
                   label={t("admin-panel-garantias:filter.inputs.status.label")}
                   options={[
                     {
-                      id: StatusEnum.created,
+                      id: CategoryEnum.autoclean,
                     },
                     {
-                      id: StatusEnum.assigned,
+                      id: CategoryEnum.reinforced,
                     },
                     {
-                      id: StatusEnum.registered,
-                    },
-                    {
-                      id: StatusEnum.canceled,
+                      id: CategoryEnum.DDB,
                     },
                   ]}
                   keyValue="id"

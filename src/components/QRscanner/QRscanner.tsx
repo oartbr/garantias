@@ -48,7 +48,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ position: "relative" }} className="qrScannerCameraSelector">
       {/* Camera Switch Icon */}
       {cameras.length > 1 && (
         <IconButton

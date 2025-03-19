@@ -4,5 +4,7 @@
   "registerWarranty": "Registrar Garantia",
   "notFound": "Código no identificado",
   "notFoundMessage": "El código que ingresaste no existe en nuestra base de datos, por favor verifica que sea correcto o entra en contacto con la empresa.",
-  "privacy-policy": "Política de Privacidad"
+  "privacy-policy": "Política de Privacidad",
+  "cancel": "Cancelar",
+  "scan": "Escanear"
 }

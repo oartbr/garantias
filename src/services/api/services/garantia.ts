@@ -358,13 +358,12 @@ export type GarantiaPostRequest = Pick<
   Garantia,
   | "garantiaId"
   | "brand"
-  | "builtOn"
+  | "builtAt" // Changed from builtOn
   | "description"
   | "sku"
   | "reseller"
-  | "shippedDate"
+  | "shippedAt" // Changed from shippedDate
   | "soldTo"
-  | "soldDate"
 > & {
   password: string;
 };

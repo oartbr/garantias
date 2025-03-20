@@ -218,6 +218,22 @@ function FormEditGarantia() {
     }
   });
 
+  const updateSKU = (option: {
+    description?: string;
+    brand?: string;
+    id?: string;
+    skuId?: string;
+  }) => {
+    if (option) {
+      reset({
+        description: option.description ?? "",
+        sku: option,
+        brand: option.brand ?? "",
+      });
+    }
+    return option;
+  };
+
   useEffect(() => {
     const getInitialDataForEdit = async () => {
       const { status: getStatus, data: results } = await fetchGetGarantia({
@@ -227,7 +243,7 @@ function FormEditGarantia() {
 
       if (getStatus === HTTP_CODES_ENUM.OK) {
         setGarantiaData(results.garantia);
-
+        console.log({ garantia: results.garantia });
         reset({
           description: results.garantia?.description ?? "",
           sku: {
@@ -274,6 +290,7 @@ function FormEditGarantia() {
                 renderOption={skuRenderOption}
                 keyValue="value" // Assuming options is an array of objects with an 'id' key
                 testId="example-select-input"
+                onChange={updateSKU}
               />
             </Grid>
 

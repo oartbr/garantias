@@ -13,12 +13,12 @@ const workflows: StatusWorkflows = {
   created: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} needs to be assigned",
-      route: "admin-panel/garantias/edit/{garantiaId}",
+      route: "admin-panel/garantias/assign/{garantiaId}",
       action: "edit",
     },
     QA: {
       message: "Factory: Garantia {garantiaId} needs to be assigned",
-      route: "/{garantiaId}/assign",
+      route: "admin-panel/garantias/check/{garantiaId}",
       action: "Assign",
     },
     default: {
@@ -30,12 +30,12 @@ const workflows: StatusWorkflows = {
   assigned: {
     ADMIN: {
       message: "ADMIN: Garantia {garantiaId} was assigned",
-      route: "admin-panel/garantias/edit/{garantiaId}",
+      route: "admin-panel/garantias/check/{garantiaId}",
       action: "edit",
     },
     QA: {
       message: "ADMIN: Garantia {garantiaId} was assigned",
-      route: "/{garantiaId}/assign",
+      route: "admin-panel/garantias/check/{garantiaId}",
       action: "reassign",
     },
     default: {
@@ -71,6 +71,11 @@ const workflows: StatusWorkflows = {
       message: "FACTORY: Garantia {garantiaId} was shipped",
       route: "/{garantiaId}/deliver",
       action: "deliver",
+    },
+    QA: {
+      message: "ADMIN: Garantia {garantiaId} was assigned",
+      route: "admin-panel/garantias/check/{garantiaId}",
+      action: "reassign",
     },
     default: {
       message: "Garantia {garantiaId} was shipped",

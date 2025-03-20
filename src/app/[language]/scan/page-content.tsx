@@ -18,6 +18,7 @@ function checkScannedData(url: string, checkGarantia: (id: string) => void) {
   const aUrl = url.split("/");
   if (
     aUrl[2] === "garantias.xpand.international" ||
+    aUrl[2] === "garantias.watersupplyec.com" ||
     aUrl[2] === "localhost:3000"
   ) {
     const garantiaId = aUrl[3];

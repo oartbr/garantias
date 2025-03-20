@@ -147,7 +147,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
           </svg>
         </button>
       )}
-      {qrData && <p>Scanned Data: {qrData}</p>}
+      {qrData && <p>{qrData}</p>}
     </div>
   );
 };

@@ -38,14 +38,14 @@ function List(props: Props) {
   const fetchGarantia = useGetGarantiaService();
   const [isLoading, setIsLoading] = useState({});
   const [item, setItem] = useState<Garantia | null>(null);
-  // console.log({ user, item });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
       .then((data) => {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
           setItem(data.data.garantia as Garantia); // Step 3: Update state with fetched data
-          console.log({ garantia: data.data.garantia });
           setIsLoading(false); // Update loading state
         } else {
           setItem(null);
@@ -57,11 +57,12 @@ function List(props: Props) {
         console.error("Failed to fetch client data:", err);
         setIsLoading(false); // Update loading state
       });
-  }, [user, fetchGarantia, garantiaId]);
+  }, [fetchGarantia, garantiaId]);
 
   const workflowService = item
     ? new WorkflowService(item, user, workflowGarantia)
     : null;
+
   const workflowData = workflowService
     ? workflowService.getWorkflowData()
     : null;
@@ -70,17 +71,9 @@ function List(props: Props) {
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          {!isLoading &&
-            item &&
-            (item.status === "assigned" ||
-              item.status === "qualityChecked") && (
-              <div>
-                <h3>Desea registrar la garantia de este producto?</h3>
-              </div>
-            )}
-          {!isLoading && item && item.status === "registered" && (
+          {!isLoading && item && (
             <div>
-              <h3>Garantia {item.garantiaId} registrada en su cuenta: </h3>
+              <h3>{t("listing:message." + workflowData?.message)}</h3>
             </div>
           )}
         </Grid>
@@ -102,7 +95,7 @@ function List(props: Props) {
           {!isLoading && !item && (
             <>
               <Grid item xs={12}>
-                <h3>La garantía no fue identificada o ya fue registrada.</h3>
+                <h3>{t("listing:message." + workflowData?.message)}</h3>
               </Grid>
               <Grid item xs={6}>
                 <Button

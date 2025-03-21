@@ -5,7 +5,13 @@
     "createAccount": "Crear una cuenta",
     "forgotPassword": "Se olvidó la contraseña?",
     "register": "Registrar Garantia",
-    "edit": "Editar Garantia"
+    "edit": "Editar Garantia",
+    "support": "Contactar a Soporte",
+    "assign": "Asignar SKU",
+    "qualityCheck": "Controlar calidad",
+    "cancel": "Cancelar",
+    "void": "Anular",
+    "registerToClient": "Registrar para el cliente"
   },
   "status": {
     "assigned": { "label": "Pendiente", "description": "Asignada en: " },
@@ -16,6 +22,18 @@
       "label": "Chequeada",
       "description": "Control de calidad en: "
     }
+  },
+  "message": {
+    "assignSKUtoGarantia": "Asignar SKU a la garantía",
+    "accessDenied": "Acceso denegado",
+    "checkItemQuality": "Verificar la calidad del artículo",
+    "itemShipped": "Artículo enviado",
+    "confirmDelivery": "Confirmar entrega",
+    "availableForSale": "Disponible para la venta",
+    "itemDelivered": "Artículo entregado",
+    "voidGarantia": "Garantía anulada",
+    "registeredToClient": "Registrado para el cliente",
+    "alreadyRegistered": "Ya registrado"
   },
 
   "or": " o ",

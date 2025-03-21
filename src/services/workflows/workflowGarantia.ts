@@ -12,114 +12,109 @@ export interface StatusWorkflows {
 const workflows: StatusWorkflows = {
   created: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} needs to be assigned",
+      message: "assignSKUtoGarantia",
       route: "admin-panel/garantias/assign/{garantiaId}",
-      action: "edit",
+      action: "assign",
     },
     QA: {
-      message: "Factory: Garantia {garantiaId} needs to be assigned",
+      message: "assignSKUtoGarantia",
       route: "admin-panel/garantias/check/{garantiaId}",
-      action: "Assign",
+      action: "assign",
     },
     default: {
-      message: "USER: Access denied for garantia {garantiaId}",
-      route: "/error",
+      message: "accessDenied",
+      route: "/scan",
       action: "support",
     },
   },
   assigned: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} was assigned",
+      message: "checkItemQuality",
       route: "admin-panel/garantias/check/{garantiaId}",
-      action: "edit",
+      action: "qualityCheck",
     },
     QA: {
-      message: "ADMIN: Garantia {garantiaId} was assigned",
+      message: "checkItemQuality",
       route: "admin-panel/garantias/check/{garantiaId}",
-      action: "reassign",
+      action: "qualityCheck",
     },
     default: {
-      message: "Garantia {garantiaId} is assigned",
-      route: "/{garantiaId}/check-phone-number",
-      action: "register",
+      message: "accessDenied",
+      route: "/scan",
+      action: "support",
     },
   },
   shipped: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} was shipped",
+      message: "itemShipped",
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
     },
     CARRIER: {
-      message: "FACTORY: Garantia {garantiaId} was shipped",
+      message: "confirmDelivery",
       route: "/{garantiaId}/deliver",
       action: "deliver",
     },
     default: {
-      message: "Garantia {garantiaId} was shipped",
+      message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
     },
   },
   qualityChecked: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} passed Quality Check",
+      message: "availableForSale",
       route: "admin-panel/garantias/check/{garantiaId}",
       action: "edit",
     },
     CARRIER: {
-      message: "FACTORY: Garantia {garantiaId} was shipped",
+      message: "availableForSale",
       route: "/{garantiaId}/deliver",
       action: "deliver",
     },
-    QA: {
-      message: "ADMIN: Garantia {garantiaId} was assigned",
-      route: "admin-panel/garantias/check/{garantiaId}",
-      action: "reassign",
-    },
     default: {
-      message: "Garantia {garantiaId} was shipped",
+      message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
     },
   },
   delivered: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} was delivered",
+      message: "itemDelivered",
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
     },
     CARRIER: {
-      message: "CARRIER: Garantia {garantiaId} was delivered",
+      message: "itemDelivered",
       route: "/CARRIER/delivered/{garantiaId}",
       action: "correct",
     },
     default: {
-      message: "Garantia {garantiaId} is delivered",
+      message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
     },
   },
   void: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} was void",
+      message: "voidGarantia",
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
     },
     default: {
-      message: "Garantia {garantiaId} is void",
-      route: "/error",
+      message: "voidGarantia",
+      route: "/scan",
       action: "close",
     },
   },
   registered: {
     ADMIN: {
-      message: "ADMIN: Garantia {garantiaId} was registered",
+      message: "registeredToClient",
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
     },
     default: {
-      message: "Garantia {garantiaId} is already registered",
+      message: "alreadyRegistered",
       route: "/{garantiaId}/check-phone-number",
       action: "open",
     },

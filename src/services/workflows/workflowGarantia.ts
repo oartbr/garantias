@@ -21,10 +21,15 @@ const workflows: StatusWorkflows = {
       route: "admin-panel/garantias/check/{garantiaId}",
       action: "assign",
     },
-    default: {
+    USER: {
       message: "accessDenied",
       route: "/scan",
       action: "support",
+    },
+    default: {
+      message: "accessDenied",
+      route: "{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
   assigned: {
@@ -38,10 +43,15 @@ const workflows: StatusWorkflows = {
       route: "admin-panel/garantias/check/{garantiaId}",
       action: "qualityCheck",
     },
+    USER: {
+      message: "accessDenied",
+      route: "/check-phone-number",
+      action: "support",
+    },
     default: {
       message: "accessDenied",
-      route: "/scan",
-      action: "support",
+      route: "check-phone-number",
+      action: "login",
     },
   },
   shipped: {
@@ -55,10 +65,15 @@ const workflows: StatusWorkflows = {
       route: "/{garantiaId}/deliver",
       action: "deliver",
     },
-    default: {
+    USER: {
       message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
+    },
+    default: {
+      message: "registerGarantia",
+      route: "/{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
   qualityChecked: {
@@ -72,10 +87,15 @@ const workflows: StatusWorkflows = {
       route: "/{garantiaId}/deliver",
       action: "deliver",
     },
-    default: {
+    USER: {
       message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
+    },
+    default: {
+      message: "registerGarantia",
+      route: "/{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
   delivered: {
@@ -89,10 +109,15 @@ const workflows: StatusWorkflows = {
       route: "/CARRIER/delivered/{garantiaId}",
       action: "correct",
     },
-    default: {
+    USER: {
       message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
       action: "register",
+    },
+    default: {
+      message: "registerGarantia",
+      route: "/{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
   void: {
@@ -102,9 +127,9 @@ const workflows: StatusWorkflows = {
       action: "edit",
     },
     default: {
-      message: "voidGarantia",
-      route: "/scan",
-      action: "close",
+      message: "registerGarantia",
+      route: "/{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
   registered: {
@@ -113,10 +138,15 @@ const workflows: StatusWorkflows = {
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
     },
-    default: {
+    USER: {
       message: "alreadyRegistered",
       route: "/{garantiaId}/check-phone-number",
       action: "open",
+    },
+    default: {
+      message: "registerGarantia",
+      route: "/{garantiaId}/check-phone-number",
+      action: "login",
     },
   },
 };

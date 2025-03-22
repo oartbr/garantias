@@ -11,7 +11,8 @@
     "qualityCheck": "Controlar calidad",
     "cancel": "Cancelar",
     "void": "Anular",
-    "registerToClient": "Registrar para el cliente"
+    "registerToClient": "Registrar para el cliente",
+    "login": "Iniciar sesión"
   },
   "status": {
     "assigned": { "label": "Pendiente", "description": "Asignada en: " },

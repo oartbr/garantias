@@ -35,13 +35,13 @@ export class WorkflowService {
 
   constructor(item: Item, user: flowUser, routes: StatusRoutes) {
     this.item = item;
-    this.user = user || { role: { name: "USER" } };
+    this.user = user || { role: { name: "undefined" } };
     this.routes = routes;
   }
 
   getWorkflowData(): WorkflowData {
     const { status, garantiaId } = this.item || {};
-    const role = this.user?.role?.name || "USER";
+    const role = this.user?.role?.name || "undefined";
 
     const routeData = this.routes[status || ""]?.[role] ||
       this.routes[status || ""]?.default || {

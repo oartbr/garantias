@@ -66,7 +66,7 @@ function List(props: Props) {
   const workflowData = workflowService
     ? workflowService.getWorkflowData()
     : null;
-
+  console.log({ workflowData, user });
   return (
     <Container maxWidth="sm" className="mainContainer">
       <Grid>

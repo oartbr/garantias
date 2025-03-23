@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
 
 const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
-  const [qrData, setQrData] = useState<string | null>(null);
+  // const [qrData, setQrData] = useState<string | null>(null);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [currentDeviceId, setCurrentDeviceId] = useState<string | null>(null);
   const [isSwitching, setIsSwitching] = useState(false);
@@ -53,7 +53,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
     (detectedCodes: IDetectedBarcode[]) => {
       const data = detectedCodes[0] || null;
       if (data) {
-        setQrData(data.rawValue.toString());
+        // setQrData(data.rawValue.toString());
         callBack(data.rawValue.toString());
       }
     },
@@ -147,7 +147,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
           </svg>
         </button>
       )}
-      {qrData && <p>Scanned Data: {qrData}</p>}
+      {/* qrData && <p>Scanned Data: {qrData}</p>*/}
     </div>
   );
 };

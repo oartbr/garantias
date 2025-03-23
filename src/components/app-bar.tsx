@@ -206,7 +206,7 @@ function ResponsiveAppBar() {
                       component={Link}
                       href="/sign-up"
                     >
-                      <Typography textAlign="center">
+                      <Typography textAlign="center" className="joinButton">
                         {t("common:navigation.signUp")}
                       </Typography>
                     </MenuItem>
@@ -243,14 +243,16 @@ function ResponsiveAppBar() {
               {t("common:navigation.home")}
             </Button>
             {/* Menu large browser starts here */}
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              href="/scan"
-            >
-              {t("common:navigation.scan")}
-            </Button>
+            {isLoaded && user && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                component={Link}
+                href="/scan"
+              >
+                {t("common:navigation.scan")}
+              </Button>
+            )}
             {!!user?.role &&
               [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
                 <Button
@@ -355,7 +357,7 @@ function ResponsiveAppBar() {
           ) : (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               {/* <ThemeSwitchButton /> */}
-              <ScanButton />
+              {isLoaded && user && <ScanButton />}
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -370,6 +372,7 @@ function ResponsiveAppBar() {
                   sx={{ my: 2, color: "white", display: "block" }}
                   component={Link}
                   href="/sign-up"
+                  className="joinButton"
                 >
                   {t("common:navigation.signUp")}
                 </Button>
@@ -382,7 +385,7 @@ function ResponsiveAppBar() {
             }}
           >
             {/* <ThemeSwitchButton /> */}
-            <ScanButton />
+            {isLoaded && user && <ScanButton />}
           </Box>
         </Toolbar>
       </Container>

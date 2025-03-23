@@ -28,40 +28,24 @@ export default async function Home({ params }: Props) {
   const { t } = await getServerTranslation(params.language, "home");
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Grid
         container
         spacing={3}
-        wrap="nowrap"
         pt={3}
-        direction="column"
-        sx={{ height: "90vh", justifyContent: "space-between" }}
+        direction="row" // Change to row for side-by-side layout
+        sx={{ minHeight: "90vh", alignItems: "center" }} // Center vertically
       >
-        <Grid item>
-          <Box ml={1} component="div" className="scan">
-            <div className="scanning">
-              <Image
-                className="qrTanque"
-                src={tanque.src}
-                alt="tanque"
-                fill={true}
-              />
-              <Image className="qrScan" src={scan.src} alt="scan" fill={true} />
-            </div>
-          </Box>
+        {/* Left Column: Text and CTA */}
+        <Grid item xs={12} md={6}>
           <div className="mensagem">
-            <Button
-              variant="contained"
-              LinkComponent={Link}
-              href="/scan"
-              data-testid="scan-qr"
-              className="scanButton"
-            >
-              {t("scan")}
-            </Button>
-            <Typography>
+            <Typography variant="h4" gutterBottom>
+              {t("title")}{" "}
+              {/* "Transforme seus recibos em listas inteligentes com o Mamut" */}
+            </Typography>
+            <Typography variant="body1" paragraph>
               <Trans
-                i18nKey={`description`}
+                i18nKey="description"
                 t={t}
                 components={[
                   <MuiLink
@@ -74,10 +58,53 @@ export default async function Home({ params }: Props) {
                   </MuiLink>,
                 ]}
               />
+              {/* "Escaneie recibos, acompanhe suas compras..." */}
+            </Typography>
+            <Button
+              variant="contained"
+              LinkComponent={Link}
+              href="/sign-up"
+              data-testid="sign-up"
+              className="joinButton"
+              sx={{ mb: 2 }}
+            >
+              {t("callToAction")} {/* "Cadastre-se e entre para o clube" */}
+            </Button>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              {t("socialProof")}{" "}
+              {/* "Economize tempo e dinheiro como milhares de gaúchos já fazem!" */}
             </Typography>
           </div>
         </Grid>
-        <Grid item sx={{ mx: "auto" }}>
+
+        {/* Right Column: Scanning Animation */}
+        <Grid item xs={12} md={6}>
+          <Box
+            component="div"
+            className="scan"
+            sx={{ position: "relative", height: "400px" }}
+          >
+            <div className="scanning">
+              <Image
+                className="qrTanque"
+                src={tanque.src}
+                alt="tanque"
+                fill={true}
+                style={{ objectFit: "contain" }}
+              />
+              <Image
+                className="qrScan"
+                src={scan.src}
+                alt="scan"
+                fill={true}
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+          </Box>
+        </Grid>
+
+        {/* Footer: Privacy Policy Link */}
+        <Grid item xs={12} sx={{ textAlign: "center", mt: "auto" }}>
           <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>
         </Grid>
       </Grid>

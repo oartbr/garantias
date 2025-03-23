@@ -1,9 +1,12 @@
 {
-  "title": "Escanea el código QR",
-  "description": "Bienvenido a la plataforma de registro de garantias, escanea el código QR de tu producto para registrar tu garantia.",
+  "title": "Mamut, o clube de descontos mais inteligente do Brasil.",
+  "subTitle": "Transforme seus recibos em listas inteligentes com IA e o Mamut.", 
+  "description": "Escaneie recibos, acompanhe suas compras e receba as melhores ofertas para você. Junte-se ao clube e aproveite descontos exclusivos!",
+  "socialProof": "🔆 Economize tempo e dinheiro com ajuda de Inteligência Artificial!",
+  "register": "Cadastrar", 
   "registerWarranty": "Registrar Garantia",
   "notFound": "Código no identificado",
   "notFoundMessage": "El código que ingresaste no existe en nuestra base de datos, por favor verifica que sea correcto o entra en contacto con la empresa.",
   "privacy-policy": "Política de Privacidad",
-  "scan": "Escanear QR"
+  "callToAction": "Cadastre-se sem custo"
 }

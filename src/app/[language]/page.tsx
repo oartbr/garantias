@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import MuiLink from "@mui/material/Link";
 import { Trans } from "react-i18next/TransWithoutContext";
 import tanque from "../../../public/assets/images/nf.png";
-import scan from "../../../public/assets/images/scan.svg";
+import scan from "../../../public/assets/images/home.png";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

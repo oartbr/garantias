@@ -123,9 +123,11 @@ function Form(props: Props) {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    formData.phoneNumber =
+      (formData?.areaCode?.code?.[0] || "") + (formData?.phNumber || "");
+
     delete formData.phNumber;
     delete formData.areaCode;
-    formData.phoneNumber = sPhoneNumber || "";
     const { data: dataSignUp, status: statusSignUp } =
       await fetchAuthSignUp(formData);
 
@@ -198,7 +200,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12} style={{ display: "none" }}>
+            <Grid item xs={12} style={{ display: "block" }}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t("sign-up:inputs.phoneNumber.label")}
@@ -253,7 +255,7 @@ function Form(props: Props) {
                   color="inherit"
                   LinkComponent={Link}
                   data-testid="login"
-                  href="/sign-in"
+                  href="/check-phone-number"
                 >
                   {t("sign-up:actions.accountAlreadyExists")}
                 </Button>

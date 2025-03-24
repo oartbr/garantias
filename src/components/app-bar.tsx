@@ -353,6 +353,7 @@ function ResponsiveAppBar() {
                   </Typography>
                 </MenuItem>
               </Menu>
+              <ScanButton />
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
@@ -385,7 +386,6 @@ function ResponsiveAppBar() {
             }}
           >
             {/* <ThemeSwitchButton /> */}
-            {isLoaded && user && <ScanButton />}
           </Box>
         </Toolbar>
       </Container>

@@ -187,8 +187,10 @@ body {
 .PWA_installButton{
   position: absolute;
   top: 5px;
-  left: 60%;
-  background-color: #ff0000;
+  left: 55%;
+  z-index: 999;
+  cursor: pointer;
+  border-radius: 30px;
 }
 .installButton{
   background-color: transparent;
@@ -197,6 +199,8 @@ body {
   font-size: large;
   border: 0px;
   border-radius: 30px;
+  background-color: #00b3ca;
+  cursor: pointer;
 }
 
 .mainContainer h1{
@@ -206,7 +210,7 @@ body {
 }
 
 .joinButton {
-  background-color: #e63946 !important; /* Vibrant red */
+  background-color: #ff0015 !important; /* Vibrant red */
   color: #ffffff !important; /* White text */
   padding: 8px 20px !important; /* Smaller padding for a compact look */
   font-size: 14px !important; /* Smaller font size */
@@ -218,7 +222,7 @@ body {
 }
 
 .joinButton:hover {
-  background-color: #d00000 !important; /* Darker red on hover */
+  background-color: hsl(0, 100%, 50%) !important; /* Darker red on hover */
   box-shadow: 0 6px 16px rgba(230, 57, 70, 0.5) !important; /* Stronger shadow on hover */
   transform: scale(1.05) !important; /* Slight scale-up effect on hover */
 }

@@ -184,7 +184,7 @@ body {
   }
 }
 
-.PWA_installButton{
+.PWA_installButton {
   position: absolute;
   top: 5px;
   left: 55%;
@@ -192,15 +192,45 @@ body {
   cursor: pointer;
   border-radius: 30px;
 }
-.installButton{
+
+.installButton {
   background-color: transparent;
   color: #fff;
   padding: 20px;
   font-size: large;
-  border: 0px;
+  border: 0;
   border-radius: 30px;
   background-color: #00b3ca;
   cursor: pointer;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+  .PWA_installButton {
+    position: fixed;
+    bottom: 0px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  .installButton {
+    padding: 10px;
+    font-size: medium;
+    width: 90%;
+    border-radius: 0;
+  }
+
+  .joinButton {
+    width: 70%!important;
+    left: -35%!important;
+    
+  }
+
+  .qrScan{
+    margin-top: -50px!important;
+  }
 }
 
 .mainContainer h1{

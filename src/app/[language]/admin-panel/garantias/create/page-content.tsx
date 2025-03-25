@@ -13,10 +13,14 @@ import useLeavePage from "@/services/leave-page/use-leave-page";
 import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { CreateGarantiasService } from "@/services/api/services/garantia";
+import {
+  CreateGarantiasService,
+  useGetPdfService,
+} from "@/services/api/services/garantia";
 import { useRouter } from "next/navigation";
 // import { Role } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
+import { useState } from "react";
 //import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 
 interface GenerateCodesFormData {
@@ -61,8 +65,10 @@ function GenerateCodesFormActions() {
 function FormCreateGarantias() {
   const router = useRouter();
   const fetchCreateCodes = CreateGarantiasService();
+  const fetchPdfFile = useGetPdfService();
   const { t } = useTranslation("admin-panel-garantia-create");
   const validationSchema = useValidationSchema();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -72,11 +78,11 @@ function FormCreateGarantias() {
   const methods = useForm<GenerateCodesFormData>({
     resolver,
     defaultValues: {
-      quantity: { id: 5 },
+      quantity: { id: 25 },
     },
   });
 
-  const { handleSubmit, setError } = methods;
+  const { handleSubmit } = methods;
 
   // Preprocessing function for select value
   const preprocessData = (data: GenerateCodesFormData) => {
@@ -87,31 +93,50 @@ function FormCreateGarantias() {
     return transformedData;
   };
 
+  const checkPdfAvailable = async (printId: string): Promise<boolean> => {
+    let attempts = 0;
+    while (attempts < 5) {
+      const pdfResponse = await fetchPdfFile(printId);
+      if (pdfResponse.status === HTTP_CODES_ENUM.OK) {
+        return true;
+      }
+      attempts++;
+      await new Promise((resolve) => setTimeout(resolve, 10000)); // wait for 10 seconds
+    }
+    return false;
+  };
+
   const onSubmit = handleSubmit(async (formData) => {
+    setIsLoading(true);
     const preprocessedFormData = preprocessData(formData);
     const { data, status } = await fetchCreateCodes(preprocessedFormData);
-
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (Object.keys(data.errors) as Array<keyof GenerateCodesFormData>).forEach(
-        (key) => {
-          setError(key, {
-            type: "manual",
-            message: t(
-              `admin-panel-garantia-create:inputs.${key}.validation.server.${data.errors[key]}`
-            ),
-          });
-        }
-      );
-      return;
-    }
     if (status === HTTP_CODES_ENUM.CREATED) {
+      if (!data.printId) {
+        enqueueSnackbar(
+          t("admin-panel-garantia-create:alerts.garantia.creationError"),
+          { variant: "error" }
+        );
+        setIsLoading(false);
+        return;
+      }
+      // Poll the API to verify that the PDF file is available
+      const isPdfAvailableFlag = await checkPdfAvailable(data.printId);
+      if (!isPdfAvailableFlag) {
+        enqueueSnackbar(
+          t("admin-panel-garantia-create:alerts.pdf.notAvailable"),
+          { variant: "error" }
+        );
+        setIsLoading(false);
+        return;
+      }
       enqueueSnackbar(
         t("admin-panel-garantia-create:alerts.garantia.success"),
-        {
-          variant: "success",
-        }
+        { variant: "success" }
       );
-      router.push("/admin-panel/garantias");
+      setIsLoading(false);
+      router.push("/admin-panel/garantias/print");
+    } else {
+      setIsLoading(false);
     }
   });
 
@@ -131,10 +156,11 @@ function FormCreateGarantias() {
                 testId="quantity"
                 label={t("admin-panel-garantia-create:inputs.quantity.label")}
                 options={Array.from({ length: 6 }, (_, i) => ({
-                  id: (i + 1) * 5,
+                  id: (i + 1) * 25,
                 }))}
                 keyValue="id"
                 renderOption={(option) => option.id}
+                onChange={(e) => methods.setValue("quantity", e)}
               />
             </Grid>
 
@@ -153,6 +179,15 @@ function FormCreateGarantias() {
             </Grid>
           </Grid>
         </form>
+        <Grid>
+          {isLoading ? (
+            <h3>
+              {t("admin-panel-garantia-create:alerts.inProcess.creating")}
+            </h3>
+          ) : (
+            ""
+          )}
+        </Grid>
       </Container>
     </FormProvider>
   );

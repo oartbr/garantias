@@ -39,7 +39,6 @@ function List(props: Props) {
   const [isLoading, setIsLoading] = useState({});
   const [item, setItem] = useState<Garantia | null>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
@@ -57,6 +56,7 @@ function List(props: Props) {
         console.error("Failed to fetch client data:", err);
         setIsLoading(false); // Update loading state
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchGarantia, garantiaId]);
 
   const workflowService = item

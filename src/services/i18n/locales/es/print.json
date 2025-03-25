@@ -1,0 +1,24 @@
+{
+  "title": "Imprimir PDFs",
+  "description": "Imprima PDFs de garantias",
+  "notFound": "No hay PDFs pendientes.",
+  "notFoundMessage": "No hay PDFs pendientes.",
+  "pendingFiles": " códigos de garantía para impresión.",
+  "privacy-policy": "Política de Privacidad",
+  "cancel": "Cancelar",
+  "print": "Imprimir",
+  "noFiles": "No hay archivos para imprimir",
+  "status": {
+    "pending": {
+      "label": "Pendiente",
+      "description": "Pendiente de impresión"
+    },
+    "printed": { "label": "Impreso", "description": "Impreso" }
+  },
+  "pdfCard": {
+    "url": "Archivo",
+    "quantity": "Cantidad",
+    "createdAt": "Creados ",
+    "print": "Imprimir"
+  }
+}

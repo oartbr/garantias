@@ -55,6 +55,9 @@
   "alerts": {
     "garantia": {
       "success": "Las garantias fueron creadas con éxito"
+    },
+    "inProcess": {
+      "creating": "Creando garantias..."
     }
   }
 }

@@ -330,6 +330,10 @@ export type CreateGarantiaRequest = {
   prefix?: string;
 };
 
+export type CreateGarantiasResponse = {
+  printId: string;
+};
+
 export function CreateGarantiasService() {
   const fetch = useFetch();
 
@@ -348,7 +352,7 @@ export function CreateGarantiasService() {
           ...data,
         }),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<GarantiasResponse>);
+      }).then(wrapperFetchJsonResponse<CreateGarantiasResponse>);
     },
     [fetch]
   );
@@ -472,6 +476,52 @@ export function useDeleteGarantiasService() {
     [fetch]
   );
 }
+
+// GetListingByUser
+// this will get a list of the available garantias PDF files.
+export type GetListingPdfsRequest = {
+  status: string;
+};
+
+export type GetListingPdfsResponse = object;
+
+export function useGetListingPdfsService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    (data: GetListingPdfsRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(
+        `${API_URL}/v1/garantia/getPdfs/${data.status || "pending"}`,
+        {
+          method: "GET",
+          ...requestConfig,
+        }
+      ).then(wrapperFetchJsonResponse<GetListingByUserResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetUserByUserreponse should be a 200 status code with the PDFs' details.
+
+// GetPdfFile
+// this will get a list of the available garantias PDF files.
+export type GetPdfRequest = string;
+
+export type GetLPdfResponse = object;
+
+export function useGetPdfService() {
+  const fetchBase = useFetchBase();
+  return useCallback(
+    (printId: GetPdfRequest, requestConfig?: RequestConfigType) => {
+      return fetchBase(`${API_URL}/v1/garantia/getPdfFile/${printId}`, {
+        method: "GET",
+        ...requestConfig,
+      }).then(wrapperFetchJsonResponse<GetLPdfResponse>);
+    },
+    [fetchBase]
+  );
+}
+// GetUserByUserreponse should be a 200 status code with the PDFs' details.
 
 /*
  * Garantia

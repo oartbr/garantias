@@ -47,6 +47,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
     return () => {
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty array since we only want this to run once
 
   const handleScan = useCallback(

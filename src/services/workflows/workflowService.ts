@@ -33,8 +33,8 @@ export class WorkflowService {
   user?: flowUser;
   routes: StatusRoutes;
 
-  constructor(item: Item, user: flowUser, routes: StatusRoutes) {
-    this.item = item;
+  constructor(item: Item | null, user: flowUser, routes: StatusRoutes) {
+    this.item = item || {};
     this.user = user || { role: { name: "undefined" } };
     this.routes = routes;
   }
@@ -45,12 +45,10 @@ export class WorkflowService {
 
     const routeData = this.routes[status || ""]?.[role] ||
       this.routes[status || ""]?.default || {
-        message: "",
+        message: "unexistentGarantia",
         route: "/error",
         action: "Close",
       };
-
-    console.log({ workflowRole: this.user });
 
     return {
       message: routeData.message.replace("{garantiaId}", garantiaId || ""),

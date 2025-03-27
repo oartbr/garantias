@@ -7,7 +7,7 @@ import useAuth from "@/services/auth/use-auth";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useGetGarantiaService } from "@/services/api/services/garantia";
 import { useTranslation } from "@/services/i18n/client";
-// import { useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -27,7 +27,7 @@ function List(props: Props) {
   // const { setUser } = useAuthActions();
   // const { setTokensInfo } = useAuthTokens();
   // const fetchAuthLogin = useAuthLoginService();
-  // const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
   const { t } = useTranslation("listing");
@@ -49,6 +49,9 @@ function List(props: Props) {
         } else {
           setItem(null);
           setIsLoading(false); // Update loading state
+          enqueueSnackbar(`${t("listing:message.error")}`, {
+            variant: "error",
+          });
           console.error("Failed to fetch client data:", data);
         }
       })
@@ -57,16 +60,14 @@ function List(props: Props) {
         setIsLoading(false); // Update loading state
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchGarantia, garantiaId]);
+  }, []);
 
-  const workflowService = item
-    ? new WorkflowService(item, user, workflowGarantia)
-    : null;
+  const workflowService = new WorkflowService(item, user, workflowGarantia);
 
   const workflowData = workflowService
     ? workflowService.getWorkflowData()
     : null;
-  console.log({ workflowData, user });
+
   return (
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
@@ -92,7 +93,7 @@ function List(props: Props) {
               />
             </Grid>
           )}
-          {!isLoading && !item && (
+          {!isLoading && !item && !user && (
             <>
               <Grid item xs={12}>
                 <h3>{t("listing:message." + workflowData?.message)}</h3>
@@ -105,7 +106,7 @@ function List(props: Props) {
                   data-testid="resend-code/"
                   onClick={() => router.replace("sign-in")}
                 >
-                  Iniciar sesión
+                  {t("listing:actions.login")}
                 </Button>
               </Grid>
               <Grid item xs={6}>
@@ -116,7 +117,25 @@ function List(props: Props) {
                   data-testid="resend-code/"
                   onClick={() => router.replace("sign-up")}
                 >
-                  Registrarse
+                  {t("listing:actions.createAccount")}
+                </Button>
+              </Grid>
+            </>
+          )}
+          {!isLoading && !item && user && (
+            <>
+              <Grid item xs={12}>
+                <h3>{t("listing:message." + workflowData?.message)}</h3>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  data-testid="resend-code/"
+                  onClick={() => router.replace("/")}
+                >
+                  {t("listing:actions.return")}
                 </Button>
               </Grid>
             </>

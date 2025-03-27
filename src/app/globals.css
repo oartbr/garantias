@@ -1,6 +1,6 @@
 /* Your global CSS here */
 body {
-  background: rgb(233, 244, 255) !important;
+  background: inherit;
 }
 .logoHeader {
   margin-right: 5rem;

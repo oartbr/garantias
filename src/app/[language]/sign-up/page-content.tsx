@@ -123,6 +123,7 @@ function Form(props: Props) {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    console.log({ formData, sPhoneNumber });
     delete formData.phNumber;
     delete formData.areaCode;
     formData.phoneNumber = sPhoneNumber || "";
@@ -198,7 +199,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12} style={{ display: "none" }}>
+            <Grid item xs={12} style={{ display: "block" }}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t("sign-up:inputs.phoneNumber.label")}

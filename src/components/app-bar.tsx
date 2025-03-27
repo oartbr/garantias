@@ -63,25 +63,8 @@ function ResponsiveAppBar() {
             src={logoSWEshort.src}
             alt="logo"
             fill={true}
+            priority
           />
-          <Typography
-            className="appName"
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {/* t("common:app-name") */}
-          </Typography>
           {/* Menu starts here // SX */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -319,6 +302,7 @@ function ResponsiveAppBar() {
                   />
                 </IconButton>
               </Tooltip>
+              <ThemeSwitchButton />
               <Menu
                 sx={{ mt: 5.5 }}
                 id="menu-appbar"

@@ -369,9 +369,7 @@ function ResponsiveAppBar() {
             sx={{
               display: { xs: "flex", md: "none" },
             }}
-          >
-            <ThemeSwitchButton />
-          </Box>
+          ></Box>
         </Toolbar>
       </Container>
     </AppBar>

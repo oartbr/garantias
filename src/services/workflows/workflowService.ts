@@ -50,6 +50,8 @@ export class WorkflowService {
         action: "Close",
       };
 
+    console.log({ workflowRole: this.user });
+
     return {
       message: routeData.message.replace("{garantiaId}", garantiaId || ""),
       route: routeData.route.replace("{garantiaId}", garantiaId || ""),

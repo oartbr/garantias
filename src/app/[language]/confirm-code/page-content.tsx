@@ -109,7 +109,7 @@ function Form({ params }: Props) {
       phoneNumber: phoneNumber ?? "",
       code: formData.confirmationCode,
     });
-
+    console.log({ data });
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof RegisterFormData>).forEach(
         (key) => {
@@ -124,7 +124,7 @@ function Form({ params }: Props) {
 
       return;
     }
-    /*
+
     if (status === HTTP_CODES_ENUM.PRECONDITION_REQUIRED) {
       enqueueSnackbar(t("register:alerts.wrong"), {
         variant: "error",
@@ -138,7 +138,7 @@ function Form({ params }: Props) {
 
       router.replace("/check-phone-number");
     }
-*/
+
     if (status === HTTP_CODES_ENUM.OK) {
       enqueueSnackbar(t("register:alerts.codeConfirmed"), {
         variant: "success",

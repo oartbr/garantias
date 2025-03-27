@@ -85,6 +85,7 @@ export type CheckCodeResponse = {
   token: Tokens["token"];
   refreshToken: Tokens["refreshToken"];
   tokenExpires: Tokens["tokenExpires"];
+  status: HTTP_CODES_ENUM;
 };
 
 export function useCheckCodeService() {

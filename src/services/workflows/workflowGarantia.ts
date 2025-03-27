@@ -70,6 +70,11 @@ const workflows: StatusWorkflows = {
       route: "/{garantiaId}/check-phone-number",
       action: "register",
     },
+    QA: {
+      message: "checkItemQuality",
+      route: "admin-panel/garantias/check/{garantiaId}",
+      action: "qualityCheck",
+    },
     default: {
       message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
@@ -86,6 +91,11 @@ const workflows: StatusWorkflows = {
       message: "availableForSale",
       route: "/{garantiaId}/deliver",
       action: "deliver",
+    },
+    QA: {
+      message: "checkItemQuality",
+      route: "admin-panel/garantias/check/{garantiaId}",
+      action: "qualityCheck",
     },
     USER: {
       message: "registerGarantia",
@@ -114,6 +124,11 @@ const workflows: StatusWorkflows = {
       route: "/{garantiaId}/check-phone-number",
       action: "register",
     },
+    QA: {
+      message: "itemDelivered",
+      route: "{garantiaId}",
+      action: "review",
+    },
     default: {
       message: "registerGarantia",
       route: "/{garantiaId}/check-phone-number",
@@ -125,6 +140,11 @@ const workflows: StatusWorkflows = {
       message: "voidGarantia",
       route: "admin-panel/garantias/edit/{garantiaId}",
       action: "edit",
+    },
+    QA: {
+      message: "itemDelivered",
+      route: "{garantiaId}",
+      action: "review",
     },
     default: {
       message: "registerGarantia",
@@ -142,6 +162,11 @@ const workflows: StatusWorkflows = {
       message: "alreadyRegistered",
       route: "/{garantiaId}/check-phone-number",
       action: "open",
+    },
+    QA: {
+      message: "itemDelivered",
+      route: "{garantiaId}",
+      action: "review",
     },
     default: {
       message: "registerGarantia",

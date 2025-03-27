@@ -7,7 +7,9 @@ export type FetchJsonResponse<T> =
   | {
       status:
         | HTTP_CODES_ENUM.INTERNAL_SERVER_ERROR
-        | HTTP_CODES_ENUM.SERVICE_UNAVAILABLE;
+        | HTTP_CODES_ENUM.SERVICE_UNAVAILABLE
+        | HTTP_CODES_ENUM.PRECONDITION_REQUIRED
+        | HTTP_CODES_ENUM.TOO_MANY_REQUESTS;
       data: undefined;
     }
   | ValidationErrors;

@@ -186,7 +186,7 @@ function FormEditGarantia() {
       enqueueSnackbar(t("admin-panel-garantias-check:alerts.user.success"), {
         variant: "success",
       });
-      router.push("/admin-panel/garantias");
+      router.push(`/${garantiaId}`);
     }
   });
 

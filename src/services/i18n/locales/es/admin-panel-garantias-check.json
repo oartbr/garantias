@@ -87,8 +87,8 @@
     "password": {
       "success": "La contraseña se ha actualizado correctamente"
     },
-    "user": {
-      "success": "El perfil del usuario se ha actualizado correctamente"
+    "check": {
+      "success": "La garantia fue asignada correctamente"
     }
   }
 }

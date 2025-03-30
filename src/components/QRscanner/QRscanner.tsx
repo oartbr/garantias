@@ -10,13 +10,25 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
   useEffect(() => {
     let mounted = true;
 
+    const requestCameraAccess = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true });
+      } catch (error) {
+        console.error("Error getting camera access:", error);
+      }
+    };
+
     const getDevices = async () => {
       try {
         const mediaDevices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = mediaDevices.filter(
           (device) => device.kind === "videoinput"
         );
-        console.log("Available video devices:", videoDevices);
+        console.log("Available video devices:", videoDevices[0].deviceId);
+
+        if (videoDevices.length === 1 && !videoDevices[0].deviceId) {
+          requestCameraAccess().then(() => window.location.reload());
+        }
 
         if (mounted && videoDevices.length > 0) {
           setDevices(videoDevices);
@@ -43,6 +55,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
       }
     };
 
+    // requestCameraAccess();
     getDevices();
     return () => {
       mounted = false;

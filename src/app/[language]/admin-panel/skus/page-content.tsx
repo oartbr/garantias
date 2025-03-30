@@ -374,7 +374,7 @@ function Skus() {
                 <TableCell style={{ width: 100 }}>
                   {!!sku && <Actions sku={sku} />}
                 </TableCell>
-                <TableCell style={{ width: 150 }}>{sku?.skuId}</TableCell>
+                <TableCell style={{ width: 180 }}>{sku?.skuId}</TableCell>
                 <TableCell style={{ width: 220 }}>{sku?.category}</TableCell>
                 <TableCell style={{ width: 50, textAlign: "right" }}>
                   {sku?.capacity} litros

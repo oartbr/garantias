@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useEffect } from "react";
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 import Link from "@/components/link";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import { FileEntity } from "@/services/api/types/file-entity";
@@ -129,6 +130,7 @@ function ChangePasswordUserFormActions() {
 
 function FormEditUser() {
   const params = useParams();
+  const router = useRouter();
   const fetchGetUser = useGetUserService();
   const fetchPatchUser = usePatchUserService();
   const { t } = useTranslation("admin-panel-users-edit");
@@ -151,8 +153,13 @@ function FormEditUser() {
 
   const onSubmit = handleSubmit(async (formData) => {
     const isEmailDirty = methods.getFieldState("email").isDirty;
+    formData.role = {
+      id: formData.role.id,
+      name: RoleEnum[Number(formData.role.id)],
+    };
     const { data, status } = await fetchPatchUser({
       id: userId,
+
       data: {
         ...formData,
         email: isEmailDirty ? formData.email : undefined,
@@ -176,6 +183,7 @@ function FormEditUser() {
       enqueueSnackbar(t("admin-panel-users-edit:alerts.user.success"), {
         variant: "success",
       });
+      router.push("/admin-panel/users");
     }
   });
 

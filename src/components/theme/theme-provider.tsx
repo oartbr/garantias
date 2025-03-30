@@ -13,7 +13,7 @@ function ThemeProvider(props: PropsWithChildren<{}>) {
             palette: {
               // This will override the default background color in light mode.
               background: {
-                default: "#e9f4ff", // your desired light mode background color
+                default: "#d9e4ef", // your desired light mode background color
               },
             },
           },
@@ -39,7 +39,6 @@ function ThemeProvider(props: PropsWithChildren<{}>) {
       }),
     []
   );
-
   return (
     <CssVarsProvider theme={theme} defaultMode="system">
       {props.children}

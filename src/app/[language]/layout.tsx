@@ -49,7 +49,12 @@ export default function RootLayout({
   params: { language: string };
 }) {
   return (
-    <html lang={language} dir={dir(language)} suppressHydrationWarning>
+    <html
+      lang={language}
+      dir={dir(language)}
+      data-theme={ThemeProvider.name}
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning={true}>
         <InitColorSchemeScript />
         <QueryClientProvider client={queryClient}>

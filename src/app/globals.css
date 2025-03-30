@@ -2,6 +2,9 @@
 body {
   background: inherit;
 }
+.appName {
+  display: none;
+}
 .logoHeader {
   margin-right: 5rem;
   padding: 0.5rem;
@@ -135,7 +138,7 @@ body {
   padding: 10px;
   text-align: center;
   border-radius: 5;
-  display: "flex";
+  display: flex;
   left: 50%;
   margin-left: -200px;
 }
@@ -149,10 +152,17 @@ body {
 }
 
 .installPromptActions {
-  display: "flex";
-  justify-content: "space-between";
+  display: flex;
+  justify-content: space-between;
   margin-top: 1rem;
 }
 .installPromptActions button {
   margin-right: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    background-color: #29343f;
+    color: #333333 !important;
+  }
 }

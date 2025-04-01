@@ -125,6 +125,20 @@
   margin-left: 0.5em; /* Adds spacing before the emoji */
 }
 
+.QA-a,
+.QA-b,
+.QA-c,
+.QA-d {
+  display: none;
+}
+
+.QA-e,
+.QA-f,
+.QA-g,
+.QA-h {
+  display: block;
+}
+
 .itemLink {
   text-decoration: underline;
   color: teal;

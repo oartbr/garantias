@@ -12,10 +12,17 @@
   },
   "options": {
     "title": "Confirmar todos los items",
-    "option1": { "id": "a", "label": "Rotomoldeo" },
-    "option2": { "id": "b", "label": "Armado" },
-    "option3": { "id": "c", "label": "Limpieza y Empaque" },
-    "option4": { "id": "d", "label": "Kit Bio" }
+    "option1": { "id": "a", "label": "No tiene rajaduras" },
+    "option2": { "id": "b", "label": "Resistencia cumple" },
+    "option3": {
+      "id": "b",
+      "label": "No hay signos de elevada temperatura en cocción"
+    },
+    "option4": { "id": "d", "label": "Elaborado con material virgen" },
+    "option5": { "id": "e", "label": "Rotomoldeo" },
+    "option6": { "id": "f", "label": "Armado" },
+    "option7": { "id": "g", "label": "Limpieza y Empaque" },
+    "option8": { "id": "h", "label": "Kit Bio" }
   },
   "inputs": {
     "email": {

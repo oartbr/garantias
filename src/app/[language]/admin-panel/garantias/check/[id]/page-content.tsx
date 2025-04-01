@@ -240,6 +240,10 @@ function FormEditGarantia() {
     { id: "b", label: t("admin-panel-garantias-check:options.option2.label") },
     { id: "c", label: t("admin-panel-garantias-check:options.option3.label") },
     { id: "d", label: t("admin-panel-garantias-check:options.option4.label") },
+    { id: "e", label: t("admin-panel-garantias-check:options.option5.label") },
+    { id: "f", label: t("admin-panel-garantias-check:options.option6.label") },
+    { id: "g", label: t("admin-panel-garantias-check:options.option7.label") },
+    { id: "h", label: t("admin-panel-garantias-check:options.option8.label") },
   ];
 
   return (

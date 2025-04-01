@@ -41,11 +41,19 @@ export function ItemCard({ item, onClick, action }: ItemCardProps) {
                 </strong>
                 {new Date(item.qualityCheckedAt!).toLocaleDateString()}
               </Typography>
-              {item.qualityCheck!.map((qc, index) => (
-                <Typography key={qc.id || index} variant="body2">
-                  <div className="qualityCheckItem">{qc.label}</div>
-                </Typography>
-              ))}
+              {item.qualityCheck!.map((qc, index) =>
+                qc.id > "d" ? (
+                  <Typography
+                    key={qc.id || index}
+                    variant="body2"
+                    className={`QA-${qc.id}`}
+                  >
+                    <div className={`qualityCheckItem`}>{qc.label}</div>
+                  </Typography>
+                ) : (
+                  ""
+                )
+              )}
             </div>
           ) : (
             <div />

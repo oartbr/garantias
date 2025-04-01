@@ -26,7 +26,8 @@ import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { Garantia } from "@/services/api/types/garantia";
 import { useGetSKUsService } from "@/services/api/services/sku";
-import { SKU } from "../../../../../../services/api/types/sku";
+import { SKU } from "@/services/api/types/sku";
+import { SortEnum } from "@/services/api/types/sort-type";
 
 type EditUserFormData = {
   description: string;
@@ -144,7 +145,11 @@ function FormEditGarantia() {
   useEffect(() => {
     const fetchSkuTotal = async () => {
       try {
-        const response = await skuAllList({ page: 0, limit: 999 });
+        const response = await skuAllList({
+          page: 0,
+          limit: 999,
+          sort: [{ order: SortEnum.DESC }],
+        });
         if (response && response.data && "results" in response.data) {
           const skus = (response.data.results as SKU[]).map((sku: SKU) => ({
             label: sku.skuId,

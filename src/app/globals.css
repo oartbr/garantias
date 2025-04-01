@@ -175,3 +175,7 @@
 .installPromptActions button {
   margin-right: 10px;
 }
+
+#menu- {
+  z-index: 2000;
+}

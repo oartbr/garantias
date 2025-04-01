@@ -26,7 +26,7 @@ const clientTheme = extendTheme({
     },
   },
   customImages: {
-    logo: "https://xvzq0akbnljx2cl9.public.blob.vercel-storage.com/themes/wse/logo.WSE.short-4f040biXYVrLi7cp1IfJzGMyLFdGgj.svg",
+    logo: "https://xvzq0akbnljx2cl9.public.blob.vercel-storage.com/themes/wse/logo.wse.short.white-pn6QrG6ag6In2ivoueODvCs3mQ85Hm.svg",
     hero: "/images/clientA-hero.jpg",
   },
 });

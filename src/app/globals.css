@@ -146,6 +146,7 @@
 
 .PWA_installButton img {
   margin-bottom: 1.5rem;
+  width: auto;
 }
 
 .installPrompt {

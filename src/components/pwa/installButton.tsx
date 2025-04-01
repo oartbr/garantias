@@ -5,8 +5,9 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import appIcon from "../../../public/assets/images/logo.WSE.short.normal.svg";
+// import appIcon from "../../../public/assets/images/logo.WSE.short.normal.svg";
 import { useTranslation } from "@/services/i18n/client";
+import { LOGO } from "@/components/theme/themes";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -76,7 +77,7 @@ export default function InstallButton() {
       {/* App Icon */}
       <CardMedia
         component="img"
-        image={appIcon.src}
+        image={LOGO}
         alt="Install Garantias App"
         sx={{
           width: 172,

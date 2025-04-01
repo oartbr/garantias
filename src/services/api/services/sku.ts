@@ -279,7 +279,7 @@ export function useGetSKUsService() {
       requestUrl.searchParams.append("page", data.page.toString());
       requestUrl.searchParams.append("limit", data.limit.toString());
       if (data.filters) {
-        console.log({ filtersSKU: data.filters });
+        // console.log({ filtersSKU: data.filters });
         requestUrl.searchParams.append("filters", JSON.stringify(data.filters));
       }
       if (data.sort) {

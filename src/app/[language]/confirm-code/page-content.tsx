@@ -109,7 +109,7 @@ function Form({ params }: Props) {
       phoneNumber: phoneNumber ?? "",
       code: formData.confirmationCode,
     });
-    console.log({ data });
+    // console.log({ data });
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof RegisterFormData>).forEach(
         (key) => {

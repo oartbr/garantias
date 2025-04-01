@@ -62,6 +62,7 @@ export default function InstallButton() {
       console.error("Install prompt not available.");
     }
   };
+  // console.log({ LOGO });
   return isVisible && isShowPrompt ? (
     <Card
       sx={{

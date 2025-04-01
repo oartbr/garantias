@@ -215,7 +215,7 @@ function FormEditGarantia() {
 
       if (getStatus === HTTP_CODES_ENUM.OK) {
         setGarantiaData(results.garantia);
-        console.log({ results: results.garantia.qualityCheck });
+        // console.log({ results: results.garantia.qualityCheck });
         reset({
           description: results.garantia?.description ?? "",
           sku: {

@@ -123,7 +123,7 @@ function Form(props: Props) {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    console.log({ formData, sPhoneNumber });
+    // console.log({ formData, sPhoneNumber });
     delete formData.phNumber;
     delete formData.areaCode;
     formData.phoneNumber = sPhoneNumber || "";

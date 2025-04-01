@@ -7,9 +7,7 @@ import { useEffect } from "react";
 const ThemeSwitchButton = () => {
   const { colorScheme, setMode } = useColorScheme();
 
-  useEffect(() => {
-    setMode(colorScheme === "dark" ? "dark" : "light");
-  }, [colorScheme, setMode]); // runs once after the component mounts
+  useEffect(() => {}, [colorScheme, setMode]); // runs once after the component mounts
 
   return (
     <IconButton

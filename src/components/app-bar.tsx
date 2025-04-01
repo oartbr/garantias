@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 //import logowse from "../../public/assets/images/logowse.white.svg";
-import logoSWEshort from "../../public/assets/images/logo.WSE.short.svg";
+// import logoSWEshort from "../../public/assets/images/logo.WSE.short.svg";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -25,6 +25,7 @@ import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 import Image from "next/image";
 import InstallButton from "@/components/pwa/installButton";
+import { LOGO } from "@/components/theme/themes";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -58,9 +59,10 @@ function ResponsiveAppBar() {
           <InstallButton />
         </div>
         <Toolbar disableGutters>
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
           <Image
             className="logoHeader"
-            src={logoSWEshort.src}
+            src={LOGO}
             alt="logo"
             fill={true}
             priority

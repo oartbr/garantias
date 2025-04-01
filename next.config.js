@@ -15,6 +15,9 @@ const nextConfig = {
   eslint: {
     dirs: ["src", "playwright-tests"],
   },
+  images: {
+    domains: ["xvzq0akbnljx2cl9.public.blob.vercel-storage.com"],
+  },
 };
 
 export default withPWA({

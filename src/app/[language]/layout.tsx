@@ -13,7 +13,8 @@ import type { Metadata } from "next";
 import SnackbarProvider from "@/components/snackbar-provider";
 import { getServerTranslation } from "@/services/i18n";
 import StoreLanguageProvider from "@/services/i18n/store-language-provider";
-import ThemeProvider from "@/components/theme/theme-provider";
+import { ThemeProvider } from "@mui/material/styles";
+import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
 import LeavePageProvider from "@/services/leave-page/leave-page-provider";
 import QueryClientProvider from "@/services/react-query/query-client-provider";
 import queryClient from "@/services/react-query/query-client";
@@ -22,6 +23,7 @@ import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provid
 import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
 import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
+import GetTheme from "@/components/theme/themes";
 
 type Props = {
   params: { language: string };
@@ -33,7 +35,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("title"),
     manifest: "/manifest.json",
-    themeColor: "#007bff",
   };
 }
 
@@ -48,6 +49,8 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { language: string };
 }) {
+  // console.log({ ClientThemes });
+  const defaultTheme = GetTheme();
   return (
     <html
       lang={language}
@@ -59,7 +62,7 @@ export default function RootLayout({
         <InitColorSchemeScript />
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <ThemeProvider>
+          <CssVarsProvider theme={defaultTheme as never}>
             <CssBaseline />
             <SnackbarProvider maxSnack={3}>
               <StoreLanguageProvider>
@@ -77,7 +80,7 @@ export default function RootLayout({
                 </ConfirmDialogProvider>
               </StoreLanguageProvider>
             </SnackbarProvider>
-          </ThemeProvider>
+          </CssVarsProvider>
         </QueryClientProvider>
       </body>
     </html>

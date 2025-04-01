@@ -1,13 +1,14 @@
 /* Your global CSS here */
-body {
-  background: inherit;
-}
+
 .appName {
   display: none;
 }
 .logoHeader {
   margin-right: 5rem;
   padding: 0.5rem;
+  width: auto !important;
+  left: 50% !important;
+  margin-left: -7%;
 }
 .welcomeMessage {
   display: none;
@@ -158,11 +159,4 @@ body {
 }
 .installPromptActions button {
   margin-right: 10px;
-}
-
-@media (prefers-color-scheme: dark) {
-  html:not([data-theme]) {
-    background-color: #29343f;
-    color: #333333 !important;
-  }
 }

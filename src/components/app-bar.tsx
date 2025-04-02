@@ -25,7 +25,7 @@ import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 import Image from "next/image";
 import InstallButton from "@/components/pwa/installButton";
-import { LOGO } from "@/components/theme/themes";
+import { GetLogo } from "@/components/theme/themes";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -51,7 +51,7 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElementUser(null);
   };
-
+  const clientLogo = GetLogo();
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -62,7 +62,7 @@ function ResponsiveAppBar() {
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
           <Image
             className="logoHeader"
-            src={LOGO}
+            src={clientLogo}
             alt="logo"
             fill={true}
             priority

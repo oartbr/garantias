@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 // import appIcon from "../../../public/assets/images/logo.WSE.short.normal.svg";
 import { useTranslation } from "@/services/i18n/client";
-import { LOGO } from "@/components/theme/themes";
+import { GetLogo } from "@/components/theme/themes";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -62,7 +62,9 @@ export default function InstallButton() {
       console.error("Install prompt not available.");
     }
   };
-  // console.log({ LOGO });
+
+  const clientLogo = GetLogo();
+
   return isVisible && isShowPrompt ? (
     <Card
       sx={{
@@ -78,7 +80,7 @@ export default function InstallButton() {
       {/* App Icon */}
       <CardMedia
         component="img"
-        image={LOGO}
+        image={clientLogo}
         alt="Install Garantias App"
         sx={{
           width: 172,

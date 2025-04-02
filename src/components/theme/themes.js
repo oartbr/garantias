@@ -7,7 +7,7 @@ const ClientThemes = {
   default: {},
 };
 
-ClientThemes.default = ClientThemes[process.env.CLIENT_THEME];
+ClientThemes.default = ClientThemes[process.env.NEXT_PUBLIC_THEME];
 
 export const LOGO =
   process.env.CLIENT_LOGO ||
@@ -15,6 +15,10 @@ export const LOGO =
 
 const GetTheme = () => {
   return ClientThemes.default;
+};
+
+export const GetLogo = () => {
+  return ClientThemes.default.customImages.logo;
 };
 
 export default GetTheme;

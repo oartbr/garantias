@@ -1,4 +1,7 @@
 /* Your global CSS here */
+body {
+  padding: 0px !important;
+}
 
 .appName {
   display: none;
@@ -179,3 +182,30 @@
 #menu- {
   z-index: 2000;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .logoHeader {
+    margin-right: 0.5rem;
+    padding: 0.3rem;
+    width: auto !important;
+    left: 50% !important;
+    margin-left: -25%;
+  }
+
+  #menu-appbar ul {
+    z-index: 5000;
+  }
+
+  #menu-appbar > div:first-of-type {
+    width: 80%;
+    z-index: 0;
+  }
+  #menu-appbar {
+    z-index: 999;
+  }
+}
+/*margin-right: 5rem;
+padding: 0.5rem;
+width: auto !important;
+left: 50% !important;
+margin-left: -7%;*/

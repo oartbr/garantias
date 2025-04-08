@@ -88,6 +88,14 @@
       "validation": {
         "required": "El SKU es obligatório"
       }
+    },
+    "qualityCheck": {
+      "title": "Control de calidad",
+      "mandatory": "Obligatorio",
+      "optional": "Opcional",
+      "validation": {
+        "mandatory": "Los campos de control de calidad son obligatorios"
+      }
     }
   },
   "alerts": {

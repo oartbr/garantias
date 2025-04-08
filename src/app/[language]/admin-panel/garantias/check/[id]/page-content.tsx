@@ -41,6 +41,7 @@ type QualityCheckFormData = {
 type Option = {
   id: string;
   label: string;
+  mandatory?: boolean;
 };
 
 const useValidationEditUserSchema = () => {
@@ -65,9 +66,27 @@ const useValidationEditUserSchema = () => {
         yup.object({
           label: yup.string().required(),
           id: yup.string().required(),
+          mandatory: yup.boolean(),
         })
       )
-      .required(t("Quality check is required")),
+      .test(
+        "mandatory-check",
+        t(
+          "admin-panel-garantias-check:inputs.qualityCheck.validation.mandatory"
+        ),
+        function (value) {
+          // In this example we assume that mandatory options have ids: "a", "b", "c", "e", "f", "g", "h".
+          // Adjust the list below based on your business logic.
+          const mandatoryIds = ["a", "b", "c", "e", "f", "g", "h"];
+          const selectedIds = value ? value.map((item) => item.id) : [];
+          return mandatoryIds.every((id) => selectedIds.includes(id));
+        }
+      )
+      .required(
+        t(
+          "admin-panel-garantias-check:inputs.qualityCheck.validation.mandatory"
+        )
+      ),
   });
 };
 
@@ -241,14 +260,46 @@ function FormEditGarantia() {
   }
 
   const options: Option[] = [
-    { id: "a", label: t("admin-panel-garantias-check:options.option1.label") },
-    { id: "b", label: t("admin-panel-garantias-check:options.option2.label") },
-    { id: "c", label: t("admin-panel-garantias-check:options.option3.label") },
-    { id: "d", label: t("admin-panel-garantias-check:options.option4.label") },
-    { id: "e", label: t("admin-panel-garantias-check:options.option5.label") },
-    { id: "f", label: t("admin-panel-garantias-check:options.option6.label") },
-    { id: "g", label: t("admin-panel-garantias-check:options.option7.label") },
-    { id: "h", label: t("admin-panel-garantias-check:options.option8.label") },
+    {
+      id: "a",
+      label: t("admin-panel-garantias-check:options.option1.label"),
+      mandatory: true,
+    },
+    {
+      id: "b",
+      label: t("admin-panel-garantias-check:options.option2.label"),
+      mandatory: true,
+    },
+    {
+      id: "c",
+      label: t("admin-panel-garantias-check:options.option3.label"),
+      mandatory: true,
+    },
+    {
+      id: "d",
+      label: t("admin-panel-garantias-check:options.option4.label"),
+      mandatory: false,
+    },
+    {
+      id: "e",
+      label: t("admin-panel-garantias-check:options.option5.label"),
+      mandatory: true,
+    },
+    {
+      id: "f",
+      label: t("admin-panel-garantias-check:options.option6.label"),
+      mandatory: true,
+    },
+    {
+      id: "g",
+      label: t("admin-panel-garantias-check:options.option7.label"),
+      mandatory: true,
+    },
+    {
+      id: "h",
+      label: t("admin-panel-garantias-check:options.option8.label"),
+      mandatory: true,
+    },
   ];
 
   return (

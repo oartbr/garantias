@@ -36,7 +36,7 @@ function ListPdfs(props: PdfCardProps) {
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     if (user) {
-      fetchPrintGarantias({ status: props.status || "pending" })
+      fetchPrintGarantias({ status: props.status || "completed" })
         .then((data) => {
           if (data.status === HTTP_CODES_ENUM.OK) {
             setItems(data.data as PdfCardProps[]); // Update state with fetched data

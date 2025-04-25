@@ -78,7 +78,7 @@ function FormCreateGarantias() {
   const methods = useForm<GenerateCodesFormData>({
     resolver,
     defaultValues: {
-      quantity: { id: 25 },
+      quantity: { id: 1 },
     },
   });
 
@@ -97,7 +97,12 @@ function FormCreateGarantias() {
     let attempts = 0;
     while (attempts < 5) {
       const pdfResponse = await fetchPdfFile(printId);
-      if (pdfResponse.status === HTTP_CODES_ENUM.OK) {
+      if (
+        pdfResponse.status === HTTP_CODES_ENUM.OK &&
+        pdfResponse.data &&
+        (pdfResponse.data as { status?: string }).status === "completed"
+      ) {
+        console.log({ pdfResponse });
         return true;
       }
       attempts++;
@@ -155,7 +160,7 @@ function FormCreateGarantias() {
                 name="quantity"
                 testId="quantity"
                 label={t("admin-panel-garantia-create:inputs.quantity.label")}
-                options={Array.from({ length: 6 }, (_, i) => ({
+                options={Array.from({ length: 4 }, (_, i) => ({
                   id: (i + 1) * 25,
                 }))}
                 keyValue="id"

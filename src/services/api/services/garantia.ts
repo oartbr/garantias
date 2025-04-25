@@ -505,7 +505,7 @@ export function useGetListingPdfsService() {
 // GetUserByUserreponse should be a 200 status code with the PDFs' details.
 
 // GetPdfFile
-// this will get a list of the available garantias PDF files.
+// this will get the requested pdf file.
 export type GetPdfRequest = string;
 
 export type GetLPdfResponse = object;

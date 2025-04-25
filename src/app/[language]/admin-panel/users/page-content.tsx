@@ -320,7 +320,7 @@ function Users() {
 
         <Grid item xs={12} mb={2}>
           <TableVirtuoso
-            style={{ height: 500 }}
+            style={{ height: 500, zIndex: 0 }}
             data={result}
             components={TableComponents}
             endReached={handleScroll}

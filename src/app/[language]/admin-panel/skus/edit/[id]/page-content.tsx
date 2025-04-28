@@ -28,7 +28,6 @@ import { SKU } from "@/services/api/types/sku";
 
 type EditSkuFormData = {
   skuId: string;
-  name: string;
   description: string;
   category: string;
   capacity: number;
@@ -37,8 +36,8 @@ type EditSkuFormData = {
   height: number;
   weight: number;
   material: string;
-  cost: number;
-  price: number;
+  cost?: number;
+  price?: number;
   brand: string;
 };
 
@@ -49,9 +48,6 @@ const useValidationSchema = () => {
     skuId: yup
       .string()
       .required(t("admin-panel-sku-edit:inputs.skuId.validation.required")),
-    name: yup
-      .string()
-      .required(t("admin-panel-sku-edit:inputs.name.validation.required")),
     description: yup
       .string()
       .required(
@@ -78,12 +74,8 @@ const useValidationSchema = () => {
     material: yup
       .string()
       .required(t("admin-panel-sku-edit:inputs.material.validation.required")),
-    cost: yup
-      .number()
-      .required(t("admin-panel-sku-edit:inputs.cost.validation.required")),
-    price: yup
-      .number()
-      .required(t("admin-panel-sku-edit:inputs.price.validation.required")),
+    cost: yup.number(),
+    price: yup.number(),
     brand: yup
       .string()
       .required(t("admin-panel-sku-edit:inputs.price.validation.required")),
@@ -129,7 +121,6 @@ function FormEditSku() {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       skuId: "",
-      name: "",
       description: "",
       category: "",
       capacity: 0,
@@ -219,13 +210,6 @@ function FormEditSku() {
                 name="skuId"
                 testId="skuId"
                 label={t("admin-panel-sku-edit:inputs.skuId.label")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextInput<EditSkuFormData>
-                name="name"
-                testId="name"
-                label={t("admin-panel-sku-edit:inputs.name.label")}
               />
             </Grid>
             <Grid item xs={12}>

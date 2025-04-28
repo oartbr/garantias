@@ -15,7 +15,7 @@ import { SkuFilterType } from "./sku-filter-types";
 type SkuFilterFormData = SkuFilterType;
 
 function SkuFilter() {
-  const { t } = useTranslation("admin-panel-garantias");
+  const { t } = useTranslation("admin-panel-skus");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -83,7 +83,7 @@ function SkuFilter() {
                 >
                   name="category"
                   testId="category"
-                  label={t("admin-panel-garantias:filter.inputs.status.label")}
+                  label={t("admin-panel-skus:filter.inputs.category.label")}
                   options={[
                     {
                       id: CategoryEnum.autoclean,
@@ -98,14 +98,14 @@ function SkuFilter() {
                   keyValue="id"
                   renderOption={(option) =>
                     t(
-                      `admin-panel-garantias:filter.inputs.status.options.${option.id}`
+                      `admin-panel-skus:filter.inputs.category.options.${option.id}`
                     )
                   }
                   renderValue={(values) =>
                     values
                       .map((value) =>
                         t(
-                          `admin-panel-garantias:filter.inputs.status.options.${value.id}`
+                          `admin-panel-skus:filter.inputs.category.options.${value.id}`
                         )
                       )
                       .join(", ")
@@ -114,7 +114,7 @@ function SkuFilter() {
               </Grid>
               <Grid item xs={12}>
                 <Button variant="contained" type="submit">
-                  {t("admin-panel-garantias:filter.actions.apply")}
+                  {t("admin-panel-skus:filter.actions.apply")}
                 </Button>
               </Grid>
             </Grid>
@@ -122,7 +122,7 @@ function SkuFilter() {
         </Container>
       </Popover>
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        {t("admin-panel-garantias:filter.actions.filter")}
+        {t("admin-panel-skus:filter.actions.filter")}
       </Button>
     </FormProvider>
   );

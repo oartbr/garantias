@@ -37,12 +37,12 @@
           "2": "SKU"
         }
       },
-      "status": {
-        "label": "Status",
+      "category": {
+        "label": "Categoria",
         "options": {
-          "created": "Nuevos",
-          "assigned": "Asignados",
-          "registered": "Registrados",
+          "Autolimpiables": "Autolimpiables",
+          "Reforzados Horizontales": "Reforzados Horizontales",
+          "DDB Horizontales": "DDB Horizontales",
           "canceled": "Cancelados"
         }
       }

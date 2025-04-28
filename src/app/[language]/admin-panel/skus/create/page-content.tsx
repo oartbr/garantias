@@ -22,7 +22,6 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 
 interface CreateSkuFormData {
   skuId: string;
-  name: string;
   description: string;
   category: string;
   capacity: number;
@@ -31,8 +30,8 @@ interface CreateSkuFormData {
   height: number;
   weight: number;
   material: string;
-  cost: string;
-  price: string;
+  cost: number;
+  price: number;
   brand: string;
 }
 
@@ -43,9 +42,6 @@ const useValidationSchema = () => {
     skuId: yup
       .string()
       .required(t("admin-panel-sku-create:inputs.skuId.validation.required")),
-    name: yup
-      .string()
-      .required(t("admin-panel-sku-create:inputs.name.validation.required")),
     description: yup
       .string()
       .required(
@@ -85,10 +81,10 @@ const useValidationSchema = () => {
         t("admin-panel-sku-create:inputs.material.validation.required")
       ),
     cost: yup
-      .string()
+      .number()
       .required(t("admin-panel-sku-create:inputs.cost.validation.required")),
     price: yup
-      .string()
+      .number()
       .required(t("admin-panel-sku-create:inputs.price.validation.required")),
     brand: yup
       .string()
@@ -127,7 +123,6 @@ function FormCreateSKUs() {
     resolver,
     defaultValues: {
       skuId: "",
-      name: "",
       description: "",
       category: "",
       capacity: 0,
@@ -136,8 +131,8 @@ function FormCreateSKUs() {
       height: 0,
       weight: 0,
       material: "",
-      cost: "",
-      price: "",
+      cost: 0,
+      price: 0,
       brand: "WSE",
     },
   });
@@ -149,7 +144,6 @@ function FormCreateSKUs() {
     const transformedData = {
       ...data,
       skuId: data.skuId,
-      name: data.name,
       description: data.description,
       category: data.category,
       capacity: data.capacity,
@@ -213,13 +207,6 @@ function FormCreateSKUs() {
                 name="skuId"
                 testId="skuId"
                 label={t("admin-panel-sku-create:inputs.skuId.label")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextInput<CreateSkuFormData>
-                name="name"
-                testId="name"
-                label={t("admin-panel-sku-create:inputs.name.label")}
               />
             </Grid>
             <Grid item xs={12}>

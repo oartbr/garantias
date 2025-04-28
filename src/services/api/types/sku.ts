@@ -1,6 +1,5 @@
 export type SKU = {
   skuId: string;
-  name: string;
   description?: string;
   category?: string;
   capacity?: number;

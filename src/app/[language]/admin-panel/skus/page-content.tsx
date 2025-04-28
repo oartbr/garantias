@@ -31,7 +31,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { SKU } from "@/services/api/types/sku";
-// import { User } from "@/services/api/types/user";
+//import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 // import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
@@ -86,7 +86,7 @@ function Actions({ sku }: { sku: SKU }) {
   const queryClient = useQueryClient();
   const anchorRef = useRef<HTMLDivElement>(null);
 
-  const canDelete = sku.name === "created"; // user.id !== authUser?.id;
+  const canDelete = true; // user.id !== authUser?.id;
   const { t: tSKUs } = useTranslation("admin-panel-skus");
 
   const handleToggle = () => {

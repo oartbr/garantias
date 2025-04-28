@@ -111,7 +111,6 @@ type TPolicy = {
 
 type RegisterFormData = {
   skuId: string;
-  name: string;
   description?: number;
   category?: string;
   capacity?: number;
@@ -297,7 +296,6 @@ export function useGetSKUsService() {
 
 export type CreateSKURequest = {
   skuId: string;
-  name: string;
   description: string;
   category: string;
   capacity: number;
@@ -306,8 +304,8 @@ export type CreateSKURequest = {
   height: number;
   weight: number;
   material: string;
-  cost: string;
-  price: string;
+  cost: number;
+  price: number;
   brand: string;
 };
 

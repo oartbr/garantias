@@ -40,6 +40,26 @@
     "unexistentGarantia": "La Garantía no existe o está con problemas",
     "error": "Error al busar Garantia."
   },
+  "manual": {
+    "installation": {
+      "title": "Guía de instalación",
+      "description": "Aprenda a instalar los biodigestores autolimpiables WaterSupplyEc.",
+      "action": "Descargar",
+      "url": "https://www.example.com/manuals/installation.pdf"
+    },
+    "maintenance": {
+      "title": "Guía de Mantenimiento",
+      "description": "Como mantener sus Biodigestores autolimpiables siempre funcionando?",
+      "action": "Descargar",
+      "url": "https://www.example.com/manuals/maintenance.pdf"
+    },
+    "functionalities": {
+      "title": "Como funciona?",
+      "description": "Descubra como funcionan los biodigestores autolimpiables.",
+      "action": "Descargar",
+      "url": "https://www.example.com/manuals/Como_funciona_un_Biodigestor.pdf"
+    }
+  },
 
   "or": " o ",
   "at": " en "

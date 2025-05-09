@@ -11,6 +11,8 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+//import MediaLink from "../../components/mediaLink";
+import MediaCard from "../../components/itemCard/mediaCard";
 
 type Props = {
   params: { language: string };
@@ -25,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Home({ params }: Props) {
+  const listing_t = await getServerTranslation(params.language, "listing");
+  const tMedia = listing_t.t;
   const { t } = await getServerTranslation(params.language, "home");
 
   return (
@@ -77,7 +81,47 @@ export default async function Home({ params }: Props) {
             </Typography>
           </div>
         </Grid>
-        <Grid item sx={{ mx: "auto" }}>
+        <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            direction={{ xs: "column", md: "row" }}
+            alignItems="center"
+            wrap="nowrap"
+            className="mediaLinks"
+          >
+            <Grid item>
+              <MediaCard
+                title={tMedia("listing:manual.installation.title")}
+                description={tMedia("listing:manual.installation.description")}
+                action={tMedia("listing:manual.installation.action")}
+                url="https://www.youtube.com/watch?v=l3OrBS2WSog"
+                target="_blank"
+              />
+            </Grid>
+            <Grid item>
+              <MediaCard
+                title={tMedia("listing:manual.functionalities.title")}
+                description={tMedia(
+                  "listing:manual.functionalities.description"
+                )}
+                action={tMedia("listing:manual.functionalities.action")}
+                url="https://www.youtube.com/watch?v=ZlX54y61RJc"
+                target="_blank"
+              />
+            </Grid>
+            <Grid item>
+              <MediaCard
+                title={tMedia("listing:manual.maintenance.title")}
+                description={tMedia("listing:manual.maintenance.description")}
+                action={tMedia("listing:manual.maintenance.action")}
+                url="https://www.youtube.com/watch?v=e9-PfyDAh7w"
+                target="_blank"
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ mx: "auto" }} className="privacyPolicy">
           <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>
         </Grid>
       </Grid>

@@ -204,6 +204,16 @@ body {
     z-index: 999;
   }
 }
+
+.mediaLinks {
+  padding-top: 2rem;
+}
+
+.privacyPolicy {
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem;
+}
 /*margin-right: 5rem;
 padding: 0.5rem;
 width: auto !important;

@@ -18,6 +18,8 @@ import { Garantia } from "@/services/api/types/garantia";
 import Button from "@mui/material/Button";
 import { WorkflowService } from "@/services/workflows/workflowService";
 import workflowGarantia from "@/services/workflows/workflowGarantia";
+// import MediaCard from "@/components/itemCard/mediaCard";
+import MediaLink from "@/components/mediaLink";
 
 type Props = {
   params: { language: string; id: string };
@@ -141,6 +143,9 @@ function List(props: Props) {
             </>
           )}
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <MediaLink />
       </Grid>
     </Container>
   );

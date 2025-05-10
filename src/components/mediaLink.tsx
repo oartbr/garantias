@@ -10,7 +10,7 @@ const MediaLink = forwardRef<HTMLAnchorElement>(function MediaLink() {
       container
       spacing={2}
       direction={{ xs: "column", md: "row" }}
-      alignItems="stretch"
+      alignItems="center"
       wrap="nowrap"
       className="mediaLinks"
     >

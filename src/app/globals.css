@@ -214,6 +214,16 @@ body {
   text-align: center;
   margin: 2rem;
 }
+.privacy-policy h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.privacy-policy h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 /*margin-right: 5rem;
 padding: 0.5rem;
 width: auto !important;

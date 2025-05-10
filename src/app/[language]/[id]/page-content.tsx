@@ -35,6 +35,7 @@ function List(props: Props) {
   const { t } = useTranslation("listing");
   const { user } = useAuth();
   const garantiaId = props.params.id;
+  console.log({ user });
 
   // const fetchListGarantias = useGetListingByUserService();
   const fetchGarantia = useGetGarantiaService();
@@ -43,6 +44,7 @@ function List(props: Props) {
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
+    console.log({ user });
     fetchGarantia({ garantiaId: garantiaId, userId: user?.id })
       .then((data) => {
         if (data && data.status === HTTP_CODES_ENUM.OK) {
@@ -62,7 +64,7 @@ function List(props: Props) {
         setIsLoading(false); // Update loading state
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const workflowService = new WorkflowService(item, user, workflowGarantia);
 
@@ -92,6 +94,7 @@ function List(props: Props) {
                 onClick={() => {
                   router.replace(`${workflowData?.route}`);
                 }}
+                user={user || undefined}
               />
             </Grid>
           )}

@@ -31,10 +31,10 @@
     "checkItemQuality": "Verificar la calidad del artículo",
     "itemShipped": "Artículo enviado",
     "confirmDelivery": "Confirmar entrega",
-    "availableForSale": "Disponible para la venta",
+    "availableForSale": "Disponible para registro",
     "itemDelivered": "Artículo entregado",
     "voidGarantia": "Garantía anulada",
-    "registeredToClient": "Registrado para el cliente",
+    "registeredToClient": "Garantia registrada",
     "alreadyRegistered": "Ya registrado",
     "registerGarantia": "Registrar Garantía",
     "unexistentGarantia": "La Garantía no existe o está con problemas",
@@ -58,6 +58,39 @@
       "description": "Descubra como funcionan los biodigestores autolimpiables.",
       "action": "Descargar",
       "url": "https://www.example.com/manuals/Como_funciona_un_Biodigestor.pdf"
+    }
+  },
+
+  "fields": {
+    "email": {
+      "label": "Email"
+    },
+    "brand": {
+      "label": "Marca"
+    },
+    "name": {
+      "label": "Nombre"
+    },
+    "phone": {
+      "label": "Teléfono"
+    },
+    "address": {
+      "label": "Dirección"
+    },
+    "zipcode": {
+      "label": "Código postal"
+    },
+    "city": {
+      "label": "Ciudad"
+    },
+    "number": {
+      "label": "Número"
+    },
+    "description": {
+      "label": "Descripción"
+    },
+    "sku": {
+      "label": "SKU"
     }
   },
 

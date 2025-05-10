@@ -4,8 +4,9 @@ import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Garantia } from "../../services/api/types/garantia";
+import { Garantia } from "@/services/api/types/garantia";
 import { useTranslation } from "@/services/i18n/client";
+import { User } from "@/services/api/types/user";
 // import { Label } from "@mui/icons-material";
 // import IconName from '@mui/icons-material/IconName'
 
@@ -13,12 +14,22 @@ export type ItemCardProps = {
   item: Garantia;
   onClick: () => void;
   action: string;
+  user?: User;
 };
 
-export function ItemCard({ item, onClick, action }: ItemCardProps) {
+export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
   // console.log({ item });
   const { t } = useTranslation("listing");
-
+  const showQualityCheck = item.qualityCheck?.some((qc) => qc.id > "d");
+  const internalStatus =
+    item.status === "registered" &&
+    typeof user !== "undefined" &&
+    (user?.role?.name === "ADMIN" ||
+      user?.role?.name === "QA" ||
+      user?.role?.name === "SALES");
+  if (item && item.phoneNumber) {
+    item.phoneNumber = item.phoneNumber.replace("+", "");
+  }
   return (
     <div>
       <Card elevation={3} className="normalCard">
@@ -31,7 +42,7 @@ export function ItemCard({ item, onClick, action }: ItemCardProps) {
             <strong>Status: </strong>
             {t("listing:status." + (item.status || "pendiente") + ".label")}
           </Typography>
-          {item.status === "qualityChecked" ? (
+          {showQualityCheck ? (
             <div>
               <Typography variant="body2">
                 <strong>
@@ -58,13 +69,36 @@ export function ItemCard({ item, onClick, action }: ItemCardProps) {
           ) : (
             <div />
           )}
-          {item.status === "assigned" ? (
+          {internalStatus ? (
             <div>
               <Typography variant="body2">
+                <strong>{t(`listing:fields.name.label`)}: </strong>
+                {item.firstName} {item.lastName}
+              </Typography>
+              <Typography variant="body2">
+                <strong>{t(`listing:fields.phone.label`)}: </strong>
+                {`+${item.phoneNumber}`}
+              </Typography>
+              <Typography variant="body2">
+                <strong>{t(`listing:fields.address.label`)}: </strong>
+                {item.address}, {item.number}
+              </Typography>
+              <Typography variant="body2">
+                <strong>{t(`listing:fields.city.label`)}: </strong>
+                {item.city} -
+                <Button
+                  href={`https://codigo-postal.co/ecuador/cp/${item.zipcode}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="text"
+                  color="primary"
+                >
+                  {item.zipcode}
+                </Button>
+              </Typography>
+              <Typography variant="body2">
                 <strong>
-                  {t(
-                    `listing:status.${item.status || "pendiente"}.description`
-                  )}
+                  {t(`listing:status.${item.status || "created"}.description`)}
                 </strong>
                 {new Date(item.registeredAt!).toLocaleDateString()}
               </Typography>

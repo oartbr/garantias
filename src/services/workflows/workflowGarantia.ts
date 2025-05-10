@@ -164,7 +164,7 @@ const workflows: StatusWorkflows = {
       action: "open",
     },
     QA: {
-      message: "itemDelivered",
+      message: "registeredToClient",
       route: "{garantiaId}",
       action: "review",
     },

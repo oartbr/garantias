@@ -207,7 +207,7 @@ function FormEditGarantia() {
     }
     if (status === HTTP_CODES_ENUM.OK) {
       reset(formData);
-      enqueueSnackbar(t("admin-panel-garantias-check:alerts.user.success"), {
+      enqueueSnackbar(t("admin-panel-garantias-check:alerts.check.success"), {
         variant: "success",
       });
       router.push(`/${garantiaId}`);

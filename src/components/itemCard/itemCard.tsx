@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Garantia } from "@/services/api/types/garantia";
 import { useTranslation } from "@/services/i18n/client";
 import { User } from "@/services/api/types/user";
+import Grid from "@mui/material/Grid";
 // import { Label } from "@mui/icons-material";
 // import IconName from '@mui/icons-material/IconName'
 
@@ -31,7 +32,7 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
     item.phoneNumber = item.phoneNumber.replace("+", "");
   }
   return (
-    <div>
+    <Grid>
       <Card elevation={3} className="normalCard">
         <CardHeader title={item.description} subheader={item.sku} />
         <CardContent>
@@ -43,7 +44,7 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
             {t("listing:status." + (item.status || "pendiente") + ".label")}
           </Typography>
           {showQualityCheck ? (
-            <div>
+            <Grid>
               <Typography variant="body2">
                 <strong>
                   {t(
@@ -59,18 +60,18 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
                     variant="body2"
                     className={`QA-${qc.id}`}
                   >
-                    <div className={`qualityCheckItem`}>{qc.label}</div>
+                    <span className={`qualityCheckItem`}>{qc.label}</span>
                   </Typography>
                 ) : (
                   ""
                 )
               )}
-            </div>
+            </Grid>
           ) : (
-            <div />
+            <Grid />
           )}
           {internalStatus ? (
-            <div>
+            <Grid>
               <Typography variant="body2">
                 <strong>{t(`listing:fields.name.label`)}: </strong>
                 {item.firstName} {item.lastName}
@@ -102,9 +103,9 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
                 </strong>
                 {new Date(item.registeredAt!).toLocaleDateString()}
               </Typography>
-            </div>
+            </Grid>
           ) : (
-            <div />
+            <Grid />
           )}
         </CardContent>
         <CardActions>
@@ -115,6 +116,6 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
           )}
         </CardActions>
       </Card>
-    </div>
+    </Grid>
   );
 }

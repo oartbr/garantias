@@ -102,8 +102,12 @@
     "password": {
       "success": "La contraseña se ha actualizado correctamente"
     },
-    "check": {
+    "assign": {
       "success": "La garantia fue asignada correctamente"
+    },
+    "check": {
+      "success": "La garantia pasó por la verificación de calidad correctamente",
+      "error": "La garantia no pasó por la verificación de calidad"
     }
   }
 }

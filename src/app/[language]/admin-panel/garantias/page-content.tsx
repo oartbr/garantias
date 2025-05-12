@@ -235,7 +235,7 @@ function Actions({ garantia }: { garantia: Garantia }) {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {role.name === "ADMIN" && (
+                  {(role.name === "ADMIN" || role.name === "QA") && (
                     <>
                       <MenuItem onClick={handleAction} title="check">
                         {tGarantias("admin-panel-garantias:actions.check")}

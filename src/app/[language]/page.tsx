@@ -122,7 +122,7 @@ export default async function Home({ params }: Props) {
           </Grid>
         </Grid>
         <Grid item sx={{ mx: "auto" }} className="privacyPolicy">
-          <MuiLink href="/privacy-policy">{t("privacy-policy")}</MuiLink>
+          <Button href="/privacy-policy">{t("privacy-policy")}</Button>
         </Grid>
       </Grid>
     </Container>

@@ -48,5 +48,18 @@ export function middleware(req: NextRequest) {
     return response;
   }
 
+  // Ensure the Authorization header is set
+  // (using a token stored in a cookie, environment variable, or other secure storage)
+  const token = req.cookies.get("jwtToken")?.value;
+  if (token && !req.headers.get("authorization")) {
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("authorization", `Bearer ${token}`);
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+  }
+
   return NextResponse.next();
 }

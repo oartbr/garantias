@@ -139,11 +139,14 @@ function FormEditGarantia() {
   const { handleSubmit, setError, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    const currentSku = skuList.filter(
+      (sku) => sku.value === formData.sku.value
+    );
     const skuAsStringFormData = {
       ...formData,
-      sku: formData.sku.value,
-      description: formData.sku.description,
-      brand: formData.sku.brand,
+      sku: currentSku[0].value,
+      description: currentSku[0].description,
+      brand: currentSku[0].brand,
     };
     const { data, status } = await fetchPatchGarantia({
       garantiaId: garantiaId.toString(),

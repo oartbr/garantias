@@ -150,6 +150,9 @@ function List(props: Props) {
       <Grid item xs={12}>
         <MediaLink />
       </Grid>
+      <Grid item sx={{ mx: "auto" }} className="privacyPolicy">
+        <Button href="/privacy-policy">{t("privacy-policy")}</Button>
+      </Grid>
     </Container>
   );
 }

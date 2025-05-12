@@ -261,7 +261,11 @@ export function useGetGarantiaService() {
       )
         .then(wrapperFetchJsonResponse<GetGarantiaResponse>)
         .then((response) => {
-          if (response.status === HTTP_CODES_ENUM.OK) {
+          if (
+            response.status === HTTP_CODES_ENUM.OK &&
+            (data.userId === response.data.garantia.userId ||
+              response.data.garantia.userId === undefined)
+          ) {
             return {
               data: {
                 garantia: response.data.garantia,

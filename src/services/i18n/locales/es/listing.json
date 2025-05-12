@@ -13,7 +13,8 @@
     "void": "Anular",
     "registerToClient": "Registrar para el cliente",
     "login": "Iniciar sesión",
-    "return": "Volver"
+    "return": "Volver",
+    "review": "Revisar"
   },
   "status": {
     "assigned": { "label": "Pendiente", "description": "Asignada en: " },
@@ -37,7 +38,7 @@
     "registeredToClient": "Garantia registrada",
     "alreadyRegistered": "Ya registrado",
     "registerGarantia": "Registrar Garantía",
-    "unexistentGarantia": "La Garantía no existe o está con problemas",
+    "unexistentGarantia": "La Garantía no existe o no puese registrarse.",
     "error": "Error al busar Garantia."
   },
   "manual": {

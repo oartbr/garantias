@@ -5,49 +5,43 @@ import useAuth from "@/services/auth/use-auth";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useGetListingNotasByUserService } from "@/services/api/services/notas";
+import { useGetNotaService } from "@/services/api/services/notas";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-
 import { NotaCard } from "@/components/cards/notaCard";
 import React, { useEffect, useState } from "react";
 import { Nota } from "@/services/api/types/nota";
 
 type Props = {
-  params: { language: string };
+  params: { language: string; id: string };
 };
 
-type ItemCardProps = Nota;
+type NotaCardProps = Nota;
 
 function List(props: Props) {
   // const { setUser } = useAuthActions();
   // const { setTokensInfo } = useAuthTokens();
   // const fetchAuthLogin = useAuthLoginService();
   // const { enqueueSnackbar } = useSnackbar();
+  const { params } = props;
   const router = useRouter();
-  console.log(props);
   // const { t } = useTranslation("register");
   const { user } = useAuth();
 
-  const fetchListNotas = useGetListingNotasByUserService();
-  const [isLoading, setIsLoading] = useState({});
-  const [items, setItems] = useState<ItemCardProps[]>([]);
+  const fetchNotaDetails = useGetNotaService();
+  const [isLoading, setIsLoading] = useState(true);
+  const [notaDetails, setNotaDetails] = useState<NotaCardProps | null>(null);
 
   useEffect(() => {
     setIsLoading(true); // Indicate loading state
     if (user) {
-      fetchListNotas({ userId: user.id.toString(), page: 1, limit: 10 })
+      fetchNotaDetails({ id: params.id })
         .then((data) => {
           if (data.status === HTTP_CODES_ENUM.OK) {
-            const sortedItems = (data.data.results as ItemCardProps[]).sort(
-              (a: ItemCardProps, b: ItemCardProps) =>
-                new Date(b.registeredAt).getTime() -
-                new Date(a.registeredAt).getTime()
-            );
-            setItems(sortedItems); // Step 3: Update state with sorted data
+            setNotaDetails(data.data.nota ?? null); // Step 3: Update state with sorted data, defaulting to null if undefined
             setIsLoading(false); // Update loading state
           }
         })
@@ -56,30 +50,28 @@ function List(props: Props) {
           setIsLoading(false); // Update loading state
         });
     }
-  }, [user, fetchListNotas]); // Include 'fetchListGarantias' in the dependency array
+  }, [user, fetchNotaDetails, params.id]); // Include 'fetchListGarantias' in the dependency array
 
   return (
     <Container maxWidth="sm" className="mainContainer">
       <Grid>
         <Grid>
-          <h1>Notas Fiscais</h1>
+          <h1>Nota Fiscal</h1>
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
-          {isLoading ? (
+          {isLoading || !notaDetails ? (
             <p>Loading...</p>
           ) : (
-            items.map((item, index) => (
-              <Grid item xs={12} key={index}>
-                <NotaCard
-                  item={item}
-                  onClick={() => {
-                    router.replace(`nota/${item.id}`);
-                  }}
-                  action="Ver detalles"
-                  type="listing"
-                />
-              </Grid>
-            ))
+            <Grid item xs={12}>
+              <NotaCard
+                item={notaDetails}
+                onClick={() => {
+                  router.replace(`/listing`);
+                }}
+                action="Voltar"
+                type="details"
+              />
+            </Grid>
           )}
         </Grid>
       </Grid>

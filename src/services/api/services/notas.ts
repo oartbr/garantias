@@ -174,3 +174,39 @@ export function useCheckNotaService() {
     [fetchBase]
   );
 }
+
+// ## useGetNotaService()
+// The request will be a POST request, sending the url of the note to check.
+// This action should happen after the user scans the QR code of a Nota.
+// For our service, it is not really important if the nota has already being checked by a different user, unless they share the account.
+export type GetNotaRequest = {
+  id: string;
+  userId?: string | number | null;
+};
+
+// The response will be a Nota object and a status code.
+export type GetNotaResponse = {
+  nota?: Nota;
+  status: HTTP_CODES_ENUM;
+  data?: { nota?: Nota };
+};
+
+// The service function itself, which will be used in the components to make the request to the server.
+// useCheckNotaService
+export function useGetNotaService() {
+  const fetchBase = useFetchBase();
+
+  return useCallback(
+    async (data: GetNotaRequest, requestConfig?: RequestConfigType) => {
+      const response = await fetchBase(
+        `${API_URL}/v1/nota/details/${data.id}`,
+        {
+          method: "GET",
+          ...requestConfig,
+        }
+      );
+      return wrapperFetchJsonResponse<GetNotaResponse>(response);
+    },
+    [fetchBase]
+  );
+}

@@ -1,4 +1,5 @@
 export type Nota = {
+  id: String;
   user: String;
   url: String;
   purchaseDate: Date;

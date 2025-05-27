@@ -247,7 +247,7 @@ function Users() {
     if (searchParamsSort) {
       return JSON.parse(searchParamsSort);
     }
-    return { order: SortEnum.DESC, orderBy: "id" };
+    return { order: SortEnum.ASC, orderBy: "firstName" };
   });
 
   const handleRequestSort = (
@@ -328,10 +328,10 @@ function Users() {
             fixedHeaderContent={() => (
               <>
                 <TableRow>
-                  <TableCell style={{ width: 130 }}></TableCell>
-                  <TableCell style={{ width: 50 }}></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                   <TableSortCellWrapper
-                    width={100}
+                    width={80}
                     orderBy={orderBy}
                     order={order}
                     column="id"
@@ -339,21 +339,23 @@ function Users() {
                   >
                     {tUsers("admin-panel-users:table.column1")}
                   </TableSortCellWrapper>
-                  <TableCell style={{ width: 200 }}>
+                  <TableSortCellWrapper
+                    width={100}
+                    orderBy={orderBy}
+                    order={order}
+                    column="firstName"
+                    handleRequestSort={handleRequestSort}
+                  >
                     {tUsers("admin-panel-users:table.column2")}
-                  </TableCell>
+                  </TableSortCellWrapper>
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
-                    column="email"
+                    column="role"
                     handleRequestSort={handleRequestSort}
                   >
-                    {tUsers("admin-panel-users:table.column3")}
-                  </TableSortCellWrapper>
-
-                  <TableCell style={{ width: 80 }}>
                     {tUsers("admin-panel-users:table.column4")}
-                  </TableCell>
+                  </TableSortCellWrapper>
                 </TableRow>
                 {isFetchingNextPage && (
                   <TableRow>
@@ -381,7 +383,6 @@ function Users() {
                 <TableCell style={{ width: 220 }}>
                   {user?.firstName} {user?.lastName}
                 </TableCell>
-                <TableCell>{user?.email}</TableCell>
                 <TableCell style={{ width: 80 }}>
                   {tRoles(`role.${user?.role?.id}`)}
                 </TableCell>

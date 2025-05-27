@@ -272,7 +272,7 @@ function Garantias() {
     if (searchParamsSort) {
       return JSON.parse(searchParamsSort);
     }
-    return { order: SortEnum.DESC, orderBy: "id" };
+    return { order: SortEnum.DESC, orderBy: "createdAt" };
   });
 
   const handleRequestSort = (
@@ -363,20 +363,32 @@ function Garantias() {
                   >
                     {tGarantias("admin-panel-garantias:table.column1")}
                   </TableSortCellWrapper>
-                  <TableCell style={{ width: 200 }}>
-                    {tGarantias("admin-panel-garantias:table.column2")}
-                  </TableCell>
                   <TableSortCellWrapper
+                    width={100}
                     orderBy={orderBy}
                     order={order}
                     column="sku"
                     handleRequestSort={handleRequestSort}
                   >
+                    {tGarantias("admin-panel-garantias:table.column2")}
+                  </TableSortCellWrapper>
+                  <TableSortCellWrapper
+                    orderBy={orderBy}
+                    order={order}
+                    column="status"
+                    handleRequestSort={handleRequestSort}
+                  >
                     {tGarantias("admin-panel-garantias:table.column3")}
                   </TableSortCellWrapper>
-                  <TableCell style={{ width: 200 }}>
+                  <TableSortCellWrapper
+                    width={200}
+                    orderBy={orderBy}
+                    order={order}
+                    column="firstName"
+                    handleRequestSort={handleRequestSort}
+                  >
                     {tGarantias("admin-panel-garantias:table.column4")}
-                  </TableCell>
+                  </TableSortCellWrapper>
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}

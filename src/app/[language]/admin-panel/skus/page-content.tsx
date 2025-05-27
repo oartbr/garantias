@@ -119,8 +119,8 @@ function Actions({ sku }: { sku: SKU }) {
 
       let filter: SkuFilterType | undefined = undefined;
       let sort: SkuSortType | undefined = {
-        order: SortEnum.DESC,
-        orderBy: "skuId",
+        order: SortEnum.ASC,
+        orderBy: "capacity",
       };
 
       if (searchParamsFilter) {
@@ -250,7 +250,7 @@ function Skus() {
     if (searchParamsSort) {
       return JSON.parse(searchParamsSort);
     }
-    return { order: SortEnum.DESC, orderBy: "id" };
+    return { order: SortEnum.ASC, orderBy: "capacity" };
   });
 
   const handleRequestSort = (
@@ -333,6 +333,7 @@ function Skus() {
                 <TableRow>
                   <TableCell></TableCell>
                   <TableSortCellWrapper
+                    width={200}
                     orderBy={orderBy}
                     order={order}
                     column="skuId"

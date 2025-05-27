@@ -264,6 +264,7 @@ export type SKUsRequest = {
   };
   sort?: Array<{
     order: SortEnum;
+    orderBy: string;
   }>;
 };
 

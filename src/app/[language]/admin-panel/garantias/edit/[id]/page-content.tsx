@@ -148,7 +148,7 @@ function FormEditGarantia() {
         const response = await skuAllList({
           page: 0,
           limit: 999,
-          sort: [{ order: SortEnum.DESC }],
+          sort: [{ order: SortEnum.ASC, orderBy: "capacity" }],
         });
         if (response && response.data && "results" in response.data) {
           const skus = (response.data.results as SKU[]).map((sku: SKU) => ({

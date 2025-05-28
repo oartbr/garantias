@@ -152,6 +152,19 @@ function ResponsiveAppBar() {
                   </MenuItem>,
                 ]}
               {!!user?.role &&
+                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
+                  <MenuItem
+                    key="codes"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    href="/admin-panel/garantias/print"
+                  >
+                    <Typography textAlign="center">
+                      {t("common:navigation.print")}
+                    </Typography>
+                  </MenuItem>,
+                ]}
+              {!!user?.role &&
                 [RoleEnum.USER].includes(Number(user?.role?.id)) && [
                   <MenuItem
                     key="listing"
@@ -273,6 +286,17 @@ function ResponsiveAppBar() {
                   href="/admin-panel/skus"
                 >
                   {t("common:navigation.skus")}
+                </Button>
+              )}
+            {!!user?.role &&
+              [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  component={Link}
+                  href="/admin-panel/garantias/print"
+                >
+                  {t("common:navigation.print")}
                 </Button>
               )}
             {!!user?.role &&

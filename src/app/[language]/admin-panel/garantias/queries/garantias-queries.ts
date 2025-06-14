@@ -1,4 +1,4 @@
-import { useGetGarantiasService } from "@/services/api/services/garantia";
+import { useGetGarantiasService } from "@/services/api/garantia";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
 import { useInfiniteQuery } from "@tanstack/react-query";

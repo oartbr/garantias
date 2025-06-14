@@ -18,7 +18,7 @@ import { enqueueSnackbar } from "notistack";
 import {
   useGetUserByGarantiaIdService,
   useRegisterGarantiaService,
-} from "@/services/api/services/garantia";
+} from "@/services/api/garantia";
 import useAuth from "@/services/auth/use-auth";
 import { Garantia } from "@/services/api/types/garantia";
 import { useEffect, useState } from "react";

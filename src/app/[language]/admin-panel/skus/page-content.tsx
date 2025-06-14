@@ -35,7 +35,7 @@ import { SKU } from "@/services/api/types/sku";
 import Link from "@/components/link";
 // import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { useDeleteSKUsService } from "@/services/api/services/sku";
+import { useDeleteSKUsService } from "@/services/api/sku";
 // import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import SkuFilter from "./sku-filter";

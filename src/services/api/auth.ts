@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import useFetchBase from "../use-fetch-base";
-import useFetch from "../use-fetch";
-import { API_URL } from "../config";
-import { User } from "../types/user";
-import { Tokens } from "../types/tokens";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
+import useFetchBase from "./use-fetch-base";
+import useFetch from "./use-fetch";
+import { API_URL } from "./config";
+import { User } from "./types/user";
+import { Tokens } from "./types/tokens";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
 import { RequestConfigType } from "./types/request-config";
 
 export type AuthLoginRequest = {

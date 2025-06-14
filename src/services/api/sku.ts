@@ -1,102 +1,13 @@
 import { useCallback } from "react";
-import useFetch from "../use-fetch";
-import useFetchBase from "../use-fetch-base";
-import { API_URL } from "../config";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { SKU } from "../types/sku";
-// import { CheckPhoneNumber } from "../types/checkPhoneNumber";
-import { InfinityPaginationType } from "../types/infinity-pagination";
-// import { Role } from "../types/role";
-import { SortEnum } from "../types/sort-type";
+import useFetch from "./use-fetch";
+import useFetchBase from "./use-fetch-base";
+import { API_URL } from "./config";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
+import { SKU } from "./types/sku";
+import { InfinityPaginationType } from "./types/infinity-pagination";
+import { SortEnum } from "./types/sort-type";
 import { RequestConfigType } from "./types/request-config";
-import { Tokens } from "@/services/api/types/tokens";
-import { User } from "@/services/api/types/user";
-import HTTP_CODES_ENUM from "../types/http-codes";
-// import { Status } from "../types/status";
-
-// CheckPhoneNumber
-// this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
-export type CheckPhoneNumberRequest = {
-  phoneNumber: string;
-};
-
-export type CheckPhoneNumberResponse = {
-  data: object;
-  status: HTTP_CODES_ENUM;
-};
-
-export function useCheckPhoneNumberService() {
-  const fetchBase = useFetchBase();
-
-  return useCallback(
-    (data: CheckPhoneNumberRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/messaging/sendCode`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        ...requestConfig,
-      }).then(wrapperFetchJsonResponse<CheckPhoneNumberResponse>);
-    },
-    [fetchBase]
-  );
-}
-// CheckPhoneNumber reponse should be a 200 status code, but the response is void.
-
-// CheckPhoneNumberLogin
-// this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
-export type CheckPhoneNumberLoginRequest = {
-  phoneNumber: string;
-};
-
-export type CheckPhoneNumberLoginResponse = {
-  data: object;
-  status: HTTP_CODES_ENUM;
-};
-
-export function useCheckPhoneNumberLoginService() {
-  const fetchBase = useFetchBase();
-
-  return useCallback(
-    (data: CheckPhoneNumberLoginRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/messaging/codeLogin`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        ...requestConfig,
-      }).then(wrapperFetchJsonResponse<CheckPhoneNumberLoginResponse>);
-    },
-    [fetchBase]
-  );
-}
-// CheckPhoneNumber reponse should be a 200 status code, but the response is void.
-
-// CheckCode
-// this will send the a code to the server to check if it is the same as the one sent via WhatsApp.
-export type CheckCodeRequest = {
-  phoneNumber: string;
-  code: string;
-};
-
-export type CheckCodeResponse = {
-  user: User;
-  token: Tokens["token"];
-  refreshToken: Tokens["refreshToken"];
-  tokenExpires: Tokens["tokenExpires"];
-};
-
-export function useCheckCodeService() {
-  const fetchBase = useFetchBase();
-
-  return useCallback(
-    (data: CheckCodeRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/messaging/confirmCode`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        ...requestConfig,
-      }).then(wrapperFetchJsonResponse<CheckCodeResponse>);
-    },
-    [fetchBase]
-  );
-}
-// CheckCode reponse should be a 200 status code, but the response is void.
+import HTTP_CODES_ENUM from "./types/http-codes";
 
 // GetUserBySKUId
 // this will send the skuId to the server to check if there is a User linked to the phone number on the sku.

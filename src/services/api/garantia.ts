@@ -1,23 +1,23 @@
 import { useCallback } from "react";
-import useFetch from "../use-fetch";
-import useFetchBase from "../use-fetch-base";
+import useFetch from "./use-fetch";
+import useFetchBase from "./use-fetch-base";
 import {
   API_URL,
   GARANTIA_CODE_LENGTH,
   GARANTIA_CODE_TYPE,
   GARANTIA_CODE_PREFIX,
-} from "../config";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { Garantia } from "../types/garantia";
+} from "./config";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
+import { Garantia } from "./types/garantia";
 // import { CheckPhoneNumber } from "../types/checkPhoneNumber";
-import { InfinityPaginationType } from "../types/infinity-pagination";
+import { InfinityPaginationType } from "./types/infinity-pagination";
 // import { Role } from "../types/role";
-import { SortEnum } from "../types/sort-type";
+import { SortEnum } from "./types/sort-type";
 import { RequestConfigType } from "./types/request-config";
 import { Tokens } from "@/services/api/types/tokens";
 import { User } from "@/services/api/types/user";
-import HTTP_CODES_ENUM from "../types/http-codes";
-import { Status } from "../types/status";
+import HTTP_CODES_ENUM from "./types/http-codes";
+import { Status } from "./types/status";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.

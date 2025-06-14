@@ -15,10 +15,7 @@ import Link from "@/components/link";
 import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import {
-  useGetSKUService,
-  usePatchSKUService,
-} from "@/services/api/services/sku";
+import { useGetSKUService, usePatchSKUService } from "@/services/api/sku";
 import { useParams } from "next/navigation";
 import useAuth from "@/services/auth/use-auth";
 // import FormSelectInput from "@/components/form/select/form-select";

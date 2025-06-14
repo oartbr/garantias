@@ -38,7 +38,7 @@ import { Garantia } from "@/services/api/types/garantia";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { useDeleteGarantiasService } from "@/services/api/services/garantia";
+import { useDeleteGarantiasService } from "@/services/api/garantia";
 // import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import GarantiaFilter from "./garantia-filter";

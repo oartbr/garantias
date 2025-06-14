@@ -13,7 +13,7 @@ import useLeavePage from "@/services/leave-page/use-leave-page";
 import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { CreateSKUsService } from "@/services/api/services/sku";
+import { CreateSKUsService } from "@/services/api/sku";
 import { useRouter } from "next/navigation";
 // import { Role } from "@/services/api/types/role";
 //import FormSelectInput from "@/components/form/select/form-select";

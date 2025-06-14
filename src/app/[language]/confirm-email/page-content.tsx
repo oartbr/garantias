@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useAuthConfirmEmailService } from "@/services/api/services/auth";
+import { useAuthConfirmEmailService } from "@/services/api/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import Container from "@mui/material/Container";

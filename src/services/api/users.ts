@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import useFetch from "../use-fetch";
-import { API_URL } from "../config";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { User } from "../types/user";
-import { InfinityPaginationType } from "../types/infinity-pagination";
-import { Role } from "../types/role";
-import { SortEnum } from "../types/sort-type";
+import useFetch from "./use-fetch";
+import { API_URL } from "./config";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
+import { User } from "./types/user";
+import { InfinityPaginationType } from "./types/infinity-pagination";
+import { Role } from "./types/role";
+import { SortEnum } from "./types/sort-type";
 import { RequestConfigType } from "./types/request-config";
 
 export type UsersRequest = {

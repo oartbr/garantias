@@ -1,4 +1,4 @@
-import { useGetSKUsService } from "@/services/api/services/sku";
+import { useGetSKUsService } from "@/services/api/sku";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
 import { useInfiniteQuery } from "@tanstack/react-query";

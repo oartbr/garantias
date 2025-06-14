@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import useFetch from "../use-fetch";
-import { API_URL } from "../config";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { FileEntity } from "../types/file-entity";
+import useFetch from "./use-fetch";
+import { API_URL } from "./config";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
+import { FileEntity } from "./types/file-entity";
 import { RequestConfigType } from "./types/request-config";
-import HTTP_CODES_ENUM from "../types/http-codes";
+import HTTP_CODES_ENUM from "./types/http-codes";
 
 export type FileUploadRequest = File;
 

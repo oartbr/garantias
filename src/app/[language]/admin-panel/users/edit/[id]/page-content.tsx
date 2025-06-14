@@ -19,10 +19,7 @@ import useLeavePage from "@/services/leave-page/use-leave-page";
 import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import {
-  useGetUserService,
-  usePatchUserService,
-} from "@/services/api/services/users";
+import { useGetUserService, usePatchUserService } from "@/services/api/users";
 import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";

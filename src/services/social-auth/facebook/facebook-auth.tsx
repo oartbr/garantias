@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthFacebookLoginService } from "@/services/api/services/auth";
+import { useAuthFacebookLoginService } from "@/services/api/auth";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";

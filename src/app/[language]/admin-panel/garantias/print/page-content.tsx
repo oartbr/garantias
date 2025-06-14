@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // import { useSnackbar } from "notistack";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { useGetListingPdfsService } from "@/services/api/services/garantia";
+import { useGetListingPdfsService } from "@/services/api/garantia";
 // import { useRouter } from "next/navigation";
 
 type Props = {

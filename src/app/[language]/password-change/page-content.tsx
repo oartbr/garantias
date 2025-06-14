@@ -2,7 +2,7 @@
 import Button from "@mui/material/Button";
 import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useAuthResetPasswordService } from "@/services/api/services/auth";
+import { useAuthResetPasswordService } from "@/services/api/auth";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";

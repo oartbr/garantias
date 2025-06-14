@@ -4,7 +4,7 @@ import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useGetListingByGarantiaIdService } from "@/services/api/services/garantia";
+import { useGetListingByGarantiaIdService } from "@/services/api/garantia";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 // import { useRouter } from "next/navigation";

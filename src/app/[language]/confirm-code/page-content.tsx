@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 // import { useAuthResetPasswordService } from "@/services/api/services/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
-import { useCheckCodeService } from "@/services/api/services/garantia";
+import { useCheckCodeService } from "@/services/api/garantia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";

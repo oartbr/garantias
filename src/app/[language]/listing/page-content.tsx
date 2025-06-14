@@ -5,7 +5,7 @@ import useAuth from "@/services/auth/use-auth";
 // import useAuthActions from "@/services/auth/use-auth-actions";
 // import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useGetListingByUserService } from "@/services/api/services/garantia";
+import { useGetListingByUserService } from "@/services/api/garantia";
 // import { useTranslation } from "@/services/i18n/client";
 // import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";

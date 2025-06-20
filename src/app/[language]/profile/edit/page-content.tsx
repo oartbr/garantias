@@ -1,7 +1,7 @@
 "use client";
 import Button from "@mui/material/Button";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useAuthPatchMeService } from "@/services/api/services/auth";
+import { useAuthPatchMeService } from "@/services/api/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";

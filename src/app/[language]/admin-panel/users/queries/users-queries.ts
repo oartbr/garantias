@@ -1,4 +1,4 @@
-import { useGetUsersService } from "@/services/api/services/users";
+import { useGetUsersService } from "@/services/api/users";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
 import { useInfiniteQuery } from "@tanstack/react-query";

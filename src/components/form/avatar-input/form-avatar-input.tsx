@@ -1,4 +1,4 @@
-import { useFileUploadService } from "@/services/api/services/files";
+import { useFileUploadService } from "@/services/api/files";
 import { FileEntity } from "@/services/api/types/file-entity";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import Avatar from "@mui/material/Avatar";

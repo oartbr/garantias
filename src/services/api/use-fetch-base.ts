@@ -32,7 +32,7 @@ function useFetchBase() {
       if (tokens?.token) {
         headers = {
           ...headers,
-          Authorization: `${tokens.refreshToken}`, //`Bearer ${tokens.token}`,
+          Authorization: `${tokens.token}`,
         };
       }
 
@@ -41,7 +41,7 @@ function useFetchBase() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${tokens.refreshToken}`,
+            Authorization: `${tokens.refreshToken}`,
           },
         }).then((res) => res.json());
 
@@ -54,7 +54,7 @@ function useFetchBase() {
 
           headers = {
             ...headers,
-            Authorization: `Bearer ${newTokens.token}`,
+            Authorization: `${newTokens.token}`,
           };
         } else {
           tokens?.setTokensInfo?.(null);

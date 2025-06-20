@@ -19,13 +19,13 @@ import { useTranslation } from "@/services/i18n/client";
 import {
   useGetGarantiaService,
   usePatchGarantiaService,
-} from "@/services/api/services/garantia";
+} from "@/services/api/garantia";
 import { useParams } from "next/navigation";
 import FormSelectInput from "@/components/form/select/form-select";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useRouter } from "next/navigation";
 import { Garantia } from "@/services/api/types/garantia";
-import { useGetSKUsService } from "@/services/api/services/sku";
+import { useGetSKUsService } from "@/services/api/sku";
 import { SKU } from "@/services/api/types/sku";
 import { SortEnum } from "@/services/api/types/sort-type";
 
@@ -248,7 +248,7 @@ function FormEditGarantia() {
 
       if (getStatus === HTTP_CODES_ENUM.OK) {
         setGarantiaData(results.garantia);
-        // console.log({ garantia: results.garantia });
+        console.log({ garantia: results.garantia });
         reset({
           description: results.garantia?.description ?? "",
           sku: {

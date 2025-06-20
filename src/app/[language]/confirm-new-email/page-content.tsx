@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import {
   useAuthConfirmNewEmailService,
   useAuthGetMeService,
-} from "@/services/api/services/auth";
+} from "@/services/api/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import Container from "@mui/material/Container";

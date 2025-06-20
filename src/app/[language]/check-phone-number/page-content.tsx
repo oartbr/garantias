@@ -2,7 +2,7 @@
 import Button from "@mui/material/Button";
 //import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useCheckPhoneNumberLoginService } from "@/services/api/services/garantia";
+import { useCheckPhoneNumberLoginService } from "@/services/api/garantia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -72,10 +72,10 @@ function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
+  const tk = useTranslation(props.params.language);
   const validationSchema = useValidationSchema();
   const router = useRouter();
-  console.log(props.params);
-
+  tk;
   const countryList = getCountryDataList()
     .filter((country: ICountryData) => country.continent === "SA")
     .map((country: ICountryData) => {

@@ -55,21 +55,19 @@ function AuthProvider(props: PropsWithChildren<{}>) {
   );
 
   const logOut = useCallback(async () => {
-    const tokens = JSON.parse(
-      Cookies.get(AUTH_TOKEN_KEY) ?? "null"
-    ) as TokensInfo;
-
     if (tokensInfoRef.current.token) {
       await fetchBase(
         AUTH_LOGOUT_URL,
         {
           method: "POST",
-          body: JSON.stringify({ refreshToken: tokens?.refreshToken }),
+          body: JSON.stringify({
+            refreshToken: tokensInfoRef.current.refreshToken,
+          }),
         },
         {
-          token: tokens?.token,
-          refreshToken: tokens?.refreshToken,
-          tokenExpires: tokens?.tokenExpires,
+          token: tokensInfoRef.current.token,
+          refreshToken: tokensInfoRef.current.refreshToken,
+          tokenExpires: tokensInfoRef.current.tokenExpires,
         }
       );
     }
@@ -89,9 +87,6 @@ function AuthProvider(props: PropsWithChildren<{}>) {
           AUTH_ME_URL,
           {
             method: "GET",
-            headers: {
-              Authorization: `${tokens.refreshToken}`,
-            },
           },
           {
             token: tokens.token,

@@ -16,7 +16,7 @@ import { useTranslation } from "@/services/i18n/client";
 import {
   CreateGarantiasService,
   useGetPdfService,
-} from "@/services/api/services/garantia";
+} from "@/services/api/garantia";
 import { useRouter } from "next/navigation";
 // import { Role } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";

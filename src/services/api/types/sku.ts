@@ -15,5 +15,5 @@ export type SKU = {
   madeIn?: string;
   createdAt: string;
   updatedAt?: string;
-  id?: string;
+  id: string;
 };

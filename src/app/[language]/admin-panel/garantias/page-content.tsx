@@ -38,7 +38,7 @@ import { Garantia } from "@/services/api/types/garantia";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { useDeleteGarantiasService } from "@/services/api/services/garantia";
+import { useDeleteGarantiasService } from "@/services/api/garantia";
 // import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import GarantiaFilter from "./garantia-filter";
@@ -47,6 +47,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import { GarantiaFilterType, GarantiaSortType } from "./garantia-filter-types";
 import { SortEnum } from "@/services/api/types/sort-type";
 import dayjs from "dayjs";
+import { useSnackbar } from "notistack";
 
 type GarantiasKeys = keyof Garantia;
 
@@ -97,6 +98,7 @@ function Actions({ garantia }: { garantia: Garantia }) {
   const fetchGarantiaDelete = useDeleteGarantiasService();
   const queryClient = useQueryClient();
   const anchorRef = useRef<HTMLDivElement>(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const canDelete = garantia.status !== "created"; // user.id !== authUser?.id;
   const { t: tGarantias } = useTranslation("admin-panel-garantias");
@@ -156,7 +158,6 @@ function Actions({ garantia }: { garantia: Garantia }) {
       await queryClient.cancelQueries({
         queryKey: garantiasQueryKeys.list().key,
       });
-
       const newData = {
         ...previousData,
         pages: previousData?.pages.map((page) => ({
@@ -174,6 +175,13 @@ function Actions({ garantia }: { garantia: Garantia }) {
 
       await fetchGarantiaDelete({
         id: garantia.garantiaId,
+      }).then(() => {
+        enqueueSnackbar(
+          tGarantias("admin-panel-garantias:alerts.delete.success"),
+          {
+            variant: "success",
+          }
+        );
       });
     }
   };

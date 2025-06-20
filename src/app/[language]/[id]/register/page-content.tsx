@@ -18,10 +18,10 @@ import { enqueueSnackbar } from "notistack";
 import {
   useGetUserByGarantiaIdService,
   useRegisterGarantiaService,
-} from "@/services/api/services/garantia";
+} from "@/services/api/garantia";
 import useAuth from "@/services/auth/use-auth";
-import { Garantia } from "@/services/api/types/garantia";
-import { useEffect, useState } from "react";
+// import { Garantia } from "@/services/api/types/garantia";
+import { useEffect } from "react";
 
 type TPolicy = {
   id?: string;
@@ -102,7 +102,7 @@ function Form(props: Props) {
   const { t } = useTranslation("register");
   const { user } = useAuth();
   const fetchUserByGarantiaId = useGetUserByGarantiaIdService();
-  const [garantiaData, setGarantiaData] = useState<Garantia | null>(null);
+  // const [garantia, setGarantiaData] = useState<Garantia | null>(null);
 
   const validationSchema: yup.ObjectSchema<RegisterFormData> =
     useValidationSchema();
@@ -168,19 +168,20 @@ function Form(props: Props) {
     if (garantiaId) {
       const fetchGarantia = async () => {
         const { data, status } = await fetchUserByGarantiaId({ garantiaId });
-        if (status === HTTP_CODES_ENUM.OK) {
-          const garantia: Garantia = {
+        if (status === HTTP_CODES_ENUM.OK && data) {
+          /*const garantia: Garantia = {
             ...data,
             garantiaId: "", // Add the missing property
             registeredAt: "", // Add the missing property
             status: status.toString(), // Convert the 'status' property to a string
-          };
-          setGarantiaData(garantia);
+          };*/
+          // this whole thing should load data from a garantia from the same user, so they don't need to write all over again if they are registering a new item.
+          // setGarantiaData(garantia);
         }
       };
       fetchGarantia();
     }
-  }, [fetchUserByGarantiaId, garantiaId, garantiaData]);
+  }, [fetchUserByGarantiaId, garantiaId]);
 
   return (
     <FormProvider {...methods}>

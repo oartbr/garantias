@@ -1,23 +1,23 @@
 import { useCallback } from "react";
-import useFetch from "../use-fetch";
-import useFetchBase from "../use-fetch-base";
+import useFetch from "./use-fetch";
+import useFetchBase from "./use-fetch-base";
 import {
   API_URL,
   GARANTIA_CODE_LENGTH,
   GARANTIA_CODE_TYPE,
   GARANTIA_CODE_PREFIX,
-} from "../config";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { Garantia } from "../types/garantia";
+} from "./config";
+import wrapperFetchJsonResponse from "./wrapper-fetch-json-response";
+import { Garantia } from "./types/garantia";
 // import { CheckPhoneNumber } from "../types/checkPhoneNumber";
-import { InfinityPaginationType } from "../types/infinity-pagination";
+import { InfinityPaginationType } from "./types/infinity-pagination";
 // import { Role } from "../types/role";
-import { SortEnum } from "../types/sort-type";
+import { SortEnum } from "./types/sort-type";
 import { RequestConfigType } from "./types/request-config";
 import { Tokens } from "@/services/api/types/tokens";
 import { User } from "@/services/api/types/user";
-import HTTP_CODES_ENUM from "../types/http-codes";
-import { Status } from "../types/status";
+import HTTP_CODES_ENUM from "./types/http-codes";
+import { Status } from "./types/status";
 
 // CheckPhoneNumber
 // this will send the phone number to the messaging service on the back-end, which will send a code to the phone number.
@@ -137,16 +137,16 @@ export type GetUserByGarantiaIdResponse = {
 };
 
 export function useGetUserByGarantiaIdService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (data: GetUserByGarantiaIdRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/garantia/getUser/${data.garantiaId}`, {
+      return fetch(`${API_URL}/v1/garantia/getUser/${data.garantiaId}`, {
         method: "GET",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<GetUserByGarantiaIdResponse>);
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // GetUserByGarantiaId reponse should be a 200 status code with the User's details.
@@ -170,18 +170,18 @@ export type RegisterGarantiaRequest = {
 export type RegisterGarantiaResponse = void;
 
 export function useRegisterGarantiaService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (data: RegisterGarantiaRequest, requestConfig?: RequestConfigType) => {
       // console.log({ garantiaData: data });
-      return fetchBase(`${API_URL}/v1/garantia/register`, {
+      return fetch(`${API_URL}/v1/garantia/register`, {
         method: "POST",
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<RegisterGarantiaResponse>);
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // RegisterGarantia reponse should be a 200 status code
@@ -195,19 +195,19 @@ export type GetListingByGarantiaIdRequest = {
 export type GetListingByGarantiaIdResponse = void;
 
 export function useGetListingByGarantiaIdService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (
       data: GetListingByGarantiaIdRequest,
       requestConfig?: RequestConfigType
     ) => {
-      return fetchBase(`${API_URL}/v1/garantia/getList/${data.garantiaId}`, {
+      return fetch(`${API_URL}/v1/garantia/getList/${data.garantiaId}`, {
         method: "GET",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<GetListingByGarantiaIdResponse>);
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // GetUserByGarantiaId reponse should be a 200 status code with the User's details.
@@ -221,16 +221,16 @@ export type GetListingByUserRequest = {
 export type GetListingByUserResponse = object;
 
 export function useGetListingByUserService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (data: GetListingByUserRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/garantia/getList/${data.userId}`, {
+      return fetch(`${API_URL}/v1/garantia/getList/${data.userId}`, {
         method: "GET",
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<GetListingByUserResponse>);
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // GetUserByUserreponse should be a 200 status code with the User's details.
@@ -248,11 +248,11 @@ export type GetGarantiaResponse = {
 };
 
 export function useGetGarantiaService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (data: GetGarantiaRequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(
+      return fetch(
         `${API_URL}/v1/garantia/${data.garantiaId}${data.userId ? "/" + data.userId : ""}`,
         {
           method: "GET",
@@ -282,7 +282,7 @@ export function useGetGarantiaService() {
           }
         });
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // GetGarantia should be a 200 status code with the Garantia's details.

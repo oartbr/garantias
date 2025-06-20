@@ -31,11 +31,11 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { SKU } from "@/services/api/types/sku";
-//import { User } from "@/services/api/types/user";
+// import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 // import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { useDeleteSKUsService } from "@/services/api/services/sku";
+import { useDeleteSKUsService } from "@/services/api/sku";
 // import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import SkuFilter from "./sku-filter";
@@ -153,7 +153,7 @@ function Actions({ sku }: { sku: SKU }) {
       );
 
       await fetchSkusDelete({
-        id: sku.skuId,
+        id: sku.id,
       });
     }
   };

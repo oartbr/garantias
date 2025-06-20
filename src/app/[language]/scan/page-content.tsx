@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import QRscanner from "@/components/QRscanner/QRscanner";
 //import { useEffect } from "react";
 // import { Garantia } from "@/services/api/types/garantia";
-import { useGetGarantiaService } from "@/services/api/services/garantia";
+import { useGetGarantiaService } from "@/services/api/garantia";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/services/auth/use-auth";

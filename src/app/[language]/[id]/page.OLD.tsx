@@ -9,7 +9,7 @@ import tanque from "../../../../public/assets/images/tanque.svg";
 import scan from "../../../../public/assets/images/scan.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import { getGarantiaService } from "@/services/api/services/garantia";
+import { getGarantiaService } from "@/services/api/garantia";
 
 type Props = {
   params: { language: string; id: string };

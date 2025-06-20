@@ -72,10 +72,10 @@ function Form(props: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const fetchSendCode = useCheckPhoneNumberLoginService();
   const { t } = useTranslation("register");
+  const tk = useTranslation(props.params.language);
   const validationSchema = useValidationSchema();
   const router = useRouter();
-  console.log(props.params);
-
+  tk;
   const countryList = getCountryDataList()
     .filter((country: ICountryData) => country.continent === "SA")
     .map((country: ICountryData) => {

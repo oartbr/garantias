@@ -32,6 +32,11 @@
       "message": "¿Estás seguro de que deseas eliminar esta Garantia?"
     }
   },
+  "alerts": {
+    "delete": {
+      "success": "La garantia há sido eliminada."
+    }
+  },
   "filter": {
     "actions": {
       "filter": "Filtrar",

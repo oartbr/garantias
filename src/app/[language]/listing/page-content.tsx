@@ -1,13 +1,13 @@
 "use client";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import useAuth from "@/services/auth/use-auth";
-// import { useAuthLoginService } from "@/services/api/services/auth";
-// import useAuthActions from "@/services/auth/use-auth-actions";
-// import useAuthTokens from "@/services/auth/use-auth-tokens";
+//import { useAuthLoginService } from "@/services/api/auth";
+//import useAuthActions from "@/services/auth/use-auth-actions";
+//import useAuthTokens from "@/services/auth/use-auth-tokens";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useGetListingByUserService } from "@/services/api/garantia";
-// import { useTranslation } from "@/services/i18n/client";
-// import { useSnackbar } from "notistack";
+import { useTranslation } from "@/services/i18n/client";
+import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -23,13 +23,13 @@ type Props = {
 type ItemCardProps = Garantia;
 
 function List(props: Props) {
-  // const { setUser } = useAuthActions();
-  // const { setTokensInfo } = useAuthTokens();
-  // const fetchAuthLogin = useAuthLoginService();
-  // const { enqueueSnackbar } = useSnackbar();
+  //const { setUser } = useAuthActions();
+  //const { setTokensInfo } = useAuthTokens();
+  //const fetchAuthLogin = useAuthLoginService();
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
-  // const { t } = useTranslation("register");
+  const { t } = useTranslation("register");
   const { user } = useAuth();
   const garantiaId = props.params.id;
 
@@ -48,7 +48,10 @@ function List(props: Props) {
           }
         })
         .catch((err) => {
-          console.error(`Failed to fetch client data: ${garantiaId}`, err);
+          // console.error(`Failed to fetch client data: ${garantiaId}`, err);
+          enqueueSnackbar(`${t("Faileddata")}: ${err}`, {
+            variant: "error",
+          });
           setIsLoading(false); // Update loading state
         });
     }
@@ -62,7 +65,7 @@ function List(props: Props) {
         </Grid>
         <Grid container spacing={3} rowSpacing={3}>
           {isLoading ? (
-            <p>Loading...</p>
+            <p>{t("common.loading")}</p>
           ) : (
             items.map((item, index) => (
               <Grid item xs={12} key={index}>
@@ -71,7 +74,7 @@ function List(props: Props) {
                   onClick={() => {
                     router.replace(`${item.garantiaId}`);
                   }}
-                  action="Ver detalles"
+                  action={t("common.viewDetails")}
                 />
               </Grid>
             ))

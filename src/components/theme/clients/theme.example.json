@@ -1,0 +1,40 @@
+{
+  "name": "Mamut",
+  "apiKey": "hashed-public-api-key",
+  "domain": "mamut.app",
+  "tenantId": "mamut",
+  "config": {
+    "openAI": "",
+    "twilio": "",
+    "phoneNumber": "",
+    "emailServer": ""
+  },
+  "theme": {
+    "colorSchemes": {
+      "light": {
+        "palette": {
+          "primary": { "main": "#b7d7f6" },
+          "secondary": { "main": "#ff0000" },
+          "background": {
+            "default": "#fff",
+            "paper": "#f6fff6"
+          }
+        }
+      },
+      "dark": {
+        "palette": {
+          "primary": { "main": "#0070a4" },
+          "secondary": { "main": "#004310" },
+          "background": {
+            "default": "#112627",
+            "paper": "#003c4a"
+          }
+        }
+      }
+    },
+    "customImages": {
+      "long": "/logo.mamut.svg",
+      "short": "/mamut100.svg"
+    }
+  }
+}

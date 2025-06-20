@@ -120,7 +120,6 @@ export type GetListingByUserResponse = object;
 
 export function useGetListingByUserService() {
   const fetchBase = useFetchBase();
-
   return useCallback(
     (data: GetListingByUserRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/sku/getList/${data.userId}`, {
@@ -145,11 +144,11 @@ export type GetSKUResponse = {
 };
 
 export function useGetSKUService() {
-  const fetchBase = useFetchBase();
+  const fetch = useFetch();
 
   return useCallback(
     (data: GetSKURequest, requestConfig?: RequestConfigType) => {
-      return fetchBase(`${API_URL}/v1/sku/${data.id}`, {
+      return fetch(`${API_URL}/v1/sku/${data.id}`, {
         method: "GET",
         ...requestConfig,
       })
@@ -162,7 +161,7 @@ export function useGetSKUService() {
           }
         });
     },
-    [fetchBase]
+    [fetch]
   );
 }
 // GetSKU should be a 200 status code with the SKU's details.
@@ -309,7 +308,6 @@ export type SKUsDeleteResponse = undefined;
 
 export function useDeleteSKUsService() {
   const fetch = useFetch();
-
   return useCallback(
     (data: SKUsDeleteRequest, requestConfig?: RequestConfigType) => {
       return fetch(`${API_URL}/v1/sku/${data.id}`, {

@@ -31,7 +31,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { SKU } from "@/services/api/types/sku";
-//import { User } from "@/services/api/types/user";
+// import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 // import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
@@ -153,7 +153,7 @@ function Actions({ sku }: { sku: SKU }) {
       );
 
       await fetchSkusDelete({
-        id: sku.skuId,
+        id: sku.id,
       });
     }
   };

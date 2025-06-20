@@ -149,6 +149,7 @@ function Form({ params }: Props) {
           refreshToken: data.refreshToken,
           tokenExpires: data.tokenExpires,
         });
+        // console.log({ data });
         setUser(data.user);
         if (params.id) {
           // console.log({ go: "register" });

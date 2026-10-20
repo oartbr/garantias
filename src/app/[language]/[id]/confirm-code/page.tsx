@@ -3,7 +3,11 @@ import ConfirmCode from "../../confirm-code/page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {
-  params: { language: string; id: string; confirmStatus: confirmStatus };
+  params: Promise<{
+    language: string;
+    id: string;
+    confirmStatus: confirmStatus;
+  }>;
 };
 
 interface confirmStatus {
@@ -12,13 +16,15 @@ interface confirmStatus {
   code: string;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "register");
   return {
     title: t("title") + params.language + params.id,
   };
 }
 
-export default function ConfirmCodePage(props: Props) {
-  return <ConfirmCode {...props} />;
+export default async function ConfirmCodePage(props: Props) {
+  const resolvedProps = { ...props, params: await props.params };
+  return <ConfirmCode {...resolvedProps} />;
 }

@@ -85,13 +85,27 @@ function Scan() {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={3} wrap="nowrap" pt={3}>
-        <Grid item xs={12} style={{ width: "100%" }}>
+      <Grid
+        container
+        spacing={3}
+        wrap="nowrap"
+        sx={{
+          pt: 3,
+        }}
+      >
+        <Grid style={{ width: "100%" }} size={12}>
           <QRscanner callBack={(url) => checkScannedData(url, checkGarantia)} />
         </Grid>
       </Grid>
-      <Grid container spacing={3} wrap="nowrap" pt={3}>
-        <Grid item className="scanScreenButton">
+      <Grid
+        container
+        spacing={3}
+        wrap="nowrap"
+        sx={{
+          pt: 3,
+        }}
+      >
+        <Grid className="scanScreenButton">
           <Button
             variant="contained"
             LinkComponent={Link}

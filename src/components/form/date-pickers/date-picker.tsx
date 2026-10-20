@@ -11,7 +11,7 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { ForwardedRef, forwardRef } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import useLanguage from "@/services/i18n/use-language";
 import { getValueByKey } from "@/components/form/date-pickers/helper";
 
@@ -61,15 +61,13 @@ function DatePickerInputRaw(
         value={props.value}
         onClose={props.onBlur}
         disabled={props.disabled}
+        readOnly={props.readOnly}
         autoFocus={props.autoFocus}
         defaultValue={props.defaultValue}
         slotProps={{
           textField: {
             helperText: props.error,
             error: !!props.error,
-            InputProps: {
-              readOnly: props.readOnly,
-            },
           },
         }}
         onAccept={props.onChange}

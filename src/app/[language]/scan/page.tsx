@@ -3,10 +3,12 @@ import { getServerTranslation } from "@/services/i18n";
 import Scan from "./page-content";
 
 type Props = {
-  params: { language: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ language: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "scan");
 
   return {
@@ -14,4 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default Scan;
+export default function Page() {
+  return <Scan />;
+}

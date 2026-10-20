@@ -6,6 +6,6 @@ export const GARANTIA_CODE_LENGTH = process.env.GARANTIA_CODE_LENGTH || 7;
 export const GARANTIA_CODE_TYPE = process.env.GARANTIA_CODE_TYPE || "string";
 export const GARANTIA_CODE_PREFIX = process.env.GARANTIA_CODE_PREFIX || "WSE";
 
-export const AUTH_REFRESH_URL = API_URL + "/v1/auth/refresh";
+export const AUTH_REFRESH_URL = API_URL + "/v1/auth/refresh-tokens";
 export const AUTH_ME_URL = API_URL + "/v1/auth/me";
 export const AUTH_LOGOUT_URL = API_URL + "/v1/auth/logout";

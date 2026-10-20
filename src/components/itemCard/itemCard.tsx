@@ -28,9 +28,7 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
     (user?.role?.name === "ADMIN" ||
       user?.role?.name === "QA" ||
       user?.role?.name === "SALES");
-  if (item && item.phoneNumber) {
-    item.phoneNumber = item.phoneNumber.replace("+", "");
-  }
+  const phoneNumber = item.phoneNumber?.replace("+", "");
   return (
     <Grid>
       <Card elevation={3} className="normalCard">
@@ -78,7 +76,7 @@ export function ItemCard({ item, onClick, action, user }: ItemCardProps) {
               </Typography>
               <Typography variant="body2">
                 <strong>{t(`listing:fields.phone.label`)}: </strong>
-                {`+${item.phoneNumber}`}
+                {`+${phoneNumber}`}
               </Typography>
               <Typography variant="body2">
                 <strong>{t(`listing:fields.address.label`)}: </strong>

@@ -4,7 +4,7 @@ type KeyType<K = unknown> = {
 };
 
 // Need for recursive type
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 type BodyType = (...params: any[]) => KeyType;
 
 type AllType = {

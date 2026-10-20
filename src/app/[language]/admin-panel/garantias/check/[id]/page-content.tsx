@@ -108,7 +108,7 @@ function EditGarantiaFormActions() {
 }
 
 function FormEditGarantia() {
-  const params = useParams();
+  const params = useParams<{ id: string; language: string }>();
 
   const garantiaId = params.id;
   const { user } = useAuth();
@@ -306,14 +306,21 @@ function FormEditGarantia() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-garantias-check:titleAssign")} {garantiaId}
               </Typography>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormSelectInput
                 name="sku"
                 label="Select SKU"
@@ -325,7 +332,7 @@ function FormEditGarantia() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<QualityCheckFormData>
                 name="brand"
                 testId="brand"
@@ -334,7 +341,7 @@ function FormEditGarantia() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<QualityCheckFormData>
                 name="description"
                 testId="description"
@@ -345,7 +352,7 @@ function FormEditGarantia() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormCheckboxInput
                 name="qualityCheck"
                 label={t("admin-panel-garantias-check:options.title")}
@@ -356,9 +363,14 @@ function FormEditGarantia() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <EditGarantiaFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

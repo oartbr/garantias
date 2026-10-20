@@ -1,3 +1,4 @@
+import Stack from "@mui/material/Stack";
 import type { Metadata } from "next";
 import { getServerTranslation } from "@/services/i18n";
 import Container from "@mui/material/Container";
@@ -15,10 +16,11 @@ import Link from "@mui/material/Link";
 import MediaCard from "../../components/itemCard/mediaCard";
 
 type Props = {
-  params: { language: string };
+  params: Promise<{ language: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "home");
 
   return {
@@ -26,23 +28,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Home({ params }: Props) {
+export default async function Home(props: Props) {
+  const params = await props.params;
   const listing_t = await getServerTranslation(params.language, "listing");
   const tMedia = listing_t.t;
   const { t } = await getServerTranslation(params.language, "home");
 
   return (
     <Container maxWidth="sm">
-      <Grid
-        container
+      <Stack
         spacing={3}
-        wrap="nowrap"
-        pt={3}
         direction="column"
-        sx={{ height: "90vh", justifyContent: "space-between" }}
+        sx={{
+          pt: 3,
+          height: "90vh",
+          justifyContent: "space-between",
+        }}
       >
-        <Grid item>
-          <Box ml={1} component="div" className="scan">
+        <Grid>
+          <Box
+            component="div"
+            className="scan"
+            sx={{
+              ml: 1,
+            }}
+          >
             <div className="scanning">
               <Image
                 className="qrTanque"
@@ -81,16 +91,16 @@ export default async function Home({ params }: Props) {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12}>
-          <Grid
-            container
+        <Grid size={12}>
+          <Stack
             spacing={2}
             direction={{ xs: "column", md: "row" }}
-            alignItems="center"
-            wrap="nowrap"
             className="mediaLinks"
+            sx={{
+              alignItems: "center",
+            }}
           >
-            <Grid item>
+            <Grid>
               <MediaCard
                 title={tMedia("listing:manual.installation.title")}
                 description={tMedia("listing:manual.installation.description")}
@@ -99,7 +109,7 @@ export default async function Home({ params }: Props) {
                 target="_blank"
               />
             </Grid>
-            <Grid item>
+            <Grid>
               <MediaCard
                 title={tMedia("listing:manual.functionalities.title")}
                 description={tMedia(
@@ -110,7 +120,7 @@ export default async function Home({ params }: Props) {
                 target="_blank"
               />
             </Grid>
-            <Grid item>
+            <Grid>
               <MediaCard
                 title={tMedia("listing:manual.maintenance.title")}
                 description={tMedia("listing:manual.maintenance.description")}
@@ -119,12 +129,12 @@ export default async function Home({ params }: Props) {
                 target="_blank"
               />
             </Grid>
-          </Grid>
+          </Stack>
         </Grid>
-        <Grid item sx={{ mx: "auto" }} className="privacyPolicy">
+        <Grid sx={{ mx: "auto" }} className="privacyPolicy">
           <Button href="/privacy-policy">{t("privacy-policy")}</Button>
         </Grid>
-      </Grid>
+      </Stack>
     </Container>
   );
 }

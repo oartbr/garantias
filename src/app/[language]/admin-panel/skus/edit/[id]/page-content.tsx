@@ -100,7 +100,7 @@ function EditSkuFormActions() {
 }
 
 function FormEditSku() {
-  const params = useParams();
+  const params = useParams<{ id: string; language: string }>();
 
   const { user } = useAuth();
   const userId = user?.id;
@@ -192,99 +192,111 @@ function FormEditSku() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-sku-edit:title")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="brand"
                 testId="brand"
                 label={t("admin-panel-sku-edit:inputs.brand.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="skuId"
                 testId="skuId"
                 label={t("admin-panel-sku-edit:inputs.skuId.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="description"
                 testId="description"
                 label={t("admin-panel-sku-edit:inputs.description.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="category"
                 testId="category"
                 label={t("admin-panel-sku-edit:inputs.category.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="capacity"
                 testId="capacity"
                 label={t("admin-panel-sku-edit:inputs.capacity.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="length"
                 testId="length"
                 label={t("admin-panel-sku-edit:inputs.length.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="width"
                 testId="width"
                 label={t("admin-panel-sku-edit:inputs.width.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="height"
                 testId="height"
                 label={t("admin-panel-sku-edit:inputs.height.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="weight"
                 testId="weight"
                 label={t("admin-panel-sku-edit:inputs.weight.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="material"
                 testId="material"
                 label={t("admin-panel-sku-edit:inputs.material.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="cost"
                 testId="cost"
                 label={t("admin-panel-sku-edit:inputs.cost.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditSkuFormData>
                 name="price"
                 testId="price"
                 label={t("admin-panel-sku-edit:inputs.price.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <EditSkuFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

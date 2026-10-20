@@ -3,10 +3,12 @@ import CreateGarantias from "./page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {
-  params: { language: string; amount: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ language: string; amount: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(
     params.language,
     "admin-panel-garantia-create"
@@ -17,4 +19,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default CreateGarantias;
+export default function Page() {
+  return <CreateGarantias />;
+}

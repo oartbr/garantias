@@ -1,86 +1,30 @@
-# Extensive React Boilerplate
+# Garantias
 
-[![image](https://github.com/brocoders/extensive-react-boilerplate/assets/72293912/052e74be-7de0-4a4a-92a6-e6a4b68fd4b5)](https://github.com/new?template_name=extensive-react-boilerplate&template_owner=brocoders)
+Frontend Next.js 16 / React 19 / Material UI 9, preparado para Vercel com Node.js 24 LTS.
 
-**Belongs to the [bc boilerplates](https://bcboilerplates.com/) ecosystem**
+## Executar
+Use a versão em `.nvmrc`, instale com `npm ci` e configure `.env.local` a partir de `example.env.local`.
+`npm run dev` inicia desenvolvimento. `npm run build` produz o build com Webpack e gera o service worker diretamente com Workbox.
 
-## Table of Contents <!-- omit in toc -->
+## Verificar
+- `npm test`: testes de requisições, tokens, regras de fluxo e componentes.
+- `npm run lint` e `npm run typecheck`: verificações estáticas.
+- `npm run build:e2e`: cria `.test-app` sem carregar arquivos `.env` locais.
+- `npx playwright install chromium` e `npm run test:e2e`: navegação com API simulada e rede externa bloqueada.
+- `npm run test:integration`: navegador com API real e MongoDB temporário; requer a API instalada na pasta irmã `garantiasAPI` (ou `GARANTIAS_API_ROOT`) e o build isolado pronto. Execute depois da suíte E2E, pois usam as mesmas portas.
 
-- [Extensive React Boilerplate](#extensive-react-boilerplate)
-  - [Description](#description)
-  - [Getting Started](#getting-started)
-  - [Features](#features)
-  - [Screenshots](#screenshots)
-  - [Contributors](#contributors)
-  - [Support](#support)
+A CI executa os testes e o build com Node 24. Os testes antigos em `playwright-tests` dependem de serviços
+externos e não fazem parte da suíte isolada. A nova suíte não envia mensagens nem modifica o Atlas.
 
-## Description
+## Vercel
+Importe este repositório como projeto Next.js separado da API. Use Node 24.x, Install Command `npm ci`
+e Build Command `npm run build`. Configure `NEXT_PUBLIC_API_URL` e demais variáveis de `example.env.local`
+para cada ambiente. Variáveis `NEXT_PUBLIC_*` são públicas e incorporadas ao build: nunca coloque segredos nelas.
 
-ReactJS Boilerplate for a typical project.
+Valide o Preview com uma API e contas de homologação antes de promover. A migração não realiza deploy.
+Para rollback, promova novamente o deployment anterior da Vercel, mantendo frontend/API compatíveis.
 
-[Full documentation here](/docs/README.md)
+O service worker guarda recursos estáticos; páginas e API precisam de rede. Chrome/Edge/Firefox atuais
+ou Safari 17+ são necessários para os componentes atualizados.
 
-Demo: <https://react-boilerplate-coral.vercel.app>
-
-Backend: <https://github.com/brocoders/nestjs-boilerplate>
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-cp example.env.local .env.local
-
-npm run dev
-```
-
-## Features
-
-- [x] Next.js
-- [x] TypeScript
-- [x] [i18n](https://react.i18next.com/) (based on https://github.com/i18next/next-13-app-dir-i18next-example)
-- [x] [Material UI](https://mui.com/). Supports dark mode.
-- [x] [React Hook Form](https://react-hook-form.com/)
-- [x] React Query
-- [x] Auth (Sign in, Sign up, Reset password, Confirm email, Refresh Token)
-- [x] User management (CRUD)
-- [x] File Upload
-- [x] E2E tests ([Playwright](https://playwright.dev/))
-- [x] ESLint
-- [x] CI (GitHub Actions)
-
-## Screenshots
-
-<img width="1552" alt="Sign In" src="https://github.com/brocoders/extensive-react-boilerplate/assets/6001723/5d42cd15-685b-4ae7-951d-4c8ed89c5390">
-
-<img width="1552" alt="Sign Up" src="https://github.com/brocoders/extensive-react-boilerplate/assets/6001723/aca2d405-2155-4755-8d0e-d41bdc0db852">
-
-<img width="1552" alt="Users list" src="https://github.com/brocoders/extensive-react-boilerplate/assets/6001723/244409c0-2235-4018-b062-44fb54ea4321">
-
-<img width="1552" alt="Create user" src="https://github.com/brocoders/extensive-react-boilerplate/assets/6001723/cb86a3e1-331f-4bd7-9668-3c6cf44eb372">
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Shchepotin"><img src="https://avatars.githubusercontent.com/u/6001723?v=4?s=100" width="100px;" alt="Vladyslav Shchepotin"/><br /><sub><b>Vladyslav Shchepotin</b></sub></a><br /><a href="#maintenance-Shchepotin" title="Maintenance">🚧</a> <a href="#doc-Shchepotin" title="Documentation">📖</a> <a href="#code-Shchepotin" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ElenVlass"><img src="https://avatars.githubusercontent.com/u/72293912?v=4?s=100" width="100px;" alt="Elena Vlasenko"/><br /><sub><b>Elena Vlasenko</b></sub></a><br /><a href="#doc-ElenVlass" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/TetianaFomina"><img src="https://avatars.githubusercontent.com/u/72749258?v=4?s=100" width="100px;" alt="TetianaFomina"/><br /><sub><b>TetianaFomina</b></sub></a><br /><a href="#test-TetianaFomina" title="Tests">⚠️</a> <a href="#bug-TetianaFomina" title="Bug reports">🐛</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/LiudmylaKostenko"><img src="https://avatars.githubusercontent.com/u/55603883?v=4?s=100" width="100px;" alt="Liudmyla Kostenko"/><br /><sub><b>Liudmyla Kostenko</b></sub></a><br /><a href="#code-LiudmylaKostenko" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://brocoders.com"><img src="https://avatars.githubusercontent.com/u/226194?v=4?s=100" width="100px;" alt="Rodion"/><br /><sub><b>Rodion</b></sub></a><br /><a href="#business-sars" title="Business development">💼</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## Support
-
-If you seek consulting, support, or wish to collaborate, please get in touch with us via [boilerplates@brocoders.com](boilerplates@brocoders.com) or feel free to ask us on [GitHub Discussions](https://github.com/brocoders/extensive-react-boilerplate/discussions). We are totally open to any suggestions and improvements.
+Detalhes, resultados e limitações: [registro da migração](docs/migracao-implementada-2026-10-19.md).

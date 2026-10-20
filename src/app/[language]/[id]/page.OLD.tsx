@@ -1,3 +1,4 @@
+import Stack from "@mui/material/Stack";
 import type { Metadata } from "next";
 import { getServerTranslation } from "@/services/i18n";
 import Container from "@mui/material/Container";
@@ -39,15 +40,16 @@ export default async function Home({ params }: Props) {
   ) {
     return (
       <Container maxWidth="md">
-        <Grid
-          container
+        <Stack
           spacing={3}
-          wrap="nowrap"
-          pt={3}
           direction="column"
-          sx={{ height: "90vh", justifyContent: "space-between" }}
+          sx={{
+            pt: 3,
+            height: "90vh",
+            justifyContent: "space-between",
+          }}
         >
-          <Grid item>
+          <Grid>
             <div className="scanning">
               <Image
                 className="qrTanque"
@@ -97,24 +99,25 @@ export default async function Home({ params }: Props) {
               </Typography>
             </div>
           </Grid>
-          <Grid item sx={{ mx: "auto" }}>
+          <Grid sx={{ mx: "auto" }}>
             <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
           </Grid>
-        </Grid>
+        </Stack>
       </Container>
     );
   } else {
     return (
       <Container maxWidth="md">
-        <Grid
-          container
+        <Stack
           spacing={3}
-          wrap="nowrap"
-          pt={3}
           direction="column"
-          sx={{ height: "90vh", justifyContent: "space-between" }}
+          sx={{
+            pt: 3,
+            height: "90vh",
+            justifyContent: "space-between",
+          }}
         >
-          <Grid item>
+          <Grid>
             <div className="scanning">
               <Image
                 className="qrTanque"
@@ -159,10 +162,10 @@ export default async function Home({ params }: Props) {
               </Typography>
             </div>
           </Grid>
-          <Grid item sx={{ mx: "auto" }}>
+          <Grid sx={{ mx: "auto" }}>
             <MuiLink href="/privacy-policy">Privacy Policy</MuiLink>
           </Grid>
-        </Grid>
+        </Stack>
       </Container>
     );
   }

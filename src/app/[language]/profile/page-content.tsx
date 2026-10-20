@@ -1,4 +1,5 @@
 "use client";
+import Stack from "@mui/material/Stack";
 // import { RoleEnum } from "@/services/api/types/role";
 import useAuth from "@/services/auth/use-auth";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
@@ -21,22 +22,22 @@ function Profile() {
   const { t } = useTranslation("profile");
   return (
     <Container maxWidth="sm">
-      <Grid
-        container
+      <Stack
         spacing={3}
-        wrap="nowrap"
-        pt={3}
         direction="column"
-        alignItems="center"
+        sx={{
+          pt: 3,
+          alignItems: "center",
+        }}
       >
-        <Grid item xs="auto">
+        <Grid size="auto">
           <StyledAvatar
             alt={user?.firstName + " " + user?.lastName}
             data-testid="user-icon"
             src={user?.photo?.toString()}
           />
         </Grid>
-        <Grid item>
+        <Grid>
           <Typography variant="h3" gutterBottom data-testid="user-name">
             {user?.firstName} {user?.lastName}
           </Typography>
@@ -44,7 +45,7 @@ function Profile() {
             {user?.email}
           </Typography>
           <Grid container>
-            <Grid item>
+            <Grid>
               <Button
                 variant="contained"
                 color="primary"
@@ -57,7 +58,7 @@ function Profile() {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Stack>
     </Container>
   );
 }

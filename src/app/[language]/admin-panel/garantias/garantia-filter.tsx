@@ -75,8 +75,15 @@ function GarantiaFilter() {
               );
             })}
           >
-            <Grid container spacing={2} mb={3} mt={3}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                mb: 3,
+                mt: 3,
+              }}
+            >
+              <Grid size={12}>
                 <FormMultipleSelectInput<
                   GarantiaFilterFormData,
                   Pick<Status, "id">
@@ -115,7 +122,7 @@ function GarantiaFilter() {
                   }
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Button variant="contained" type="submit">
                   {t("admin-panel-garantias:filter.actions.apply")}
                 </Button>

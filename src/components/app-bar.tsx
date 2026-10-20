@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
           <InstallButton />
         </div>
         <Toolbar disableGutters>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
+          {}
           <Image
             className="logoHeader"
             src={clientLogo}
@@ -98,7 +98,11 @@ function ResponsiveAppBar() {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu} component={Link} href="/">
-                <Typography textAlign="center">
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
                   {t("common:navigation.home")}
                 </Typography>
               </MenuItem>
@@ -108,7 +112,11 @@ function ResponsiveAppBar() {
                 component={Link}
                 href="/scan"
               >
-                <Typography textAlign="center">
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
                   {t("common:navigation.scan")}
                 </Typography>
               </MenuItem>
@@ -120,7 +128,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/admin-panel/users"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.users")}
                     </Typography>
                   </MenuItem>,
@@ -133,7 +145,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/admin-panel/garantias"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.garantias")}
                     </Typography>
                   </MenuItem>,
@@ -146,7 +162,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/admin-panel/skus"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.skus")}
                     </Typography>
                   </MenuItem>,
@@ -159,7 +179,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/admin-panel/garantias/print"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.print")}
                     </Typography>
                   </MenuItem>,
@@ -172,7 +196,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/listing"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.listing")}
                     </Typography>
                   </MenuItem>,
@@ -185,7 +213,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/scan"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.scan")}
                     </Typography>
                   </MenuItem>,
@@ -199,7 +231,11 @@ function ResponsiveAppBar() {
                     component={Link}
                     href="/check-phone-number"
                   >
-                    <Typography textAlign="center">
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
                       {t("common:navigation.signIn")}
                     </Typography>
                   </MenuItem>,
@@ -210,7 +246,11 @@ function ResponsiveAppBar() {
                       component={Link}
                       href="/sign-up"
                     >
-                      <Typography textAlign="center">
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                        }}
+                      >
                         {t("common:navigation.signUp")}
                       </Typography>
                     </MenuItem>
@@ -351,7 +391,11 @@ function ResponsiveAppBar() {
                   href="/profile"
                   data-testid="user-profile"
                 >
-                  <Typography textAlign="center">
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
                     {t("common:navigation.profile")}
                   </Typography>
                 </MenuItem>
@@ -362,7 +406,11 @@ function ResponsiveAppBar() {
                   }}
                   data-testid="logout-menu-item"
                 >
-                  <Typography textAlign="center">
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
                     {t("common:navigation.logout")}
                   </Typography>
                 </MenuItem>

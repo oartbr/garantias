@@ -110,8 +110,20 @@ function Form(props: Props) {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3}>
-            <Grid item xs={12} mt={3} mb={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+                mb: 3,
+              }}
+            >
               <Typography variant="h6">
                 {t("register:workflow.confirm-phone.title")}
               </Typography>
@@ -119,7 +131,7 @@ function Form(props: Props) {
                 {t("register:workflow.confirm-phone.subtitle")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t(
@@ -132,7 +144,12 @@ function Form(props: Props) {
                 region="SA"
               />
             </Grid>
-            <Grid item xs={7} mt={2}>
+            <Grid
+              size={7}
+              sx={{
+                mt: 2,
+              }}
+            >
               <FormActions />
             </Grid>
           </Grid>

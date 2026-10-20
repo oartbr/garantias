@@ -186,11 +186,22 @@ function Form(props: Props) {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} mt={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+              }}
+            >
               <Typography variant="h6">{t("register:title")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="firstName"
                 label={t("register:inputs.firstName.label")}
@@ -200,7 +211,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="lastName"
                 label={t("register:inputs.lastName.label")}
@@ -209,7 +220,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="address"
                 label={t("register:inputs.address.label")}
@@ -218,7 +229,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="number"
                 label={t("register:inputs.number.label")}
@@ -227,7 +238,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="city"
                 label={t("register:inputs.city.label")}
@@ -236,7 +247,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="zipcode"
                 label={t("register:inputs.zipcode.label")}
@@ -245,7 +256,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<RegisterFormData>
                 name="email"
                 label={t("register:inputs.email.label")}
@@ -253,7 +264,7 @@ function Form(props: Props) {
                 testId="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormCheckboxInput
                 name="policy"
                 label=""
@@ -272,7 +283,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormActions />
             </Grid>
           </Grid>

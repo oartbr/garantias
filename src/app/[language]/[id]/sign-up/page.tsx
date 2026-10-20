@@ -5,24 +5,33 @@ import { getServerTranslation } from "@/services/i18n";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; slug: string; id: string; returnToPath: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{
+    language: string;
+    slug: string;
+    id: string;
+    returnToPath: string;
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "sign-up");
-
-  params.returnToPath = params.id || "/";
 
   return {
     title: t("title"),
   };
 }
 
-export default function SignUpPage(props: Props) {
+export default async function SignUpPage(props: Props) {
+  const resolvedProps = {
+    ...props,
+    params: await props.params,
+    searchParams: await props.searchParams,
+  };
   if (!IS_SIGN_UP_ENABLED) {
     // return redirect("/");
   }
 
-  return <SignUp {...props} />;
+  return <SignUp {...resolvedProps} />;
 }

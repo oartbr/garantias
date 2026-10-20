@@ -137,8 +137,20 @@ function Form(props: Props) {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3}>
-            <Grid item xs={12} mt={3} mb={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+                mb: 3,
+              }}
+            >
               <Typography variant="h6">
                 {t("register:workflow.confirm-phone.title")}
               </Typography>
@@ -147,7 +159,7 @@ function Form(props: Props) {
               </Typography>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item xs={5}>
+              <Grid size={5}>
                 <FormSelectInput
                   name="countryCode"
                   label={t("register:inputs.countryCode.label")}
@@ -158,7 +170,7 @@ function Form(props: Props) {
                   onChange={changeCountry}
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid size={7}>
                 <FormTextInput<RegisterFormData>
                   name="phoneNumber"
                   label={t("register:inputs.phoneNumber.label")}
@@ -167,7 +179,12 @@ function Form(props: Props) {
                 />
               </Grid>
             </Grid>
-            <Grid item xs={7} mt={2}>
+            <Grid
+              size={7}
+              sx={{
+                mt: 2,
+              }}
+            >
               <FormActions />
             </Grid>
           </Grid>

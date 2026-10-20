@@ -5,11 +5,12 @@ import { redirect } from "next/navigation";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; id: string; slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ language: string; id: string; slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "listing");
 
   return {
@@ -17,10 +18,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ListingPage(props: Props) {
+export default async function ListingPage(props: Props) {
+  const resolvedProps = {
+    ...props,
+    params: await props.params,
+    searchParams: await props.searchParams,
+  };
   if (!IS_SIGN_UP_ENABLED) {
     return redirect("/");
   }
 
-  return <Listing {...props} />;
+  return <Listing {...resolvedProps} />;
 }

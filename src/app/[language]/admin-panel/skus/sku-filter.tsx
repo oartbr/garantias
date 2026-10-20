@@ -75,8 +75,15 @@ function SkuFilter() {
               );
             })}
           >
-            <Grid container spacing={2} mb={3} mt={3}>
-              <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                mb: 3,
+                mt: 3,
+              }}
+            >
+              <Grid size={12}>
                 <FormMultipleSelectInput<
                   SkuFilterFormData,
                   Pick<Category, "id">
@@ -112,7 +119,7 @@ function SkuFilter() {
                   }
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Button variant="contained" type="submit">
                   {t("admin-panel-skus:filter.actions.apply")}
                 </Button>

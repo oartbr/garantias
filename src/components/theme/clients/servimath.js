@@ -1,6 +1,6 @@
 "use client";
 
-import extendTheme from "@mui/material/styles/experimental_extendTheme";
+import { extendTheme } from "@mui/material/styles";
 
 const clientTheme = extendTheme({
   colorSchemes: {

@@ -1,3 +1,4 @@
+import Stack from "@mui/material/Stack";
 import { useTranslation } from "@/services/i18n/client";
 import Grid from "@mui/material/Grid";
 import { forwardRef } from "react";
@@ -6,15 +7,15 @@ import MediaCard from "./itemCard/mediaCard";
 const MediaLink = forwardRef<HTMLAnchorElement>(function MediaLink() {
   const { t } = useTranslation("listing");
   return (
-    <Grid
-      container
+    <Stack
       spacing={2}
       direction={{ xs: "column", md: "row" }}
-      alignItems="center"
-      wrap="nowrap"
       className="mediaLinks"
+      sx={{
+        alignItems: "center",
+      }}
     >
-      <Grid item>
+      <Grid>
         <MediaCard
           title={t("listing:manual.installation.title")}
           description={t("listing:manual.installation.description")}
@@ -26,7 +27,7 @@ const MediaLink = forwardRef<HTMLAnchorElement>(function MediaLink() {
           target="_blank"
         />
       </Grid>
-      <Grid item>
+      <Grid>
         <MediaCard
           title={t("listing:manual.functionalities.title")}
           description={t("listing:manual.functionalities.description")}
@@ -38,7 +39,7 @@ const MediaLink = forwardRef<HTMLAnchorElement>(function MediaLink() {
           target="_blank"
         />
       </Grid>
-      <Grid item>
+      <Grid>
         <MediaCard
           title={t("listing:manual.maintenance.title")}
           description={t("listing:manual.maintenance.description")}
@@ -50,7 +51,7 @@ const MediaLink = forwardRef<HTMLAnchorElement>(function MediaLink() {
           target="_blank"
         />
       </Grid>
-    </Grid>
+    </Stack>
   );
 });
 

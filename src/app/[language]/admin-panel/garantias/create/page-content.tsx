@@ -149,13 +149,20 @@ function FormCreateGarantias() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-garantia-create:title")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormSelectInput<GenerateCodesFormData, OptionType>
                 name="quantity"
                 testId="quantity"
@@ -169,9 +176,14 @@ function FormCreateGarantias() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <GenerateCodesFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

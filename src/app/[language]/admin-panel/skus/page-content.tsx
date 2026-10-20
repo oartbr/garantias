@@ -297,18 +297,24 @@ function Skus() {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={3} pt={3}>
-        <Grid container item spacing={3} xs={12}>
-          <Grid item xs>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          pt: 3,
+        }}
+      >
+        <Grid container spacing={3} size={12}>
+          <Grid size="grow">
             <Typography variant="h3">
               {tSKUs("admin-panel-skus:title")}
             </Typography>
           </Grid>
-          <Grid container item xs="auto" wrap="nowrap" spacing={2}>
-            <Grid item xs="auto">
+          <Grid container wrap="nowrap" spacing={2} size="auto">
+            <Grid size="auto">
               <SkuFilter />
             </Grid>
-            <Grid item xs="auto">
+            <Grid size="auto">
               <Button
                 variant="contained"
                 LinkComponent={Link}
@@ -321,7 +327,12 @@ function Skus() {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} mb={2}>
+        <Grid
+          size={12}
+          sx={{
+            mb: 2,
+          }}
+        >
           <TableVirtuoso
             style={{ height: 500, zIndex: 0 }}
             data={result}

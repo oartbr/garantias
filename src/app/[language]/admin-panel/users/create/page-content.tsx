@@ -148,20 +148,27 @@ function FormCreateUser() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit} autoComplete="create-new-user">
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-users-create:title")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormAvatarInput<CreateUserFormData>
                 name="photo"
                 testId="photo"
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateUserFormData>
                 name="firstName"
                 testId="first-name"
@@ -169,7 +176,7 @@ function FormCreateUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateUserFormData>
                 name="lastName"
                 testId="last-name"
@@ -177,7 +184,7 @@ function FormCreateUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateUserFormData>
                 name="email"
                 testId="new-user-email"
@@ -186,7 +193,7 @@ function FormCreateUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t(
@@ -199,7 +206,7 @@ function FormCreateUser() {
                 region="SA"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateUserFormData>
                 name="password"
                 type="password"
@@ -209,7 +216,7 @@ function FormCreateUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateUserFormData>
                 name="passwordConfirmation"
                 testId="new-user-password-confirmation"
@@ -241,9 +248,14 @@ function FormCreateUser() {
               />
             </Grid>
             */}
-            <Grid item xs={12}>
+            <Grid size={12}>
               <CreateUserFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

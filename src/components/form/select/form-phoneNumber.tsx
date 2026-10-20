@@ -62,7 +62,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={5}>
+      <Grid size={5}>
         <Controller
           name={`areaCode`}
           defaultValue={areaCodeDefault ? countryCodes[0] : {}}
@@ -80,7 +80,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
           )}
         />
       </Grid>
-      <Grid item xs={7}>
+      <Grid size={7}>
         <Controller
           name={`phNumber`}
           defaultValue={defaultValue ? defaultValue : ""}

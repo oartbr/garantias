@@ -14,7 +14,7 @@ import SnackbarProvider from "@/components/snackbar-provider";
 import { getServerTranslation } from "@/services/i18n";
 import StoreLanguageProvider from "@/services/i18n/store-language-provider";
 import { ThemeProvider } from "@mui/material/styles";
-import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
+import { CssVarsProvider } from "@mui/material/styles";
 import LeavePageProvider from "@/services/leave-page/leave-page-provider";
 import QueryClientProvider from "@/services/react-query/query-client-provider";
 import queryClient from "@/services/react-query/query-client";
@@ -24,12 +24,14 @@ import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
 import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
 import GetTheme from "@/components/theme/themes";
+import PwaRegister from "@/components/pwa-register";
 
 type Props = {
-  params: { language: string };
+  params: Promise<{ language: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "common");
 
   return {
@@ -42,13 +44,16 @@ export function generateStaticParams() {
   return languages.map((language) => ({ language }));
 }
 
-export default function RootLayout({
-  children,
-  params: { language },
-}: {
+export default async function RootLayout(props: {
   children: React.ReactNode;
-  params: { language: string };
+  params: Promise<{ language: string }>;
 }) {
+  const params = await props.params;
+
+  const { language } = params;
+
+  const { children } = props;
+
   // console.log({ ClientThemes });
   const defaultTheme = GetTheme();
   return (
@@ -59,6 +64,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning={true}>
+        <PwaRegister />
         <InitColorSchemeScript />
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />

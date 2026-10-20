@@ -119,7 +119,7 @@ function Modal() {
           color="primary"
           onClick={closeModal}
           // Remove once MUI fixes this
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
           // @ts-ignore
           href={href}
           replace={!!leavePage?.replace}

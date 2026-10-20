@@ -188,13 +188,20 @@ function FormCreateSKUs() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-sku-create:title")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="brand"
                 testId="brand"
@@ -202,86 +209,91 @@ function FormCreateSKUs() {
                 disabled // Disable the input field
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="skuId"
                 testId="skuId"
                 label={t("admin-panel-sku-create:inputs.skuId.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="description"
                 testId="description"
                 label={t("admin-panel-sku-create:inputs.description.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="category"
                 testId="category"
                 label={t("admin-panel-sku-create:inputs.category.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="capacity"
                 testId="capacity"
                 label={t("admin-panel-sku-create:inputs.capacity.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="length"
                 testId="length"
                 label={t("admin-panel-sku-create:inputs.length.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="width"
                 testId="width"
                 label={t("admin-panel-sku-create:inputs.width.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="height"
                 testId="height"
                 label={t("admin-panel-sku-create:inputs.height.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="weight"
                 testId="weight"
                 label={t("admin-panel-sku-create:inputs.weight.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="material"
                 testId="material"
                 label={t("admin-panel-sku-create:inputs.material.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="cost"
                 testId="cost"
                 label={t("admin-panel-sku-create:inputs.cost.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<CreateSkuFormData>
                 name="price"
                 testId="price"
                 label={t("admin-panel-sku-create:inputs.price.label")}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <CreateSkuFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

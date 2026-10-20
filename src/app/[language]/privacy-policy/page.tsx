@@ -5,10 +5,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 type Props = {
-  params: { language: string };
+  params: Promise<{ language: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "privacy-policy");
 
   return {
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function PrivacyPolicy({ params }: Props) {
+async function PrivacyPolicy(props: Props) {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "privacy-policy");
 
   return (
@@ -30,13 +32,20 @@ async function PrivacyPolicy({ params }: Props) {
       >
         {t("title")}
       </Typography>
-      <Typography gutterBottom paragraph>
+      <Typography
+        gutterBottom
+        sx={{
+          mb: 2,
+        }}
+      >
         {t("lastUpdated") + " " + new Date("04/29/2025").toLocaleDateString()}
       </Typography>
       <Typography
         data-testid="privacy-policy-description"
         gutterBottom
-        paragraph
+        sx={{
+          mb: 2,
+        }}
       >
         {t("intro")}
       </Typography>
@@ -45,8 +54,10 @@ async function PrivacyPolicy({ params }: Props) {
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("legalBasis.title")}
         </Typography>
@@ -54,7 +65,13 @@ async function PrivacyPolicy({ params }: Props) {
           {(t("legalBasis.items", { returnObjects: true }) as string[]).map(
             (item: string, index: number) => (
               <li key={index}>
-                <Typography paragraph>{item}</Typography>
+                <Typography
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  {item}
+                </Typography>
               </li>
             )
           )}
@@ -65,8 +82,10 @@ async function PrivacyPolicy({ params }: Props) {
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("dataCollected.title")}
         </Typography>
@@ -74,7 +93,13 @@ async function PrivacyPolicy({ params }: Props) {
           {(t("dataCollected.items", { returnObjects: true }) as string[]).map(
             (item: string, index: number) => (
               <li key={index}>
-                <Typography paragraph>{item}</Typography>
+                <Typography
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  {item}
+                </Typography>
               </li>
             )
           )}
@@ -85,8 +110,10 @@ async function PrivacyPolicy({ params }: Props) {
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("purpose.title")}
         </Typography>
@@ -94,7 +121,13 @@ async function PrivacyPolicy({ params }: Props) {
           {(t("purpose.items", { returnObjects: true }) as string[]).map(
             (item: string, index: number) => (
               <li key={index}>
-                <Typography paragraph>{item}</Typography>
+                <Typography
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  {item}
+                </Typography>
               </li>
             )
           )}
@@ -105,20 +138,30 @@ async function PrivacyPolicy({ params }: Props) {
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("dataRetention.title")}
         </Typography>
-        <Typography paragraph>{t("dataRetention.description")}</Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("dataRetention.description")}
+        </Typography>
       </Box>
 
       <Box sx={{ mt: 7 }}>
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("userRights.title")}
         </Typography>
@@ -126,32 +169,54 @@ async function PrivacyPolicy({ params }: Props) {
           {(t("userRights.items", { returnObjects: true }) as string[]).map(
             (item: string, index: number) => (
               <li key={index}>
-                <Typography paragraph>{item}</Typography>
+                <Typography
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  {item}
+                </Typography>
               </li>
             )
           )}
         </ul>
-        <Typography paragraph>{t("userRights.contact")}</Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("userRights.contact")}
+        </Typography>
       </Box>
 
       <Box sx={{ mt: 7 }}>
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("dataTransfer.title")}
         </Typography>
-        <Typography paragraph>{t("dataTransfer.description")}</Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("dataTransfer.description")}
+        </Typography>
       </Box>
 
       <Box sx={{ mt: 7 }}>
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("security.title")}
         </Typography>
@@ -159,7 +224,13 @@ async function PrivacyPolicy({ params }: Props) {
           {(t("security.items", { returnObjects: true }) as string[]).map(
             (item: string, index: number) => (
               <li key={index}>
-                <Typography paragraph>{item}</Typography>
+                <Typography
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  {item}
+                </Typography>
               </li>
             )
           )}
@@ -170,25 +241,47 @@ async function PrivacyPolicy({ params }: Props) {
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("policyChanges.title")}
         </Typography>
-        <Typography paragraph>{t("policyChanges.description")}</Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("policyChanges.description")}
+        </Typography>
       </Box>
 
       <Box sx={{ mt: 7 }}>
         <Typography
           component="h2"
           variant="h3"
-          letterSpacing="-0.02em"
           gutterBottom
+          sx={{
+            letterSpacing: "-0.02em",
+          }}
         >
           {t("contact.title")}
         </Typography>
-        <Typography paragraph>{t("contact.email")}</Typography>
-        <Typography paragraph>{t("contact.phone")}</Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("contact.email")}
+        </Typography>
+        <Typography
+          sx={{
+            mb: 2,
+          }}
+        >
+          {t("contact.phone")}
+        </Typography>
       </Box>
     </Container>
   );

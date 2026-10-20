@@ -12,22 +12,29 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
 
     const requestCameraAccess = async () => {
       try {
-        await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        stream.getTracks().forEach((track) => track.stop());
+        return true;
       } catch (error) {
         console.error("Error getting camera access:", error);
+        return false;
       }
     };
 
     const getDevices = async () => {
       try {
         const mediaDevices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = mediaDevices.filter(
+        let videoDevices = mediaDevices.filter(
           (device) => device.kind === "videoinput"
         );
-        console.log("Available video devices:", videoDevices[0].deviceId);
-
         if (videoDevices.length === 1 && !videoDevices[0].deviceId) {
-          requestCameraAccess().then(() => window.location.reload());
+          const granted = await requestCameraAccess();
+          if (!granted || !mounted) return;
+          videoDevices = (
+            await navigator.mediaDevices.enumerateDevices()
+          ).filter((device) => device.kind === "videoinput");
         }
 
         if (mounted && videoDevices.length > 0) {
@@ -133,7 +140,7 @@ const QRscanner = ({ callBack }: { callBack: (data: string) => void }) => {
       {currentDeviceId ? (
         <Scanner
           onScan={handleScan}
-          components={{ audio: false }}
+          sound={false}
           constraints={{
             deviceId: currentDeviceId ? { exact: currentDeviceId } : undefined,
           }}

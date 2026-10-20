@@ -64,7 +64,7 @@ function ListPdfs(props: PdfCardProps) {
                 <p style={{ textAlign: "center" }}>{t("print:noFiles")}</p>
               ) : (
                 items.map((item, index) => (
-                  <Grid item xs={12} key={index}>
+                  <Grid key={index} size={12}>
                     <PdfCard
                       item={item}
                       onClick={() => {

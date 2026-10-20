@@ -213,18 +213,25 @@ function FormBasicInfo() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">{t("profile:title1")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormAvatarInput<EditProfileBasicInfoFormData>
                 name="photo"
                 testId="photo"
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileBasicInfoFormData>
                 name="firstName"
                 label={t("profile:inputs.firstName.label")}
@@ -232,7 +239,7 @@ function FormBasicInfo() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileBasicInfoFormData>
                 name="lastName"
                 label={t("profile:inputs.lastName.label")}
@@ -240,9 +247,14 @@ function FormBasicInfo() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <BasicInfoFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"
@@ -312,14 +324,20 @@ function FormChangeEmail() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">{t("profile:title2")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Typography variant="body1">{user?.email}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="email"
                 label={t("profile:inputs.email.label")}
@@ -328,7 +346,7 @@ function FormChangeEmail() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="emailConfirmation"
                 label={t("profile:inputs.emailConfirmation.label")}
@@ -337,9 +355,14 @@ function FormChangeEmail() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <ChangeEmailFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"
@@ -411,11 +434,17 @@ function FormChangePassword() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">{t("profile:title3")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="oldPassword"
                 label={t("profile:inputs.oldPassword.label")}
@@ -424,7 +453,7 @@ function FormChangePassword() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="password"
                 label={t("profile:inputs.password.label")}
@@ -433,7 +462,7 @@ function FormChangePassword() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="passwordConfirmation"
                 label={t("profile:inputs.passwordConfirmation.label")}
@@ -442,9 +471,14 @@ function FormChangePassword() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <ChangePasswordFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

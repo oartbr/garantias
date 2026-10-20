@@ -85,7 +85,7 @@ function ExpiresAlert() {
 
   return (
     isExpired && (
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Alert severity="error" data-testid="reset-link-expired-alert">
           {t("password-change:alerts.expired")}
         </Alert>
@@ -149,12 +149,23 @@ function Form() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} mt={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+              }}
+            >
               <Typography variant="h6">{t("password-change:title")}</Typography>
             </Grid>
             <ExpiresAlert />
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<PasswordChangeFormData>
                 name="password"
                 label={t("password-change:inputs.password.label")}
@@ -162,7 +173,7 @@ function Form() {
                 testId="password"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<PasswordChangeFormData>
                 name="passwordConfirmation"
                 label={t("password-change:inputs.passwordConfirmation.label")}
@@ -171,7 +182,7 @@ function Form() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormActions />
             </Grid>
           </Grid>

@@ -65,7 +65,7 @@ function List(props: Props) {
             <p>Loading...</p>
           ) : (
             items.map((item, index) => (
-              <Grid item xs={12} key={index}>
+              <Grid key={index} size={12}>
                 <ItemCard
                   item={item}
                   onClick={() => {

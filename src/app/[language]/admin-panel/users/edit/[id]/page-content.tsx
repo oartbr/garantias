@@ -129,7 +129,7 @@ function ChangePasswordUserFormActions() {
 }
 
 function FormEditUser() {
-  const params = useParams();
+  const params = useParams<{ id: string; language: string }>();
   const router = useRouter();
   const fetchGetUser = useGetUserService();
   const fetchPatchUser = usePatchUserService();
@@ -221,17 +221,24 @@ function FormEditUser() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-users-edit:title1")}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormAvatarInput<EditUserFormData> name="photo" testId="photo" />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditUserFormData>
                 name="email"
                 testId="email"
@@ -239,7 +246,7 @@ function FormEditUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditUserFormData>
                 name="firstName"
                 testId="first-name"
@@ -247,7 +254,7 @@ function FormEditUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<EditUserFormData>
                 name="lastName"
                 testId="last-name"
@@ -255,7 +262,7 @@ function FormEditUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormSelectInput<EditUserFormData, Pick<Role, "id">>
                 name="role"
                 testId="role"
@@ -288,9 +295,14 @@ function FormEditUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <EditUserFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"
@@ -309,7 +321,7 @@ function FormEditUser() {
 }
 
 function FormChangePasswordUser() {
-  const params = useParams();
+  const params = useParams<{ id: string; language: string }>();
   const fetchPatchUser = usePatchUserService();
   const { t } = useTranslation("admin-panel-users-edit");
   const validationSchema = useValidationChangePasswordSchema();
@@ -356,14 +368,21 @@ function FormChangePasswordUser() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 3,
+              mt: 3,
+            }}
+          >
+            <Grid size={12}>
               <Typography variant="h6">
                 {t("admin-panel-users-edit:title2")}
               </Typography>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<ChangeUserPasswordFormData>
                 name="password"
                 type="password"
@@ -371,7 +390,7 @@ function FormChangePasswordUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<ChangeUserPasswordFormData>
                 name="passwordConfirmation"
                 label={t(
@@ -381,9 +400,14 @@ function FormChangePasswordUser() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <ChangePasswordUserFormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"

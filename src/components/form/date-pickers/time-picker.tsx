@@ -12,7 +12,7 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { ForwardedRef, forwardRef } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import useLanguage from "@/services/i18n/use-language";
 import { getValueByKey } from "@/components/form/date-pickers/helper";
 
@@ -64,6 +64,7 @@ function TimePickerInputRaw(
         label={props.label}
         value={props.value}
         disabled={props.disabled}
+        readOnly={props.readOnly}
         autoFocus={props.autoFocus}
         defaultValue={props.defaultValue}
         onClose={props.onBlur}
@@ -71,9 +72,6 @@ function TimePickerInputRaw(
           textField: {
             helperText: props.error,
             error: !!props.error,
-            InputProps: {
-              readOnly: props.readOnly,
-            },
           },
         }}
         onAccept={props.onChange}

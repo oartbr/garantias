@@ -28,7 +28,7 @@ interface confirmStatus {
 }
 
 type Props = {
-  params: { language: string; id: string; confirmStatus: confirmStatus };
+  params: { language: string; id: string; confirmStatus?: confirmStatus };
 };
 
 const useValidationSchema = () => {
@@ -49,8 +49,19 @@ function FormActions() {
   //const params = new URLSearchParams(window.location.search);
   return (
     <div>
-      <Grid container spacing={0} mb={2}>
-        <Grid item xs={4} mt={3}>
+      <Grid
+        container
+        spacing={0}
+        sx={{
+          mb: 2,
+        }}
+      >
+        <Grid
+          size={4}
+          sx={{
+            mt: 3,
+          }}
+        >
           <Button
             variant="contained"
             color="primary"
@@ -61,7 +72,12 @@ function FormActions() {
             {t("register:workflow.get-code.submit")}
           </Button>
         </Grid>
-        <Grid item xs={4} mt={3}>
+        <Grid
+          size={4}
+          sx={{
+            mt: 3,
+          }}
+        >
           <Button
             variant="contained"
             color="primary"
@@ -168,13 +184,24 @@ function Form({ params }: Props) {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} mt={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+              }}
+            >
               <Typography variant="h6">
                 {t("register:workflow.get-code.title")}
               </Typography>
             </Grid>
-            <Grid item xs={5}>
+            <Grid size={5}>
               <FormTextInput<RegisterFormData>
                 name="confirmationCode"
                 label={t("register:inputs.code.label")}
@@ -182,7 +209,7 @@ function Form({ params }: Props) {
                 testId="code"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormActions />
             </Grid>
           </Grid>

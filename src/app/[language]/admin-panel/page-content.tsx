@@ -12,8 +12,15 @@ function AdminPanel() {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={3} wrap="nowrap" pt={3}>
-        <Grid item>
+      <Grid
+        container
+        spacing={3}
+        wrap="nowrap"
+        sx={{
+          pt: 3,
+        }}
+      >
+        <Grid>
           <Typography variant="h3" gutterBottom>
             {t("title")}
           </Typography>

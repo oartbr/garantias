@@ -109,11 +109,22 @@ function Form() {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} mt={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+              }}
+            >
               <Typography variant="h6">{t("sign-in:title")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignInFormData>
                 name="email"
                 label={t("sign-in:inputs.email.label")}
@@ -123,7 +134,7 @@ function Form() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignInFormData>
                 name="password"
                 label={t("sign-in:inputs.password.label")}
@@ -131,7 +142,7 @@ function Form() {
                 testId="password"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <LinkItem
                 component={Link}
                 href="/forgot-password"
@@ -141,11 +152,16 @@ function Form() {
               </LinkItem>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormActions />
 
               {IS_SIGN_UP_ENABLED && (
-                <Box ml={1} component="span">
+                <Box
+                  component="span"
+                  sx={{
+                    ml: 1,
+                  }}
+                >
                   <Button
                     variant="contained"
                     color="inherit"
@@ -160,7 +176,7 @@ function Form() {
             </Grid>
 
             {[isGoogleAuthEnabled, isFacebookAuthEnabled].some(Boolean) && (
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Divider sx={{ mb: 2 }}>
                   <Chip label={t("sign-in:or")} />
                 </Divider>

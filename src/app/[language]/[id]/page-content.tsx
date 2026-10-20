@@ -85,7 +85,7 @@ function List(props: Props) {
         <Grid container spacing={3} rowSpacing={3}>
           {isLoading && <p>Loading...</p>}
           {!isLoading && item && (
-            <Grid item xs={12}>
+            <Grid size={12}>
               <ItemCard
                 item={item}
                 action={t(
@@ -100,10 +100,10 @@ function List(props: Props) {
           )}
           {!isLoading && !item && !user && (
             <>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <h3>{t("listing:message." + workflowData?.message)}</h3>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -114,7 +114,7 @@ function List(props: Props) {
                   {t("listing:actions.login")}
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -129,10 +129,10 @@ function List(props: Props) {
           )}
           {!isLoading && !item && user && (
             <>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <h3>{t("listing:message." + workflowData?.message)}</h3>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -147,10 +147,10 @@ function List(props: Props) {
           )}
         </Grid>
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={12}>
         <MediaLink />
       </Grid>
-      <Grid item sx={{ mx: "auto" }} className="privacyPolicy">
+      <Grid sx={{ mx: "auto" }} className="privacyPolicy">
         <Button href="/privacy-policy">{t("privacy-policy")}</Button>
       </Grid>
     </Container>

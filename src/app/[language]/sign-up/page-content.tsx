@@ -176,11 +176,22 @@ function Form(props: Props) {
     <FormProvider {...methods}>
       <Container maxWidth="xs">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid item xs={12} mt={3}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              mb: 2,
+            }}
+          >
+            <Grid
+              size={12}
+              sx={{
+                mt: 3,
+              }}
+            >
               <Typography variant="h6">{t("sign-up:title")}</Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignUpFormData>
                 name="firstName"
                 label={t("sign-up:inputs.firstName.label")}
@@ -190,7 +201,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignUpFormData>
                 name="lastName"
                 label={t("sign-up:inputs.lastName.label")}
@@ -199,7 +210,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12} style={{ display: "block" }}>
+            <Grid style={{ display: "block" }} size={12}>
               <PhoneNumberInput
                 name="phoneNumber"
                 numberLabel={t("sign-up:inputs.phoneNumber.label")}
@@ -210,7 +221,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignUpFormData>
                 name="email"
                 label={t("sign-up:inputs.email.label")}
@@ -219,7 +230,7 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormTextInput<SignUpFormData>
                 name="password"
                 label={t("sign-up:inputs.password.label")}
@@ -227,7 +238,7 @@ function Form(props: Props) {
                 testId="password"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormCheckboxInput
                 name="policy"
                 label=""
@@ -246,9 +257,14 @@ function Form(props: Props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormActions />
-              <Box ml={1} component="span">
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                }}
+              >
                 <Button
                   variant="contained"
                   color="inherit"
@@ -262,7 +278,7 @@ function Form(props: Props) {
             </Grid>
 
             {[isGoogleAuthEnabled, isFacebookAuthEnabled].some(Boolean) && (
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Divider sx={{ mb: 2 }}>
                   <Chip label={t("sign-up:or")} />
                 </Divider>

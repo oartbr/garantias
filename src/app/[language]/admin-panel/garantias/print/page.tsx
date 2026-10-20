@@ -4,10 +4,11 @@ import { getServerTranslation } from "@/services/i18n";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 
 type Props = {
-  params: { language: string; slug: string; id: string };
+  params: Promise<{ language: string; slug: string; id: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "print");
 
   return {
@@ -16,10 +17,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 //export default EditGarantia;
-export default function PrintingPage(props: Props) {
+export default async function PrintingPage(props: Props) {
+  const resolvedProps = { ...props, params: await props.params };
   if (!IS_SIGN_UP_ENABLED) {
     //return redirect("/");
   }
 
-  return <PrintGarantia {...props} />;
+  return <PrintGarantia {...resolvedProps} />;
 }

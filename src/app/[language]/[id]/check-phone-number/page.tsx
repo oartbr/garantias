@@ -3,16 +3,18 @@ import CheckPhoneNumber from "../../check-phone-number/page-content";
 import { getServerTranslation } from "@/services/i18n";
 
 type Props = {
-  params: { language: string; id: string };
+  params: Promise<{ language: string; id: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const { t } = await getServerTranslation(params.language, "common");
   return {
     title: t("common:checkPhoneNumber"),
   };
 }
 
-export default function CheckPhoneNumberPage(props: Props) {
-  return <CheckPhoneNumber {...props} />;
+export default async function CheckPhoneNumberPage(props: Props) {
+  const resolvedProps = { ...props, params: await props.params };
+  return <CheckPhoneNumber {...resolvedProps} />;
 }

@@ -11,7 +11,7 @@ import {
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import { InputBaseComponentProps } from "@mui/material/InputBase/InputBase";
+import { InputBaseComponentProps } from "@mui/material/InputBase";
 
 type TextInputProps = {
   label: string;
@@ -65,28 +65,31 @@ const TextInput = forwardRef<
       helperText={props.error}
       disabled={props.disabled}
       autoComplete={props.autoComplete}
-      FormHelperTextProps={{
-        ["data-testid" as string]: `${props.testId}-error`,
-      }}
       multiline={props.multiline}
       minRows={props.minRows}
       maxRows={props.maxRows}
-      InputProps={{
-        readOnly: props.readOnly,
-        inputComponent: props.inputComponent,
-        endAdornment:
-          props.type === "password" ? (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {isShowPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ) : undefined,
+      slotProps={{
+        input: {
+          readOnly: props.readOnly,
+          inputComponent: props.inputComponent,
+          endAdornment:
+            props.type === "password" ? (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ) : undefined,
+        },
+
+        formHelperText: {
+          ["data-testid" as string]: `${props.testId}-error`,
+        },
       }}
     />
   );
